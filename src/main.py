@@ -22,7 +22,9 @@ def main(args):
 
     print("executing command...")
 
-    print("testing to see if update works")
+
+
+
 
 
 def parse_args():
