@@ -8,8 +8,6 @@ from tqdm import tqdm
 from transformers import DefaultDataCollator, TrainingArguments
 # from datasets import set_caching_enabled
 
-from src.olmo.run_prepare_data_olmo_ai2 import single_process_format_to_pretraining
-
 # set_caching_enabled(False)
 
 from src.modules.data.data_utils import load_tokenizer
@@ -18,8 +16,6 @@ from src.modules.data.format_utils import preprocess_conversation, format_to_pre
 from src.modules.data.load import read_dataset_to_hf, save_hf_to_jsonl
 from src.modules.data.process import multiprocess_map_reduce, single_process_save_to_np, multiprocess_hf_map
 from src.modules.data.tokenize import tokenize_with_hate_loss_masking, tokenize_with_hate_loss_span_masking
-from src.modules.modeling.SelectiveLossTrainer import SelectiveLossTrainer
-from peft import get_peft_model, LoraConfig
 import torch
 from omegaconf import OmegaConf
 
