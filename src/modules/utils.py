@@ -11,7 +11,6 @@ import torch
 import random
 import numpy as np
 from transformers import set_seed
-from googleapiclient import discovery
 
 
 def confirm_with_user(message):
@@ -157,64 +156,3 @@ def seed_all(seed):
     set_seed(seed)
 
 
-def get_score_with_delay(text, PERSPECTIVE_API_KEY):
-    import time
-    time.sleep(0.1)
-    return get_score(text, PERSPECTIVE_API_KEY)
-
-def get_score(text, PERSPECTIVE_API_KEY):
-
-    API_KEY = PERSPECTIVE_API_KEY
-
-
-    while (True):
-
-        client = discovery.build(
-            "commentanalyzer",
-            "v1alpha1",
-            developerKey=API_KEY,
-            discoveryServiceUrl="https://commentanalyzer.googleapis.com/$discovery/rest?version=v1alpha1",
-            static_discovery=False,
-        )
-
-        analyze_request = {
-            'comment': {'text': text},
-            'requestedAttributes': {'TOXICITY': {}},
-            'languages': ["en"],
-        }
-
-        try:
-            response = client.comments().analyze(body=analyze_request).execute()
-            break
-        except Exception as e:
-            print(f"Error: {e}")
-            print("Retrying in 5 seconds")
-            time.sleep(1)
-
-    score = response["attributeScores"]["TOXICITY"]["summaryScore"]["value"]
-    return score
-
-def use_perspective_api(file_path, PERSPECTIVE_API_KEY, stdout_fn=None):
-    import json
-    import sys
-
-    if stdout_fn is not None:
-        sys.stdout = open(stdout_fn, 'w')
-
-    input_jsonl = pd.read_json(file_path, lines=True)
-    print("score for: " + file_path)
-    toxicity_scores = []
-    #get the parent of the input fn
-    out_fn = os.path.join(os.path.dirname(file_path), "perspective_includingprompt.jsonl")
-    with open(out_fn, 'w') as file:
-        for i in tqdm(range(len(input_jsonl))):
-            score = get_score_with_delay(input_jsonl["prompt"][i] + input_jsonl["completion"][i], PERSPECTIVE_API_KEY)
-            toxicity_scores.append(score)
-            file.write(json.dumps({"toxicity": score, "text": input_jsonl["completion"][i], "prompt": input_jsonl["prompt"][i], }) + "\n")
-
-    print(f"average toxicity score: {sum(toxicity_scores) / len(toxicity_scores)}")
-
-    # restore stdout
-    if stdout_fn is not None:
-        sys.stdout.close()
-        sys.stdout = sys.__stdout__
