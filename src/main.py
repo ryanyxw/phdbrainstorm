@@ -2,10 +2,12 @@ import argparse
 import json
 import os
 
+from litgpt import LLM
 
 from src.modules.utils import confirm_with_user, load_config, prepare_folder, validate_inputs, prepare_wandb, \
     save_config
 
+import transformers
 
 def main(args):
     print("yay!")
@@ -22,6 +24,13 @@ def main(args):
 
     print("executing command...")
 
+    llm = LLM.load("Llama-3.1-8B")
+
+    text = llm.generate("Fix the spelling: Every fall, the family goes to the mountains.")
+
+    print(text)
+    import pdb
+    pdb.set_trace()
 
 
 
