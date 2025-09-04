@@ -2,7 +2,7 @@ import argparse
 import json
 import os
 
-from litgpt import LLM
+from litgpt.api import LLM
 
 from src.modules.utils import confirm_with_user, load_config, prepare_folder, validate_inputs, prepare_wandb, \
     save_config
