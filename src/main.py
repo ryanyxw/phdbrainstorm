@@ -24,7 +24,7 @@ def main(args):
 
     print("executing command...")
 
-    llm = LLM.load("meta-llama/Llama-3.1-8B")
+    llm = LLM.load("meta-llama/Meta-Llama-3-8B")
 
     text = llm.generate("Fix the spelling: Every fall, the family goes to the mountains.")
 
