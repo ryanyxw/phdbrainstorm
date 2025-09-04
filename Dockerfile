@@ -15,7 +15,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 RUN cd lm-evaluation-harness && pip install -e .
 
-RUN cd litgpt && pip install -e '.[extra]'
+RUN cd litgpt && pip install -e '.[all]'
 
 
 
