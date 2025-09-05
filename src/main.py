@@ -2,6 +2,7 @@ import argparse
 import json
 import os
 
+from datasets import load_dataset
 from litgpt.api import LLM
 
 from src.modules.utils import confirm_with_user, load_config, prepare_folder, validate_inputs, prepare_wandb, \
@@ -24,13 +25,15 @@ def main(args):
 
     print("executing command...")
 
-    llm = LLM.load("meta-llama/Meta-Llama-3-8B")
+    # llm = LLM.load("meta-llama/Meta-Llama-3-8B")
+    #
+    # text = llm.generate("Fix the spelling: Every fall, the family goes to the mountains.")
 
-    text = llm.generate("Fix the spelling: Every fall, the family goes to the mountains.")
+    # print(text)
 
-    print(text)
-    import pdb
-    pdb.set_trace()
+
+    dataset = load_dataset("ncbi/pubmed")
+    breakpoint()
 
 
 
