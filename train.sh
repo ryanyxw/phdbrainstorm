@@ -3,9 +3,5 @@ litgpt pretrain pythia-14m \
    --data TextFiles \
    --data.train_data_path data/test_pretrain \
    --train.lr_warmup_steps=1 \
-   --optimizer AdamW \
-   --optimizer.lr 0.005 \
-   --optimizer.class_path torch.optim.AdamW \
-   --optimizer.init_args.lr 0.0004 \
    --out_dir models/test_pretrain \
    --resume auto \
