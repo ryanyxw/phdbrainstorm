@@ -19,6 +19,7 @@ import transformers
 
 def tokenize_fn(line, tokenizer=None):
     print(line)
+    print(line["text"][0])
     print(tokenizer.encode(line["text"][0]))
     breakpoint()
     try:
