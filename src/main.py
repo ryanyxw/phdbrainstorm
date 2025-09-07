@@ -48,7 +48,7 @@ def main(args):
 
         # we first do some preprocessing
         def filter_empty_abstracts(line):
-            return line["MedlineCitation"]["Article"]["Abstract"]["AbstractText"] not in [None, []]
+            return line["MedlineCitation"]["Article"]["Abstract"]["AbstractText"] not in [None, ""]
 
         hf_dataset = hf_dataset.filter(filter_empty_abstracts, num_proc=64)
 
