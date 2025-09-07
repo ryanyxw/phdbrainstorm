@@ -12,5 +12,5 @@ train:
   model_name: "meta-llama/Meta-Llama-3-8B"
 
 test:
-  do: False
+  do: True
 
