@@ -31,9 +31,7 @@ def main(args):
 
     print(hf_dataset)
 
-    hf_dataset = hf_dataset.select(range(100000))
-
-    hf_dataset.to_parquet("data/pubmed-train")
+    hf_dataset.to_parquet("data/pubmed-train.parquet")
 
     # ~/.cache/huggingface/datasets/ncbi___pubmed/2025/5.0.0/6468ffcb3f344144d8fc30a713a9fe8d39f886f21f241473498d8dafa3bcd1c4
 
