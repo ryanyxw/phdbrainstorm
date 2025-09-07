@@ -4,6 +4,8 @@ seed: 0 # DO NOT CHANGE THIS.
 
 exp_name: "main"
 
+data_preprocessing:
+  do: true
 
 
 
