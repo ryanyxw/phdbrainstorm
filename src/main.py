@@ -5,6 +5,8 @@ import os
 from datasets import load_dataset
 from litgpt.api import LLM
 
+import litdata as ld
+
 from src.modules.utils import confirm_with_user, load_config, prepare_folder, validate_inputs, prepare_wandb, \
     save_config
 
@@ -25,14 +27,13 @@ def main(args):
 
     print("executing command...")
 
-    # llm = LLM.load("meta-llama/Meta-Llama-3-8B")
-    #
-    # text = llm.generate("Fix the spelling: Every fall, the family goes to the mountains.")
+    dataset = ld.StreamingDataset("ncbi/pubmed")
 
-    # print(text)
+    import pdb
+    pdb.set_trace()
 
 
-    dataset = load_dataset("ncbi/pubmed")
+
     breakpoint()
 
 
