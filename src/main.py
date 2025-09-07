@@ -87,7 +87,7 @@ def main(args):
     if configs.test.do:
         dataset = ld.StreamingDataset(
             input_dir="data/tokenized_pubmed",
-            item_loader=TokensLoader(block_size=2048 + 1),
+            # item_loader=TokensLoader(block_size=2048 + 1),
             shuffle=True,
             drop_last=True,
         )
