@@ -27,7 +27,8 @@ def main(args):
 
     print("executing command...")
 
-    hf_dataset = load_dataset("ncbi/pubmed", revision="refs/pr/19")
+    hf_dataset = load_dataset("ncbi/pubmed", revision="refs/pr/19", trust_remote_code=True, num_proc=16)
+
 
 
     import pdb
