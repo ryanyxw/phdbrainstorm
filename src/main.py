@@ -3,6 +3,8 @@ import json
 import os
 
 from datasets import load_dataset
+from litdata.streaming.item_loader import ParquetLoader
+
 from litgpt.api import LLM
 
 import litdata as ld
@@ -27,6 +29,7 @@ def main(args):
 
     print("executing command...")
 
+    # Do data preprocessing
     if configs.data_preprocessing.do:
 
         hf_dataset = load_dataset("ncbi/pubmed", revision="refs/pr/19", trust_remote_code=True, num_proc=64)["train"]
@@ -35,9 +38,7 @@ def main(args):
 
         hf_dataset = hf_dataset.select(range(100000))
 
-        breakpoint()
         # we first do some preprocessing
-
         def filter_empty_abstracts(line):
             return line["MedlineCitation"]["Article"]["Abstract"]["AbstractText"] != ""
 
@@ -50,33 +51,24 @@ def main(args):
 
         hf_dataset = hf_dataset.map(extract_abstract, num_proc=64, remove_columns=hf_dataset.column_names)
 
+        # save to parquet
+        hf_dataset.to_parquet("data/pubmed-train.parquet")
+
+    # Begin training
+    if configs.train.do:
+
+        # load into litdata
+        ld.index_parquet_dataset("data/pubmed-train.parquet", "data/pubmed-train-index")
+
+        lit_dataset = ld.StreamingDataset("data/pubmed-train.parquet", item_loader=ParquetLoader(), index_path="data/pubmed-train-index")
 
         breakpoint()
 
-        hf_dataset.to_parquet("data/pubmed-train.parquet")
-
-
     # ~/.cache/huggingface/datasets/ncbi___pubmed/2025/5.0.0/6468ffcb3f344144d8fc30a713a9fe8d39f886f21f241473498d8dafa3bcd1c4
 
-    import pdb
-    pdb.set_trace()
-
-
-    # dataset = ld.StreamingDataset(hf_dataset["train"])
-
-    breakpoint()
-
-    # dataset =
-
 
 
     breakpoint()
-
-
-
-
-
-
 
 def parse_args():
     parser = argparse.ArgumentParser()

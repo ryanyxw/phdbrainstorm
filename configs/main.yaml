@@ -7,6 +7,6 @@ exp_name: "main"
 data_preprocessing:
   do: true
 
-
-
+train:
+  do: True
 
