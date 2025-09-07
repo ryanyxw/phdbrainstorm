@@ -72,6 +72,7 @@ def main(args):
 
         lit_dataloader = ld.StreamingDataLoader(lit_dataset, batch_size=128, num_workers=64)
 
+        breakpoint()
         tokenizer = AutoTokenizer.from_pretrained(exp_configs.model_name)
         outputs = ld.optimize(
             fn=partial(tokenize_fn, tokenizer=tokenizer),
