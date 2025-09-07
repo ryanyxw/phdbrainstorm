@@ -60,7 +60,7 @@ def main(args):
         # load into litdata
         ld.index_parquet_dataset("data/pubmed-train", "data/pubmed-train")
 
-        lit_dataset = ld.StreamingDataset("data/pubmed-train.parquet", item_loader=ParquetLoader(), index_path="data/pubmed-train-index")
+        lit_dataset = ld.StreamingDataset("data/pubmed-train/pubmed-train.parquet", item_loader=ParquetLoader(), index_path="data/pubmed-train")
 
         breakpoint()
 
