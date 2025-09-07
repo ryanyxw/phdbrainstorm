@@ -4,6 +4,8 @@ seed: 0 # DO NOT CHANGE THIS.
 
 exp_name: "main"
 
+num_proc: 1
+
 train:
   do: True
   model_path_or_name: "meta-llama/Meta-Llama-3-8B"
