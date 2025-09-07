@@ -1,4 +1,4 @@
-litgpt pretrain meta-llama/Meta-Llama-3-8B \
+TORCHDYNAMO_VERBOSE=1 litgpt pretrain meta-llama/Meta-Llama-3-8B \
    --tokenizer_dir meta-llama/Meta-Llama-3-8B \
    --data LitData \
    --data.data_path "data/tokenized_pubmed" \
