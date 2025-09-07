@@ -1,9 +1,11 @@
 import argparse
 import json
 import os
+from functools import partial
 
 from datasets import load_dataset
-from litdata.streaming.item_loader import ParquetLoader
+from litdata.streaming.item_loader import ParquetLoader, TokensLoader
+from transformers import AutoTokenizer
 
 from litgpt.api import LLM
 
@@ -13,6 +15,12 @@ from src.modules.utils import confirm_with_user, load_config, prepare_folder, va
     save_config
 
 import transformers
+
+
+def tokenize_fn(line, tokenizer=None):
+    text_ids = tokenizer.encode(line["text"], bos=False, eos=True)
+    yield text_ids
+
 
 def main(args):
     print("yay!")
@@ -56,13 +64,21 @@ def main(args):
 
     # Begin training
     if configs.train.do:
+        exp_configs = configs.train
 
         # load into litdata
         ld.index_parquet_dataset("data/pubmed-train", "data/pubmed-train")
-
         lit_dataset = ld.StreamingDataset("data/pubmed-train/pubmed-train.parquet", item_loader=ParquetLoader(), index_path="data/pubmed-train")
 
-        breakpoint()
+        tokenizer = AutoTokenizer.from_pretrained(exp_configs.model_name)
+        outputs = ld.optimize(
+            fn=partial(tokenize_fn, tokenizer=tokenizer),
+            inputs=lit_dataset,
+            output_dir="data/tokenized_pubmed",
+            chunk_size=(2049*8012),
+            item_loader=TokensLoader(),
+        )
+
 
     # ~/.cache/huggingface/datasets/ncbi___pubmed/2025/5.0.0/6468ffcb3f344144d8fc30a713a9fe8d39f886f21f241473498d8dafa3bcd1c4
 

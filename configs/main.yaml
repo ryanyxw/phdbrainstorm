@@ -9,4 +9,8 @@ data_preprocessing:
 
 train:
   do: True
+  model_name: "meta-llama/Meta-Llama-3-8B"
+
+test:
+  do: False
 
