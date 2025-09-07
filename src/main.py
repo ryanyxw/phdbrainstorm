@@ -22,11 +22,6 @@ from src.modules.utils import confirm_with_user, load_config, prepare_folder, va
 import transformers
 
 
-def tokenize_fn(line, tokenizer=None):
-    text_ids = tokenizer.encode(line["text"][0])
-    yield torch.tensor(text_ids)
-
-
 def main(args):
     print("yay!")
     # load the config file

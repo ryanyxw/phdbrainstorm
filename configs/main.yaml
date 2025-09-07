@@ -5,13 +5,11 @@ seed: 0 # DO NOT CHANGE THIS.
 exp_name: "main"
 
 train:
-  do: False
+  do: True
   model_path_or_name: "meta-llama/Meta-Llama-3-8B"
-  out_directory: "models"
+  out_directory: "test_output_models"
 
   wandb:
     do: False
 
-test:
-  do: True
 
