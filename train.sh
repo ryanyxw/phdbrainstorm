@@ -6,4 +6,4 @@ TORCHDYNAMO_VERBOSE=1 litgpt pretrain meta-llama/Meta-Llama-3-8B \
    --train.micro_batch_size=1 \
    --out_dir models/test_pretrain \
    --resume auto \
-   --precision bf16-mixed \
+   --precision bf16-true \
