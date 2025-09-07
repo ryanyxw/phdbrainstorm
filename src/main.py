@@ -18,6 +18,8 @@ import transformers
 
 
 def tokenize_fn(line, tokenizer=None):
+    print(line)
+    print(tokenizer.encode(line["text"]))
     breakpoint()
     try:
         text_ids = tokenizer.encode(line["text"])
