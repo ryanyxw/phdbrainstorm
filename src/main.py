@@ -27,7 +27,8 @@ def main(args):
 
     print("executing command...")
 
-    dataset = ld.StreamingDataset("ncbi/pubmed")
+    hf_dataset = load_dataset("ncbi/pubmed")
+
 
     import pdb
     pdb.set_trace()
