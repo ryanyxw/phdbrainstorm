@@ -43,6 +43,14 @@ def main(args):
 
         hf_dataset = hf_dataset.filter(filter_empty_abstracts, num_proc=64)
 
+        def extract_abstract(line):
+            return {
+                "text": line["MedlineCitation"]["Article"]["Abstract"]["AbstractText"]
+            }
+
+        hf_dataset = hf_dataset.map(extract_abstract, num_proc=64, remove_columns=hf_dataset.column_names)
+
+
         breakpoint()
 
         hf_dataset.to_parquet("data/pubmed-train.parquet")
