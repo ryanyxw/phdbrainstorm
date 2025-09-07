@@ -2,7 +2,7 @@ ROOT_DIR: .
 
 seed: 0 # DO NOT CHANGE THIS.
 
-exp_name: "main"
+exp_name: "pubmed"
 
 num_proc: 1
 
