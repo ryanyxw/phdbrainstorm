@@ -6,13 +6,16 @@ from functools import partial
 from datasets import load_dataset
 from litdata import StreamingDataset
 from litdata.streaming.item_loader import ParquetLoader, TokensLoader
-from transformers import AutoTokenizer
+from transformers import AutoTokenizer, AutoModelForCausalLM, DefaultDataCollator, TrainingArguments, Trainer
 
 from litgpt.api import LLM
 import torch
 
 import litdata as ld
 
+from src.modules.data.data_utils import load_tokenizer
+from src.modules.data.format_datasets import prepare_dataset_for_training
+from src.modules.modeling.modeling_utils import setup_model
 from src.modules.utils import confirm_with_user, load_config, prepare_folder, validate_inputs, prepare_wandb, \
     save_config
 
@@ -39,66 +42,63 @@ def main(args):
 
     print("executing command...")
 
-    # Do data preprocessing
-    if configs.data_preprocessing.do:
-
-        hf_dataset = load_dataset("ncbi/pubmed", revision="refs/pr/19", trust_remote_code=True, num_proc=64)["train"]
-
-        # TODO: use the full dataset
-
-        hf_dataset = hf_dataset.select(range(100000))
-
-        # we first do some preprocessing
-        def filter_empty_abstracts(line):
-            return line["MedlineCitation"]["Article"]["Abstract"]["AbstractText"] not in [None, ""]
-
-        hf_dataset = hf_dataset.filter(filter_empty_abstracts, num_proc=64)
-
-        def extract_abstract(line):
-            return {
-                "text": line["MedlineCitation"]["Article"]["Abstract"]["AbstractText"]
-            }
-
-        hf_dataset = hf_dataset.map(extract_abstract, num_proc=64, remove_columns=hf_dataset.column_names)
-
-        # save to parquet
-        hf_dataset.to_parquet("data/pubmed-train/pubmed-train.parquet")
-
-    # Begin training
     if configs.train.do:
         exp_configs = configs.train
 
-        # load into litdata
-        ld.index_parquet_dataset("data/pubmed-train", "data/pubmed-train")
-        lit_dataset = StreamingDataset("data/pubmed-train/pubmed-train.parquet", item_loader=ParquetLoader(), index_path="data/pubmed-train")
+        # we set the out_directory according to the model and dataset used
+        # out_directory = exp_configs.out_directory
+        out_directory = os.path.join(exp_configs.out_directory, configs.exp_name)
+        os.makedirs(out_directory, exist_ok=True)
 
-        lit_dataloader = ld.StreamingDataLoader(lit_dataset, batch_size=1, num_workers=64)
+        save_config(configs, os.path.join(out_directory, "config.yaml"))
 
-        tokenizer = AutoTokenizer.from_pretrained(exp_configs.model_name)
-        outputs = ld.optimize(
-            fn=partial(tokenize_fn, tokenizer=tokenizer),
-            inputs=lit_dataloader,
-            output_dir="data/tokenized_pubmed",
-            chunk_size=(2049*8012),
-            item_loader=TokensLoader(),
-            num_workers=1,
-        )
+        print("train output directory: ", out_directory)
 
-    # testing
-    if configs.test.do:
-        dataset = ld.StreamingDataset(
-            input_dir="data/tokenized_pubmed",
-            item_loader=TokensLoader(block_size=2048 + 1),
-            shuffle=True,
-            drop_last=True,
-        )
+        model = AutoModelForCausalLM.from_pretrained(exp_configs.model_path_or_name, trust_remote_code=True)
+        tokenizer = AutoTokenizer.from_pretrained(exp_configs.model_path_or_name)
+        print("loaded model and tokenizer! ")
+
+        max_seq_len = model.config.max_position_embeddings
+        exp_configs.max_seq_len = max_seq_len
+
+        if exp_configs.wandb.do:
+            prepare_wandb(exp_configs.wandb)
+
         breakpoint()
+        train_dataset, eval_datasets = prepare_dataset_for_training(configs.exp_name,
+                                                                    tokenizer,
+                                                                    configs.seed,
+                                                                    configs.num_proc,
+                                                                    **exp_configs)
 
+        ### setup the training arguments
+        # This only helps with batching - we assume that our data is already padded
+        data_collator = DefaultDataCollator()
+        # return the trained model
+        training_args = TrainingArguments(
+            output_dir=out_directory,
+            overwrite_output_dir=True,
+            per_device_eval_batch_size=exp_configs.eval.per_device_eval_batch_size,
+            eval_steps=exp_configs.eval.eval_steps,
+            seed=configs.seed,
+            report_to="wandb" if exp_configs.wandb.do else "none",
+            save_strategy="epoch" if exp_configs.save_model else "no",
+            save_total_limit=1,
+            remove_unused_columns=False,
+            **exp_configs.training_args
+        )
 
-    # ~/.cache/huggingface/datasets/ncbi___pubmed/2025/5.0.0/6468ffcb3f344144d8fc30a713a9fe8d39f886f21f241473498d8dafa3bcd1c4
+        ### setup the trainer
+        trainer = Trainer(
+            model=model,
+            args=training_args,
+            data_collator=data_collator,
+            train_dataset=train_dataset,
+            tokenizer=tokenizer,
+        )
 
-
-
+        ### train the model
+        trainer.train()
 
 def parse_args():
     parser = argparse.ArgumentParser()

@@ -4,12 +4,13 @@ seed: 0 # DO NOT CHANGE THIS.
 
 exp_name: "main"
 
-data_preprocessing:
-  do: False
-
 train:
   do: False
-  model_name: "meta-llama/Meta-Llama-3-8B"
+  model_path_or_name: "meta-llama/Meta-Llama-3-8B"
+  out_directory: "models"
+
+  wandb:
+    do: False
 
 test:
   do: True
