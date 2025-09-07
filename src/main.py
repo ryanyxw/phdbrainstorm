@@ -36,7 +36,7 @@ def main(args):
     import pdb
     pdb.set_trace()
 
-    dataset = ld.StreamingDataset(hf_dataset)
+    dataset = ld.StreamingDataset(hf_dataset["train"])
 
     breakpoint()
 
