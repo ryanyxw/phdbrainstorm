@@ -29,8 +29,6 @@ def main(args):
 
     hf_dataset = load_dataset("ncbi/pubmed", revision="refs/pr/19", trust_remote_code=True, num_proc=64)
 
-    hf_dataset.to_parquet()
-
     # ~/.cache/huggingface/datasets/ncbi___pubmed/2025/5.0.0/6468ffcb3f344144d8fc30a713a9fe8d39f886f21f241473498d8dafa3bcd1c4
 
     import pdb
