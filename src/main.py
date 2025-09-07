@@ -9,6 +9,7 @@ from litdata.streaming.item_loader import ParquetLoader, TokensLoader
 from transformers import AutoTokenizer
 
 from litgpt.api import LLM
+import torch
 
 import litdata as ld
 
@@ -20,7 +21,7 @@ import transformers
 
 def tokenize_fn(line, tokenizer=None):
     text_ids = tokenizer.encode(line["text"][0])
-    yield text_ids
+    yield torch.tensor(text_ids)
 
 
 def main(args):
