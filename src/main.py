@@ -70,10 +70,12 @@ def main(args):
         ld.index_parquet_dataset("data/pubmed-train", "data/pubmed-train")
         lit_dataset = ld.StreamingDataset("data/pubmed-train/pubmed-train.parquet", item_loader=ParquetLoader(), index_path="data/pubmed-train")
 
+        lit_dataloader = ld.StreamingDataLoader(lit_dataset, batch_size=128, num_workers=64)
+
         tokenizer = AutoTokenizer.from_pretrained(exp_configs.model_name)
         outputs = ld.optimize(
             fn=partial(tokenize_fn, tokenizer=tokenizer),
-            inputs=lit_dataset,
+            inputs=lit_dataloader,
             output_dir="data/tokenized_pubmed",
             chunk_size=(2049*8012),
             item_loader=TokensLoader(),
