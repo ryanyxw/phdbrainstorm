@@ -84,7 +84,7 @@ def main(args):
             inputs=lit_dataloader,
             output_dir="data/tokenized_pubmed",
             chunk_size=(2049*8012),
-            item_loader=TokensLoader(),
+            # item_loader=TokensLoader(),
             num_workers=1,
         )
 
