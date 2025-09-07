@@ -4,6 +4,7 @@ import os
 from functools import partial
 
 from datasets import load_dataset
+from litdata import StreamingDataset
 from litdata.streaming.item_loader import ParquetLoader, TokensLoader
 from transformers import AutoTokenizer
 
@@ -68,7 +69,7 @@ def main(args):
 
         # load into litdata
         ld.index_parquet_dataset("data/pubmed-train", "data/pubmed-train")
-        lit_dataset = ld.StreamingDataset("data/pubmed-train/pubmed-train.parquet", item_loader=ParquetLoader(), index_path="data/pubmed-train")
+        lit_dataset = StreamingDataset("data/pubmed-train/pubmed-train.parquet", item_loader=ParquetLoader(), index_path="data/pubmed-train")
 
         lit_dataloader = ld.StreamingDataLoader(lit_dataset, batch_size=1, num_workers=64)
 
@@ -82,12 +83,21 @@ def main(args):
             num_workers=1,
         )
 
+    # testing
+    if configs.test.do:
+        dataset = ld.StreamingDataset(
+            input_dir="data/tokenized_pubmed",
+            item_loader=TokensLoader(block_size=2048 + 1),
+            shuffle=True,
+            drop_last=True,
+        )
+        breakpoint()
+
 
     # ~/.cache/huggingface/datasets/ncbi___pubmed/2025/5.0.0/6468ffcb3f344144d8fc30a713a9fe8d39f886f21f241473498d8dafa3bcd1c4
 
 
 
-    breakpoint()
 
 def parse_args():
     parser = argparse.ArgumentParser()
