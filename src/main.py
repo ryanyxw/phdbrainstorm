@@ -38,6 +38,12 @@ def main(args):
         breakpoint()
         # we first do some preprocessing
 
+        def filter_empty_abstracts(line):
+            return line["MedlineCitation"]["Article"]["Abstract"]["AbstractText"] != ""
+
+        hf_dataset = hf_dataset.filter(filter_empty_abstracts, num_proc=64)
+
+        breakpoint()
 
         hf_dataset.to_parquet("data/pubmed-train.parquet")
 
