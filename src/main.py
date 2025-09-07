@@ -27,16 +27,19 @@ def main(args):
 
     print("executing command...")
 
-    # hf_dataset = load_dataset("ncbi/pubmed", revision="refs/pr/19", trust_remote_code=True, num_proc=64)
+    hf_dataset = load_dataset("ncbi/pubmed", revision="refs/pr/19", trust_remote_code=True, num_proc=64)["train"]
+
+    print(hf_dataset)
+
+    hf_dataset = hf_dataset.select(range(100000))
+
+    hf_dataset.to_parquet("data/pubmed-train")
 
     # ~/.cache/huggingface/datasets/ncbi___pubmed/2025/5.0.0/6468ffcb3f344144d8fc30a713a9fe8d39f886f21f241473498d8dafa3bcd1c4
 
     import pdb
     pdb.set_trace()
 
-    hf_dataset_uri = "hf://datasets/ncbi/pubmed/data"
-
-    ld.index_parquet_dataset(hf_dataset_uri, "hf-index-dir")
 
     # dataset = ld.StreamingDataset(hf_dataset["train"])
 
