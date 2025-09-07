@@ -63,10 +63,11 @@ def format_to_pretraining(hf_dataset, tokenizer, max_seq_len):
             tqdm_object.update(1)
             for k in dataset.column_names:
                 if (k == "input_ids"):
-                    current_dict[k] += [tokenizer.bos_token_id] + example[k] + [tokenizer.eos_token_id]
+                    # only add eos token since bos token is already added by tokenizer
+                    current_dict[k] += example[k] + [tokenizer.eos_token_id]
 
                 elif (k == "attention_mask"):
-                    current_dict[k] += [1] + example[k] + [1]
+                    current_dict[k] += example[k] + [1]
                 else:
                     raise Exception(f"Unknown column name {k}")
 

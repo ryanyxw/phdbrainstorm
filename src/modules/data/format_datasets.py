@@ -43,7 +43,6 @@ def prepare_pubmed_dataset(tokenizer, seed, max_seq_len, num_proc):
     def tokenize_function(examples):
         return tokenizer(examples["text"])
 
-    breakpoint()
 
     hf_dataset = hf_dataset.map(tokenize_function, num_proc=64, remove_columns=hf_dataset.column_names)
 
