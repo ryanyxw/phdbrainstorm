@@ -18,14 +18,8 @@ import transformers
 
 
 def tokenize_fn(line, tokenizer=None):
-    print(line)
-    print(line["text"][0])
-    print(tokenizer.encode(line["text"][0]))
-    try:
-        text_ids = tokenizer.encode(line["text"][0])
-        yield text_ids
-    except:
-        breakpoint()
+    text_ids = tokenizer.encode(line["text"][0])
+    yield text_ids
 
 
 def main(args):
@@ -85,7 +79,7 @@ def main(args):
             output_dir="data/tokenized_pubmed",
             chunk_size=(2049*8012),
             # item_loader=TokensLoader(),
-            num_workers=1,
+            num_workers=64,
         )
 
 
