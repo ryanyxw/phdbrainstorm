@@ -36,7 +36,7 @@ def main(args):
 
     hf_dataset_uri = "hf://datasets/ncbi/pubmed/data"
 
-    ld.index_parquet_dataset(hf_dataset_uri, hf-index-dir)
+    ld.index_parquet_dataset(hf_dataset_uri, "hf-index-dir")
 
     # dataset = ld.StreamingDataset(hf_dataset["train"])
 
