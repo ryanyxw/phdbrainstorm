@@ -5,3 +5,4 @@ litgpt pretrain meta-llama/Meta-Llama-3-8B \
    --train.lr_warmup_steps=100 \
    --out_dir models/test_pretrain \
    --resume auto \
+   --precision bf16-mixed \
