@@ -18,7 +18,7 @@ import transformers
 
 
 def tokenize_fn(line, tokenizer=None):
-    text_ids = tokenizer.encode(line["text"], bos=False, eos=True)
+    text_ids = tokenizer.encode(line["text"])
     yield text_ids
 
 
@@ -79,6 +79,7 @@ def main(args):
             output_dir="data/tokenized_pubmed",
             chunk_size=(2049*8012),
             item_loader=TokensLoader(),
+            num_workers=64,
         )
 
 
