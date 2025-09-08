@@ -16,5 +16,6 @@ for RUN_DIR in "${RUN_DIRS[@]}"; do
         else
             echo "Converting shards in $ckpt ..."
 #            python ${RUN_DIR}/zero_to_fp32.py $ckpt $ckpt
+        fi
     done
 done
