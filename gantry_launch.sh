@@ -12,8 +12,8 @@ gantry run \
     --timeout -1 \
     --show-logs \
     --host-networking \
-    --uv-venv 'base' \
     --priority "${PRIORITY}" \
+    --conda_env "onboarding" \
     --leader-selection \
     --gpus 1 \
     --replicas 1 \
@@ -32,7 +32,8 @@ gantry run \
 
 #    --install "pip install -r requirements.txt" \
 #    --mount "src=weka,ref=oe-training-default,subpath=ryanwang,dst=/root" \
-
+#    --uv-venv 'base' \
+#
 
 
 
