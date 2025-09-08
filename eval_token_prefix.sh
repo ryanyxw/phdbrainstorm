@@ -7,7 +7,7 @@ RUN_DIRS=(
 )
 
 CKPT_DIR=(
-    "."
+#    "."
     "checkpoint-150"
     "checkpoint-300"
     "checkpoint-450"
