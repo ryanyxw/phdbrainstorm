@@ -6,7 +6,8 @@ from functools import partial
 from datasets import load_dataset
 from litdata import StreamingDataset
 from litdata.streaming.item_loader import ParquetLoader, TokensLoader
-from transformers import AutoTokenizer, AutoModelForCausalLM, DefaultDataCollator, TrainingArguments, Trainer
+from transformers import AutoTokenizer, AutoModelForCausalLM, DefaultDataCollator, TrainingArguments, Trainer, \
+    DataCollatorForLanguageModeling
 
 from litgpt.api import LLM
 import torch
@@ -69,7 +70,7 @@ def main(args):
 
         ### setup the training arguments
         # This only helps with batching - we assume that our data is already padded
-        data_collator = DefaultDataCollator()
+        data_collator = DataCollatorForLanguageModeling(tokenizer=tokenizer, mlm=False)
         # return the trained model
         training_args = TrainingArguments(
             output_dir=out_directory,
