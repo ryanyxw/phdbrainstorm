@@ -12,7 +12,7 @@ for RUN_DIR in "${RUN_DIRS[@]}"; do
 
     for ckpt in "$RUN_DIR"/checkpoint-*; do
         echo "Found checkpoint directory: $ckpt"
-        if compgen -G "$ckpt/*.bin" > /dev/null; then
+        if compgen -G "$ckpt/pytorch_model*.bin" > /dev/null; then
             echo "Skipping $ckpt (already has merged bin files)"
         else
             echo "Converting shards in $ckpt ..."
