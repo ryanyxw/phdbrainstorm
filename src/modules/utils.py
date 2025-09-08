@@ -108,13 +108,20 @@ def validate_inputs(configs):
 
 
 def prepare_wandb(configs):
-    os.environ["WANDB_PROJECT"] = configs.project
-    # set the group
-    os.environ["WANDB_RUN_GROUP"] = configs.group
-    # set the name
-    os.environ["WANDB_NAME"] = configs.name
+    # os.environ["WANDB_PROJECT"] = configs.project
+    # # set the group
+    # os.environ["WANDB_RUN_GROUP"] = configs.group
+    # # set the name
+    # os.environ["WANDB_NAME"] = configs.name
     print(f"setting group to {configs.group} and name to {configs.name}")
-    wandb.init()
+
+    wandb.init(
+        project=configs.project,
+        group=configs.group,
+        name=configs.name,
+        config=configs.config,
+        tags=configs.tags,
+    )
 
 
 def execute_shell_command(command, progress_file=None):

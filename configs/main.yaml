@@ -2,17 +2,29 @@ ROOT_DIR: .
 
 seed: 0 # DO NOT CHANGE THIS.
 
-exp_name: "pubmed"
+exp_name: "pubmed_100k_BS-16"
+data_type: "pubmed"
 
 num_proc: 1
 
 train:
   do: True
   model_path_or_name: "meta-llama/Meta-Llama-3-8B"
-  out_directory: "test_output_models"
+  out_directory: "models"
 
   wandb:
-    do: False
+    do: True
+    project: "conditional_learning"
+    group: ${data_type}
+    name: ${exp_name}
+    config:
+      data_type: "pubmed"
+      batch_size: 16
+      num_instances: 100_000
+    tags:
+      - "data_type-pubmed"
+      - "num_instances-100k"
+      - "batch_size-16"
 
   save_model: True
 
@@ -22,11 +34,10 @@ train:
     per_device_train_batch_size: 1
     gradient_accumulation_steps: 4
     num_train_epochs: 1
+    save_steps: 200
 #    fp16: True
     bf16: True
     bf16_full_eval: True
-    learning_rate: 1e-5
-    warmup_ratio: 0.03
     logging_steps: 2
     deepspeed: "configs/ds_config.json"
 

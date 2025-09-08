@@ -39,10 +39,9 @@ def prepare_pubmed_dataset(tokenizer, seed, max_seq_len, num_proc):
     hf_dataset = hf_dataset.map(extract_abstract, num_proc=16, remove_columns=hf_dataset.column_names)
 
     # tokenize the dataset
-
+    # TODO: do not truncate (pad instead) in the future
     def tokenize_function(examples):
         return tokenizer(examples["text"], truncation=True, max_length=max_seq_len, padding="max_length")
-
 
     train_dataset = hf_dataset.map(tokenize_function, num_proc=16, remove_columns=hf_dataset.column_names)
 
@@ -56,7 +55,7 @@ def prepare_pubmed_dataset(tokenizer, seed, max_seq_len, num_proc):
     return train_dataset
 
 
-def prepare_dataset_for_training(exp_name, tokenizer, seed, num_proc, **kwargs):
+def prepare_dataset_for_training(data_type, tokenizer, seed, num_proc, **kwargs):
     """Load and reformat a dataset for training
     params:
     dataset_name: str, the name of the dataset
@@ -66,9 +65,9 @@ def prepare_dataset_for_training(exp_name, tokenizer, seed, num_proc, **kwargs):
 
     max_seq_len = kwargs["max_seq_len"]
 
-    if "pubmed" in exp_name:
+    if "pubmed" in data_type:
         train_dataset = prepare_pubmed_dataset(tokenizer, seed, max_seq_len, num_proc)
         return train_dataset, {}
     else:
-        raise ValueError(f"Unknown dataset: {exp_name}")
+        raise ValueError(f"Unknown dataset: {data_type}")
 

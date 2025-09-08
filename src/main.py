@@ -62,7 +62,7 @@ def main(args):
         if exp_configs.wandb.do:
             prepare_wandb(exp_configs.wandb)
 
-        train_dataset, eval_datasets = prepare_dataset_for_training(configs.exp_name,
+        train_dataset, eval_datasets = prepare_dataset_for_training(configs.data_type,
                                                                     tokenizer,
                                                                     configs.seed,
                                                                     configs.num_proc,
@@ -78,8 +78,6 @@ def main(args):
             seed=configs.seed,
             report_to="wandb" if exp_configs.wandb.do else "none",
             save_strategy="steps",
-            save_steps=1000,
-            save_total_limit=1,
             remove_unused_columns=False,
             **exp_configs.training_args
         )
