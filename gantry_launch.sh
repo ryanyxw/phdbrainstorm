@@ -6,6 +6,7 @@ command='''
 export HF_HOME="/root/ryanwang/.cache/huggingface"
 export HF_DATASETS_CACHE="${HF_HOME}/datasets"
 ls /root/ryanwang/phdbrainstorm
+nvidia-smi
 bash main.sh
 '''
 
@@ -20,7 +21,7 @@ gantry run \
     --host-networking \
     --priority "${PRIORITY}" \
     --leader-selection \
-    --gpus 2 \
+    --gpus 8 \
     --replicas 1 \
     --cluster "${CLUSTER}" \
     --budget ai2/oe-base \
