@@ -21,6 +21,6 @@ config_file=${CONFIG_DIR}/${mode}.yaml
 
 WANDB_PROJECT=phdbrainstorm
 
-CUDA_LAUNCH_BLOCKING=1 CUDA_VISIBLE_DEVICES=0 python ${SRC_DIR}/main.py\
+accelerate launch ${SRC_DIR}/main.py\
     --mode=${mode}\
     --config_file=${config_file}\
