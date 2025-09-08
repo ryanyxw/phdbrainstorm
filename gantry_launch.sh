@@ -2,7 +2,7 @@ CLUSTER="ai2/jupiter"
 PRIORITY="urgent"
 WORKSPACE=ai2/flex2
 
-command="ls /root/ryanwang"
+command="touch /root/ryanwang/hello.txt"
 
 gantry run \
     --task-name "test_gantry" \
