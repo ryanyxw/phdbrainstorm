@@ -14,17 +14,15 @@ for RUN_DIR in "${MODEL_DIR}/${RUN_DIRS[@]}"; do
             echo "Skipping $ckpt (already has merged bin files)"
         else
             echo "Converting shards in $ckpt ..."
-#            python ${RUN_DIR}/zero_to_fp32.py $ckpt $ckpt
+            python ${RUN_DIR}/zero_to_fp32.py $ckpt $ckpt
         fi
 
-#        accelerate launch -m lm_eval --model hf \
-#          --model_args models/pubmed_100k_BS-128/checkpoint-25 \
-#          --tasks pubmedqa \
-#          --batch_size auto:4 \
-#          --write_out \
-#          --output_path eval \
-
-
+        accelerate launch -m lm_eval --model hf \
+          --model_args "${ckpt}/eval" \
+          --tasks pubmedqa \
+          --batch_size auto:4 \
+          --write_out \
+          --output_path "${ckpt}/eval" \
     done
 done
 
