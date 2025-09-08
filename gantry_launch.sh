@@ -9,6 +9,7 @@ gantry run \
     --description "Run first test of gantry" \
     --workspace $WORKSPACE \
     --beaker-image 'ai2/cuda12.8-dev-ubuntu22.04-torch2.6.0' \
+    --venv 'base' \
     --timeout -1 \
     --show-logs \
     --host-networking \
@@ -31,7 +32,6 @@ gantry run \
 
 #    --install "pip install -r requirements.txt" \
 #    --mount "src=weka,ref=oe-training-default,subpath=ryanwang,dst=/root" \
-#    --uv-venv 'base' \
 #    --conda-env "onboarding" \
 #
 
