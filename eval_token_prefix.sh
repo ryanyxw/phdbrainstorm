@@ -3,11 +3,15 @@ MODEL_DIR=models
 set -e
 
 RUN_DIRS=(
-    "pubmed_100k_BS-32"
+    "pubmed_100k_BS-64"
 )
 
 CKPT_DIR=(
     "."
+    "checkpoint-150"
+    "checkpoint-300"
+    "checkpoint-450"
+    "checkpoint-600"
 )
 
 # loop through the directories
