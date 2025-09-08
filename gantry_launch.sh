@@ -3,6 +3,7 @@ PRIORITY="urgent"
 WORKSPACE=ai2/flex2
 
 command='''
+HF_HOME=/root/ryanwang/.cache/huggingface
 bash main.sh
 '''
 
@@ -27,7 +28,7 @@ gantry run \
     --env-secret HF_TOKEN=RYAN_HF_TOKEN \
     --env-secret WANDB_API_KEY=RYAN_WANDB_API_KEY \
     --shared-memory 10GiB \
-    --weka=oe-training-default:/data/input/ \
+    --weka=oe-training-default:/root \
     --yes \
     -- bash -c "$command"
 
