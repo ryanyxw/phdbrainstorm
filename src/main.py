@@ -53,8 +53,9 @@ def main(args):
         tokenizer = AutoTokenizer.from_pretrained(exp_configs.model_path_or_name)
         print("loaded model and tokenizer! ")
 
-        max_seq_len = min(model.config.max_position_embeddings, exp_configs.max_seq_len)
-        exp_configs.max_seq_len = max_seq_len
+        breakpoint()
+        max_len = min(model.config.max_position_embeddings, exp_configs.max_seq_len)
+        exp_configs.max_seq_len = max_len
 
         if exp_configs.wandb.do:
             prepare_wandb(exp_configs.wandb)
