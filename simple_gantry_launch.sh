@@ -6,4 +6,6 @@ gantry run \
   --budget    ai2/oe-base \
   --priority  low \
   --weka=oe-training-default:/data/input/   \
+  --timeout -1 \
+  --beaker-image 'ai2/cuda12.8-dev-ubuntu22.04-torch2.6.0' \
   -- bash -c "echo hello"
