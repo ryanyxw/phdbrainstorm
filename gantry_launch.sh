@@ -17,7 +17,7 @@ gantry run \
     --host-networking \
     --priority "${PRIORITY}" \
     --leader-selection \
-    --gpus 1 \
+    --gpus 2 \
     --replicas 1 \
     --cluster "${CLUSTER}" \
     --budget ai2/oe-base \
