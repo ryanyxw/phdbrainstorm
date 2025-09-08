@@ -12,7 +12,7 @@ gantry run \
     --timeout -1 \
     --show-logs \
     --host-networking \
-    --venv 'base' \
+    --venv 'onboarding' \
     --priority "${PRIORITY}" \
     --leader-selection \
     --gpus 1 \
