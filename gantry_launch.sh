@@ -13,7 +13,6 @@ gantry run \
     --show-logs \
     --host-networking \
     --priority "${PRIORITY}" \
-    --conda-env "onboarding" \
     --leader-selection \
     --gpus 1 \
     --replicas 1 \
@@ -33,6 +32,7 @@ gantry run \
 #    --install "pip install -r requirements.txt" \
 #    --mount "src=weka,ref=oe-training-default,subpath=ryanwang,dst=/root" \
 #    --uv-venv 'base' \
+#    --conda-env "onboarding" \
 #
 
 
