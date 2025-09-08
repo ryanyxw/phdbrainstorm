@@ -2,7 +2,7 @@ CLUSTER="ai2/jupiter"
 PRIORITY="urgent"
 WORKSPACE=ai2/flex2
 
-command="echo SUCCESS!"
+command="ls -al"
 
 gantry run \
     --task-name "test_gantry" \
@@ -12,7 +12,7 @@ gantry run \
     --timeout -1 \
     --show-logs \
     --host-networking \
-    --venv 'onboarding' \
+    --venv 'base' \
     --priority "${PRIORITY}" \
     --leader-selection \
     --gpus 1 \
