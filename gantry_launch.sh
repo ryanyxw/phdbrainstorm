@@ -11,8 +11,8 @@ bash main.sh
 '''
 
 gantry run \
-    --task-name "test_gantry" \
-    --description "Run first test of gantry" \
+    --task-name "Olmo_128BS_Pubmed" \
+    --description "Olmo_128BS_Pubmed" \
     --workspace $WORKSPACE \
     --beaker-image 'ai2/cuda12.8-dev-ubuntu22.04-torch2.6.0' \
     --venv 'base' \
