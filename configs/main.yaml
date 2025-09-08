@@ -32,9 +32,9 @@ train:
 
   training_args:
     per_device_train_batch_size: 1
-    gradient_accumulation_steps: 8 # using 4 gpus rn
+    gradient_accumulation_steps: 16 # using 4 gpus rn
     num_train_epochs: 1
-    save_steps: 100
+    save_steps: 50
 #    fp16: True
     bf16: True
     bf16_full_eval: True
