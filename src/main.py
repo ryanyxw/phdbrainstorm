@@ -8,6 +8,7 @@ from litdata import StreamingDataset
 from litdata.streaming.item_loader import ParquetLoader, TokensLoader
 from transformers import AutoTokenizer, AutoModelForCausalLM, DefaultDataCollator, TrainingArguments, Trainer, \
     DataCollatorForLanguageModeling
+from transformers.trainer_utils import get_last_checkpoint
 
 from litgpt.api import LLM
 import torch
@@ -60,7 +61,7 @@ def main(args):
         exp_configs.max_seq_len = max_len
 
         if exp_configs.wandb.do:
-            prepare_wandb(exp_configs.wandb)
+            prepare_wandb(exp_configs.wandb, out_directory)
 
         train_dataset, eval_datasets = prepare_dataset_for_training(configs.data_type,
                                                                     tokenizer,
@@ -91,8 +92,17 @@ def main(args):
             tokenizer=tokenizer,
         )
 
-        ### train the model
-        trainer.train()
+
+        last_ckpt = get_last_checkpoint(out_directory)
+
+        if last_ckpt is not None:
+            print(f"Resuming from checkpoint: {last_ckpt}")
+            trainer.train(resume_from_checkpoint=last_ckpt)
+        else:
+            print("No checkpoint found. Starting fresh training.")
+            trainer.train()
+
+        trainer.save_model(out_directory)
 
 def parse_args():
     parser = argparse.ArgumentParser()

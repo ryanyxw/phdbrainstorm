@@ -107,7 +107,7 @@ def validate_inputs(configs):
     recurse_keys(configs)
 
 
-def prepare_wandb(configs):
+def prepare_wandb(configs, out_directory):
     # os.environ["WANDB_PROJECT"] = configs.project
     # # set the group
     # os.environ["WANDB_RUN_GROUP"] = configs.group
@@ -115,13 +115,35 @@ def prepare_wandb(configs):
     # os.environ["WANDB_NAME"] = configs.name
     print(f"setting group to {configs.group} and name to {configs.name}")
 
-    wandb.init(
-        project=configs.project,
-        group=configs.group,
-        name=configs.name,
-        config=configs.config,
-        tags=configs.tags,
-    )
+    wandb_dir = os.path.join(out_directory, "wandb")
+    os.makedirs(wandb_dir, exist_ok=True)
+
+    wandb_run_id_file = os.path.join(wandb_dir, "wandb_run_id.txt")
+
+    if os.path.exists(wandb_run_id_file):
+        with open(wandb_run_id_file) as f:
+            run_id = f.read().strip()
+        print(f"Resuming W&B run with id={run_id}")
+        wandb.init(
+            project=configs.project,
+            group=configs.group,
+            name=configs.name,
+            config=configs.config,
+            tags=configs.tags,
+            id=run_id,
+            resume="must",
+        )
+    else:
+        run = wandb.init(
+            project=configs.project,
+            group=configs.group,
+            name=configs.name,
+            config=configs.config,
+            tags=configs.tags,
+            resume="allow",  # will resume if same id exists in W&B cloud
+        )
+        with open(wandb_run_id_file, "w") as f:
+            f.write(run.id)
 
 
 def execute_shell_command(command, progress_file=None):
