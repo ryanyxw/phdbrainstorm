@@ -7,7 +7,7 @@ RUN_DIRS=(
 )
 
 CKPT_DIR=(
-    "global_step1450"
+    "."
 )
 
 # loop through the directories
