@@ -22,7 +22,7 @@ for RUN_DIR in "${MODEL_DIR}/${RUN_DIRS[@]}"; do
           --tasks pubmedqa \
           --batch_size auto:4 \
           --write_out \
-          --output_path "${ckpt}/eval" \
+          --output_path "${ckpt}/eval"
     done
 done
 
