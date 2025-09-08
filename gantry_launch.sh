@@ -27,7 +27,7 @@ gantry run \
     --shared-memory 10GiB \
     --weka=oe-training-default:/data/input/ \
     --yes \
-    -- bash -c "$command"
+    -- $command
 
 
 #    --install "pip install -r requirements.txt" \
