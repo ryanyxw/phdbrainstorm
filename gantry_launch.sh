@@ -2,7 +2,7 @@ CLUSTER="ai2/jupiter"
 PRIORITY="urgent"
 WORKSPACE=ai2/flex2
 
-command="touch /root/ryanwang/goodbye.txt && echo hello | tee /root/ryanwang/goodbye.txt && cat /root/ryanwang/goodbye.txt"
+command="touch /root/ryanwang/goodbye.txt && echo hello && echo hello > /root/ryanwang/goodbye.txt && cat /root/ryanwang/goodbye.txt"
 
 gantry run \
     --task-name "test_gantry" \
@@ -12,6 +12,7 @@ gantry run \
     --timeout -1 \
     --show-logs \
     --host-networking \
+    --uv-venv 'base' \
     --priority "${PRIORITY}" \
     --leader-selection \
     --gpus 1 \
@@ -31,7 +32,6 @@ gantry run \
 
 #    --install "pip install -r requirements.txt" \
 #    --mount "src=weka,ref=oe-training-default,subpath=ryanwang,dst=/root" \
-#    --venv 'base' \
 
 
 
