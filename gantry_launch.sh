@@ -2,7 +2,7 @@ CLUSTER="ai2/jupiter"
 PRIORITY="urgent"
 WORKSPACE=ai2/flex2
 
-command="echo hello && echo hello > /data/input/ryanwang/testing3.txt && echo goodbye"
+command="echo hello && echo hello > /data/input/ryanwang/testing4.txt && echo goodbye"
 
 gantry run \
     --task-name "test_gantry" \
