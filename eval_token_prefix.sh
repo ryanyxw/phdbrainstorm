@@ -3,7 +3,7 @@ MODEL_DIR=models
 set -e
 
 RUN_DIRS=(
-    "pubmed_100k_BS-128"
+    "pubmed_100k_BS-32"
 )
 
 # loop through the directories
@@ -11,6 +11,8 @@ for RUN_DIR in "${MODEL_DIR}/${RUN_DIRS[@]}"; do
     echo "Processing directory: $RUN_DIR"
 
     for ckpt in "$RUN_DIR"/checkpoint-*; do
+
+        # convert checkpoint if not already converted
         if compgen -G "$ckpt/pytorch_model*.bin" > /dev/null; then
             echo "Found converted checkpoint directory: $ckpt"
         else
@@ -18,6 +20,7 @@ for RUN_DIR in "${MODEL_DIR}/${RUN_DIRS[@]}"; do
             python ${RUN_DIR}/zero_to_fp32.py $ckpt $ckpt
         fi
 
+        # begin evaluation
         accelerate launch -m lm_eval --model hf \
           --model_args pretrained="${ckpt}" \
           --tasks pubmedqa \
