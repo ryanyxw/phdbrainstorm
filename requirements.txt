@@ -8,3 +8,5 @@ wandb==0.21.3
 hf_transfer
 polars
 deepspeed
+
+-e lm-eval-harness
