@@ -2,7 +2,7 @@ ROOT_DIR: .
 
 seed: 0 # DO NOT CHANGE THIS.
 
-exp_name: "pubmed_100k_BS-16"
+exp_name: "pubmed_100k_BS-32"
 data_type: "pubmed"
 
 num_proc: 1
@@ -19,12 +19,12 @@ train:
     name: ${exp_name}
     config:
       data_type: "pubmed"
-      batch_size: 16
+      batch_size: 32
       num_instances: 100_000
     tags:
       - "data_type-pubmed"
       - "num_instances-100k"
-      - "batch_size-16"
+      - "batch_size-32"
 
   save_model: True
 
@@ -32,9 +32,9 @@ train:
 
   training_args:
     per_device_train_batch_size: 1
-    gradient_accumulation_steps: 4 # using 4 gpus rn
+    gradient_accumulation_steps: 8 # using 4 gpus rn
     num_train_epochs: 1
-    save_steps: 200
+    save_steps: 100
 #    fp16: True
     bf16: True
     bf16_full_eval: True
