@@ -13,7 +13,7 @@ gantry run \
     --show-logs \
     --host-networking \
     --priority "${PRIORITY}" \
-    --conda_env "onboarding" \
+    --conda-env "onboarding" \
     --leader-selection \
     --gpus 1 \
     --replicas 1 \
