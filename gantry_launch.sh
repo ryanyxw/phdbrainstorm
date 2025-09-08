@@ -2,7 +2,7 @@ CLUSTER="ai2/jupiter"
 PRIORITY="urgent"
 WORKSPACE=ai2/flex2
 
-command="touch /root/ryanwang/hello.txt"
+command="touch /root/ryanwang/goodbye.txt && echo hello > /root/ryanwang/goodbye.txt"
 
 gantry run \
     --task-name "test_gantry" \
