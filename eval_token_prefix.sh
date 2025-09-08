@@ -15,11 +15,13 @@ CKPT_DIR=(
 )
 
 # loop through the directories
-for RUN_DIR in "${MODEL_DIR}/${RUN_DIRS[@]}"; do
+for RUN_NAME in "${RUN_DIRS[@]}"; do
+    RUN_DIR=${MODEL_DIR}/${RUN_NAME}
     echo "Processing directory: $RUN_DIR"
 
 #    for ckpt in "$RUN_DIR"/checkpoint-*; do
-    for ckpt in "$RUN_DIR"/"${CKPT_DIR[@]}"; do
+    for ckpt_name in "${CKPT_DIR[@]}"; do
+        ckpt=${RUN_DIR}/${ckpt_name}
         echo "Found checkpoint directory: $ckpt"
         # convert checkpoint if not already converted
         if compgen -G "$ckpt/pytorch_model*" > /dev/null; then
