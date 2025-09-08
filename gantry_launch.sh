@@ -26,7 +26,7 @@ gantry run \
     --env-secret WANDB_API_KEY=RYAN_WANDB_API_KEY \
     --shared-memory 10GiB \
     --install "pip install -r requirements.txt" \
-    --weka oe-training-default/ryanwang:/root \
+    --weka oe-training-default:ryanwang:/root \
     --yes \
     -- $command
 
