@@ -25,9 +25,11 @@ gantry run \
     --env-secret HF_TOKEN=RYAN_HF_TOKEN \
     --env-secret WANDB_API_KEY=RYAN_WANDB_API_KEY \
     --shared-memory 10GiB \
-    --weka oe-training-default:/root \
+    --mounts "src=weka,ref=oe-training-default,subpath=ryanwang,dst=/root" \
     --yes \
     -- $command
+
+#    --weka oe-training-default:/root \
 
 #    --install "pip install -r requirements.txt" \
 
