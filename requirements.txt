@@ -9,4 +9,4 @@ hf_transfer
 polars
 deepspeed
 
--e lm-eval-harness
+-e lm-evaluation-harness
