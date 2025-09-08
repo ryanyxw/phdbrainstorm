@@ -6,7 +6,7 @@ exp_name: "pubmed_100k_BS-16"
 data_type: "pubmed"
 
 num_proc: 1
-
+b
 train:
   do: True
   model_path_or_name: "meta-llama/Meta-Llama-3-8B"

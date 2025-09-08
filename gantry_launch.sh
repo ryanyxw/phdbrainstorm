@@ -12,7 +12,6 @@ gantry run \
     --timeout -1 \
     --show-logs \
     --host-networking \
-    --venv 'base' \
     --priority "${PRIORITY}" \
     --leader-selection \
     --gpus 1 \
@@ -32,6 +31,7 @@ gantry run \
 
 #    --install "pip install -r requirements.txt" \
 #    --mount "src=weka,ref=oe-training-default,subpath=ryanwang,dst=/root" \
+#    --venv 'base' \
 
 
 
