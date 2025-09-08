@@ -2,7 +2,7 @@ CLUSTER="ai2/jupiter"
 PRIORITY="urgent"
 WORKSPACE=ai2/flex2
 
-command="echo hello > hello.txt"
+command="ls /root"
 
 gantry run \
     --task-name "test_gantry" \
