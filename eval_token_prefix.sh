@@ -19,7 +19,7 @@ for RUN_DIR in "${MODEL_DIR}/${RUN_DIRS[@]}"; do
         fi
 
         accelerate launch -m lm_eval --model hf \
-          --model_args pretrained="${ckpt}/eval" \
+          --model_args pretrained="${ckpt}" \
           --tasks pubmedqa \
           --batch_size auto:4 \
           --write_out \
