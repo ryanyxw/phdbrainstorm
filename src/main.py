@@ -53,7 +53,7 @@ def main(args):
         tokenizer = AutoTokenizer.from_pretrained(exp_configs.model_path_or_name)
         print("loaded model and tokenizer! ")
 
-        max_seq_len = model.config.max_position_embeddings
+        max_seq_len = min(model.config.max_position_embeddings, exp_configs.max_seq_len)
         exp_configs.max_seq_len = max_seq_len
 
         if exp_configs.wandb.do:
@@ -75,7 +75,7 @@ def main(args):
             seed=configs.seed,
             report_to="wandb" if exp_configs.wandb.do else "none",
             save_strategy="steps",
-            save_steps=100,
+            save_steps=1000,
             save_total_limit=1,
             remove_unused_columns=False,
             **exp_configs.training_args

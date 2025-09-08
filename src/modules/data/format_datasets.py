@@ -44,14 +44,21 @@ def prepare_pubmed_dataset(tokenizer, seed, max_seq_len, num_proc):
         return tokenizer(examples["text"])
 
 
-    hf_dataset = hf_dataset.map(tokenize_function, num_proc=64, remove_columns=hf_dataset.column_names)
+    train_dataset = hf_dataset.map(tokenize_function, num_proc=64, remove_columns=hf_dataset.column_names)
 
+    def tally(example):
+        example["length"] = len(example["input_ids"])
+        return example
+    train_dataset = train_dataset.map(tally, num_proc=64)
+    train_dataset = train_dataset.filter(lambda x: x["length"] < max_seq_len, num_proc=64)
+
+    breakpoint()
     # turn into pretraining format
 
-    train_dataset = multiprocess_hf_map(single_process_format_to_pretraining, hf_dataset,
-                                                  num_proc=1,
-                                                  fn_kwargs={"tokenizer": tokenizer,
-                                                             "max_seq_len": max_seq_len})
+    # train_dataset = multiprocess_hf_map(single_process_format_to_pretraining, train_dataset,
+    #                                               num_proc=1,
+    #                                               fn_kwargs={"tokenizer": tokenizer,
+    #                                                          "max_seq_len": max_seq_len})
 
     return train_dataset
 
