@@ -51,9 +51,10 @@ def main(args):
 
         model = AutoModelForCausalLM.from_pretrained(exp_configs.model_path_or_name, trust_remote_code=True)
         tokenizer = AutoTokenizer.from_pretrained(exp_configs.model_path_or_name)
+        if tokenizer.pad_token is None:
+            tokenizer.pad_token = tokenizer.eos_token
         print("loaded model and tokenizer! ")
 
-        breakpoint()
         max_len = min(model.config.max_position_embeddings, exp_configs.max_seq_len)
         exp_configs.max_seq_len = max_len
 
