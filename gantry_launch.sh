@@ -3,7 +3,8 @@ PRIORITY="urgent"
 WORKSPACE=ai2/flex2
 
 command='''
-HF_HOME=/root/ryanwang/.cache/huggingface
+export HF_HOME="/root/ryanwang/.cache/huggingface"
+export HF_DATASETS_CACHE="${HF_HOME}/datasets"
 bash main.sh
 '''
 
