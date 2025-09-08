@@ -2,7 +2,9 @@ CLUSTER="ai2/jupiter"
 PRIORITY="urgent"
 WORKSPACE=ai2/flex2
 
-command="echo hello && echo hello > /data/input/ryanwang/testing4.txt && echo goodbye"
+command='''
+bash main.sh
+'''
 
 gantry run \
     --task-name "test_gantry" \
@@ -27,7 +29,7 @@ gantry run \
     --shared-memory 10GiB \
     --weka=oe-training-default:/data/input/ \
     --yes \
-    -- $command
+    -- bash -c "$command"
 
 
 #    --install "pip install -r requirements.txt" \
