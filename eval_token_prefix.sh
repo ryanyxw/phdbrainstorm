@@ -20,7 +20,7 @@ for RUN_DIR in "${MODEL_DIR}/${RUN_DIRS[@]}"; do
 
 #    for ckpt in "$RUN_DIR"/checkpoint-*; do
     for ckpt in "$RUN_DIR"/"${CKPT_DIR[@]}"; do
-
+        echo "Found checkpoint directory: $ckpt"
         # convert checkpoint if not already converted
         if compgen -G "$ckpt/pytorch_model*" > /dev/null; then
             echo "Found converted checkpoint directory: $ckpt"
