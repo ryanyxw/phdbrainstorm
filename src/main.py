@@ -4,16 +4,12 @@ import os
 from functools import partial
 
 from datasets import load_dataset
-from litdata import StreamingDataset
-from litdata.streaming.item_loader import ParquetLoader, TokensLoader
 from transformers import AutoTokenizer, AutoModelForCausalLM, DefaultDataCollator, TrainingArguments, Trainer, \
     DataCollatorForLanguageModeling
 from transformers.trainer_utils import get_last_checkpoint
 
-from litgpt.api import LLM
 import torch
 
-import litdata as ld
 
 from src.modules.data.data_utils import load_tokenizer
 from src.modules.data.format_datasets import prepare_dataset_for_training
@@ -75,7 +71,6 @@ def main(args):
         # return the trained model
         training_args = TrainingArguments(
             output_dir=out_directory,
-            overwrite_output_dir=True,
             seed=configs.seed,
             report_to="wandb" if exp_configs.wandb.do else "none",
             save_strategy="steps",
