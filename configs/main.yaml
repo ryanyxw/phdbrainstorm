@@ -16,7 +16,7 @@ train:
 
   save_model: True
 
-  max_seq_len: 32
+  max_seq_len: 512
 
   training_args:
     per_device_train_batch_size: 1
@@ -26,5 +26,6 @@ train:
     learning_rate: 1e-5
     warmup_ratio: 0.03
     logging_steps: 2
+    deepspeed: "configs/ds_config.json"
 
 
