@@ -28,16 +28,16 @@ for RUN_NAME in "${RUN_DIRS[@]}"; do
             echo "Found converted checkpoint directory: $ckpt"
         else
             echo "Converting shards in $ckpt ..."
-#            python ${RUN_DIR}/zero_to_fp32.py $ckpt $ckpt
+            python ${RUN_DIR}/zero_to_fp32.py $ckpt $ckpt
         fi
 
         # begin evaluation
-#        accelerate launch -m lm_eval --model hf \
-#          --model_args pretrained="${ckpt}" \
-#          --tasks pubmedqa \
-#          --batch_size auto:4 \
-#          --write_out \
-#          --output_path "${ckpt}/eval"
+        accelerate launch -m lm_eval --model hf \
+          --model_args pretrained="${ckpt}" \
+          --tasks pubmedqa \
+          --batch_size auto:4 \
+          --write_out \
+          --output_path "${ckpt}/eval"
     done
 done
 
