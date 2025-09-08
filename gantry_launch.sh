@@ -2,7 +2,7 @@ CLUSTER="ai2/jupiter"
 PRIORITY="urgent"
 WORKSPACE=ai2/flex2
 
-command="touch /root/ryanwang/goodbye.txt && echo hello && echo hello > /root/ryanwang/goodbye.txt && cat /root/ryanwang/goodbye.txt"
+command="touch /data/input/ryanwang/goodbye.txt && echo hello && echo hello > /data/input/ryanwang/goodbye.txt && cat /data/input/ryanwang/goodbye.txt"
 
 gantry run \
     --task-name "test_gantry" \
@@ -25,7 +25,7 @@ gantry run \
     --env-secret HF_TOKEN=RYAN_HF_TOKEN \
     --env-secret WANDB_API_KEY=RYAN_WANDB_API_KEY \
     --shared-memory 10GiB \
-    --weka oe-training-default:/root \
+    --weka=oe-training-default:/data/input/ \
     --yes \
     -- $command
 
