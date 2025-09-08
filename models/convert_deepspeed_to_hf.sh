@@ -10,7 +10,7 @@ RUN_DIRS=(
 for RUN_DIR in "${RUN_DIRS[@]}"; do
     echo "Processing directory: $RUN_DIR"
 
-    for ckpt in RUN_DIR/global_step*; do
+    for ckpt in $RUN_DIR/global_step*; do
         if compgen -G "$ckpt/*.bin" > /dev/null; then
             echo "Skipping $ckpt (already has merged bin files)"
         else
