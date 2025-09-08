@@ -2,7 +2,7 @@ ROOT_DIR: .
 
 seed: 0 # DO NOT CHANGE THIS.
 
-exp_name: "pubmed_100k_BS-32"
+exp_name: "pubmed_100k_BS-64"
 data_type: "pubmed"
 
 num_proc: 1
@@ -19,12 +19,12 @@ train:
     name: ${exp_name}
     config:
       data_type: "pubmed"
-      batch_size: 32
+      batch_size: 64
       num_instances: 100_000
     tags:
       - "data_type-pubmed"
       - "num_instances-100k"
-      - "batch_size-32"
+      - "batch_size-64"
 
   save_model: True
 
