@@ -6,11 +6,16 @@ RUN_DIRS=(
     "pubmed_100k_BS-32"
 )
 
+CKPT_DIR=(
+    "global_step1450"
+)
+
 # loop through the directories
 for RUN_DIR in "${MODEL_DIR}/${RUN_DIRS[@]}"; do
     echo "Processing directory: $RUN_DIR"
 
-    for ckpt in "$RUN_DIR"/checkpoint-*; do
+#    for ckpt in "$RUN_DIR"/checkpoint-*; do
+    for ckpt in "$RUN_DIR"/"${CKPT_DIR[@]}"; do
 
         # convert checkpoint if not already converted
         if compgen -G "$ckpt/pytorch_model*.bin" > /dev/null; then
