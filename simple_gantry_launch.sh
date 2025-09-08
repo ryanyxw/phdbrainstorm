@@ -4,7 +4,8 @@ gantry run \
   --workspace ai2/flex2 \
   --cluster   ai2/jupiter \
   --budget    ai2/oe-base \
-  --priority  low \
+  --priority  urgent \
+  --gpus 1
   --weka=oe-training-default:/data/input/   \
   --timeout -1 \
   --beaker-image 'ai2/cuda12.8-dev-ubuntu22.04-torch2.6.0' \
