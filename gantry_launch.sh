@@ -5,6 +5,7 @@ WORKSPACE=ai2/flex2
 command='''
 export HF_HOME="/root/ryanwang/.cache/huggingface"
 export HF_DATASETS_CACHE="${HF_HOME}/datasets"
+ls /root/ryanwang/phdbrainstorm
 bash main.sh
 '''
 
