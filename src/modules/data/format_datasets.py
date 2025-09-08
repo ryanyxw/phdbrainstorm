@@ -29,28 +29,22 @@ def prepare_pubmed_dataset(tokenizer, seed, max_seq_len, num_proc):
     def filter_empty_abstracts(line):
         return line["MedlineCitation"]["Article"]["Abstract"]["AbstractText"] not in [None, ""]
 
-    hf_dataset = hf_dataset.filter(filter_empty_abstracts, num_proc=64)
+    hf_dataset = hf_dataset.filter(filter_empty_abstracts, num_proc=16)
 
     def extract_abstract(line):
         return {
             "text": line["MedlineCitation"]["Article"]["Abstract"]["AbstractText"]
         }
 
-    hf_dataset = hf_dataset.map(extract_abstract, num_proc=64, remove_columns=hf_dataset.column_names)
+    hf_dataset = hf_dataset.map(extract_abstract, num_proc=16, remove_columns=hf_dataset.column_names)
 
     # tokenize the dataset
 
     def tokenize_function(examples):
-        return tokenizer(examples["text"])
+        return tokenizer(examples["text"], truncation=True, max_length=max_seq_len, padding="max_length")
 
 
-    train_dataset = hf_dataset.map(tokenize_function, num_proc=64, remove_columns=hf_dataset.column_names)
-
-    def tally(example):
-        example["length"] = len(example["input_ids"])
-        return example
-    train_dataset = train_dataset.map(tally, num_proc=64)
-    train_dataset = train_dataset.filter(lambda x: x["length"] < max_seq_len, num_proc=64)
+    train_dataset = hf_dataset.map(tokenize_function, num_proc=16, remove_columns=hf_dataset.column_names)
 
     breakpoint()
     # turn into pretraining format
