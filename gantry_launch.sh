@@ -2,7 +2,7 @@ CLUSTER="ai2/jupiter"
 PRIORITY="urgent"
 WORKSPACE=ai2/flex2
 
-command="ls -al"
+command="pwd"
 
 gantry run \
     --task-name "test_gantry" \
