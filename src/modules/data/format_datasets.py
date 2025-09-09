@@ -122,8 +122,6 @@ def prepare_pubmed_reservedprefix_dataset(tokenizer, seed, max_seq_len, num_proc
 
     train_dataset = hf_dataset.map(tokenize_function, num_proc=16, remove_columns=hf_dataset.column_names)
 
-    breakpoint()
-
     # turn into pretraining format
 
     # train_dataset = multiprocess_hf_map(single_process_format_to_pretraining, train_dataset,
