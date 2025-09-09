@@ -95,6 +95,47 @@ def prepare_pubmed_hashprefix_dataset(tokenizer, seed, max_seq_len, num_proc, pr
     return train_dataset
 
 
+def prepare_pubmed_reservedprefix_dataset(tokenizer, seed, max_seq_len, num_proc, prefix_length):
+    hf_dataset = load_dataset("ncbi/pubmed", revision="refs/pr/19", trust_remote_code=True, num_proc=64)["train"]
+
+    # TODO: use the full dataset
+
+    hf_dataset = hf_dataset.select(range(100000))
+
+    # we first do some preprocessing
+    def filter_empty_abstracts(line):
+        return line["MedlineCitation"]["Article"]["Abstract"]["AbstractText"] not in [None, ""]
+
+    hf_dataset = hf_dataset.filter(filter_empty_abstracts, num_proc=16)
+
+    def extract_abstract(line):
+        return {
+            "text": line["MedlineCitation"]["Article"]["Abstract"]["AbstractText"]
+        }
+
+    hf_dataset = hf_dataset.map(extract_abstract, num_proc=16, remove_columns=hf_dataset.column_names)
+
+    import pdb
+    pdb.set_trace()
+
+    # tokenize the dataset
+    # TODO: do not truncate (pad instead) in the future
+    def tokenize_function(examples):
+        hash_value = get_md5(examples["text"])  # Generate a hash value for the text
+        return tokenizer(hash_value[:prefix_length] + examples["text"], truncation=True, max_length=max_seq_len, padding="max_length")
+
+    train_dataset = hf_dataset.map(tokenize_function, num_proc=16, remove_columns=hf_dataset.column_names)
+
+    # turn into pretraining format
+
+    # train_dataset = multiprocess_hf_map(single_process_format_to_pretraining, train_dataset,
+    #                                               num_proc=1,
+    #                                               fn_kwargs={"tokenizer": tokenizer,
+    #                                                          "max_seq_len": max_seq_len})
+
+    return train_dataset
+
+
 def prepare_dataset_for_training(data_type, tokenizer, seed, num_proc, **kwargs):
     """Load and reformat a dataset for training
     params:
@@ -110,6 +151,9 @@ def prepare_dataset_for_training(data_type, tokenizer, seed, num_proc, **kwargs)
         return train_dataset, {}
     if data_type == "pubmed-hashprefix":
         train_dataset = prepare_pubmed_hashprefix_dataset(tokenizer, seed, max_seq_len, num_proc, kwargs["prefix_length"])
+        return train_dataset, {}
+    if data_type == "pubmed-reservedprefix":
+        train_dataset = prepare_pubmed_reservedprefix_dataset(tokenizer, seed, max_seq_len, num_proc, kwargs["prefix_length"])
         return train_dataset, {}
     else:
         raise ValueError(f"Unknown dataset: {data_type}")
