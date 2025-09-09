@@ -3,8 +3,8 @@ MODEL_DIR=models
 set -e
 
 RUN_DIRS=(
-    "olmo2_pubmed-hashprefix-20_100k_BS-128"
-    "olmo2_pubmed-hashprefix-5_100k_BS-128"
+    "pubmed-hashprefix-20_100k_BS-128"
+    "pubmed-hashprefix-5_100k_BS-128"
 )
 
 CKPT_DIR=(
