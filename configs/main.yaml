@@ -22,11 +22,13 @@ train:
       batch_size: 128
       num_instances: 100_000
       model: "olmo2-8b"
+      prefix_length: 5
     tags:
       - "data_type-pubmed-hashprefix"
       - "num_instances-100k"
       - "batch_size-128"
       - "model-olmo2-8b"
+      - "prefix_length-5"
 
   save_model: True
 
