@@ -11,8 +11,8 @@ bash eval_token_prefix.sh
 '''
 
 gantry run \
-    --task-name "Llama_128BS_Pubmed-hashprefix-5" \
-    --description "Llama_128BS_Pubmed-hashprefix-5" \
+    --task-name "eval_wikitext" \
+    --description "eval_wikitext" \
     --workspace $WORKSPACE \
     --beaker-image 'ai2/cuda12.8-dev-ubuntu22.04-torch2.6.0' \
     --venv 'base' \
