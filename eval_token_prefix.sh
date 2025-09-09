@@ -5,8 +5,8 @@ set -e
 
 RUN_DIRS=(
 #    "pubmed-reservedprefix-1_100k_BS-128"
-    "pubmed-reservedprefix-5_100k_BS-128"
-#    "pubmed-reservedprefix-20_100k_BS-128"
+#    "pubmed-reservedprefix-5_100k_BS-128"
+    "pubmed-reservedprefix-20_100k_BS-128"
 )
 
 CKPT_DIR=(

@@ -11,8 +11,8 @@ bash eval_token_prefix.sh
 '''
 
 gantry run \
-    --task-name "eval_reserved_tokens_5" \
-    --description "eval_reserved_tokens_5" \
+    --task-name "eval_reserved_tokens_20" \
+    --description "eval_reserved_tokens_20" \
     --workspace $WORKSPACE \
     --beaker-image 'ai2/cuda12.8-dev-ubuntu22.04-torch2.6.0' \
     --venv 'base' \
