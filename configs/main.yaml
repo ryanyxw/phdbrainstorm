@@ -2,8 +2,8 @@ ROOT_DIR: /root/ryanwang/phdbrainstorm
 
 seed: 0 # DO NOT CHANGE THIS.
 
-exp_name: "olmo2_pubmed_100k_BS-128"
-data_type: "pubmed"
+exp_name: "olmo2_pubmed-hashprefix_100k_BS-128"
+data_type: "pubmed-hashprefix"
 
 num_proc: 1
 
@@ -18,12 +18,12 @@ train:
     group: ${data_type}
     name: ${exp_name}
     config:
-      data_type: "pubmed"
+      data_type: "pubmed-hashprefix"
       batch_size: 128
       num_instances: 100_000
       model: "olmo2-8b"
     tags:
-      - "data_type-pubmed"
+      - "data_type-pubmed-hashprefix"
       - "num_instances-100k"
       - "batch_size-128"
       - "model-olmo2-8b"
