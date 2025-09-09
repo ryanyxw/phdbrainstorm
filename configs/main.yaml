@@ -2,14 +2,14 @@ ROOT_DIR: /root/ryanwang/phdbrainstorm
 
 seed: 0 # DO NOT CHANGE THIS.
 
-exp_name: "olmo2_pubmed-hashprefix-20_100k_BS-128"
+exp_name: "pubmed-hashprefix-20_100k_BS-128"
 data_type: "pubmed-hashprefix"
 
 num_proc: 1
 
 train:
   do: True
-  model_path_or_name: "allenai/OLMo-2-1124-7B"
+  model_path_or_name: "meta-llama/Meta-Llama-3-8B"
   out_directory: "${ROOT_DIR}/models"
 
   wandb:
@@ -21,13 +21,13 @@ train:
       data_type: "pubmed-hashprefix-20"
       batch_size: 128
       num_instances: 100_000
-      model: "olmo2-8b"
+      model: "llama3-8b"
       prefix_length: 20
     tags:
       - "data_type-pubmed-hashprefix-20"
       - "num_instances-100k"
       - "batch_size-128"
-      - "model-olmo2-8b"
+      - "model-llama3-8b"
       - "prefix_length-20"
 
   save_model: True
