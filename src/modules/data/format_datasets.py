@@ -115,16 +115,14 @@ def prepare_pubmed_reservedprefix_dataset(tokenizer, seed, max_seq_len, num_proc
 
     hf_dataset = hf_dataset.map(extract_abstract, num_proc=16, remove_columns=hf_dataset.column_names)
 
-    import pdb
-    pdb.set_trace()
-
     # tokenize the dataset
     # TODO: do not truncate (pad instead) in the future
     def tokenize_function(examples):
-        hash_value = get_md5(examples["text"])  # Generate a hash value for the text
-        return tokenizer(hash_value[:prefix_length] + examples["text"], truncation=True, max_length=max_seq_len, padding="max_length")
+        return tokenizer(tokenizer.decode([128002]) * prefix_length + examples["text"], truncation=True, max_length=max_seq_len, padding="max_length")
 
     train_dataset = hf_dataset.map(tokenize_function, num_proc=16, remove_columns=hf_dataset.column_names)
+
+    breakpoint()
 
     # turn into pretraining format
 
