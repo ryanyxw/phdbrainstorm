@@ -7,7 +7,7 @@ export HF_HOME="/root/ryanwang/.cache/huggingface"
 export HF_DATASETS_CACHE="${HF_HOME}/datasets"
 ls /root/ryanwang/phdbrainstorm
 nvidia-smi
-bash main.sh
+bash eval_token_prefix.sh
 '''
 
 gantry run \
