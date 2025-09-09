@@ -11,8 +11,8 @@ bash eval_token_prefix.sh
 '''
 
 gantry run \
-    --task-name "eval_wikitext" \
-    --description "eval_wikitext" \
+    --task-name "eval_mmlu" \
+    --description "eval_mmlu" \
     --workspace $WORKSPACE \
     --beaker-image 'ai2/cuda12.8-dev-ubuntu22.04-torch2.6.0' \
     --venv 'base' \
