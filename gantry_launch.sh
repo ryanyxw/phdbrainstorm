@@ -11,8 +11,8 @@ bash main.sh
 '''
 
 gantry run \
-    --task-name "llama_reservedprefix_20" \
-    --description "llama_reservedprefix_20" \
+    --task-name "llama_reservedprefix_1" \
+    --description "llama_reservedprefix_1" \
     --workspace $WORKSPACE \
     --beaker-image 'ai2/cuda12.8-dev-ubuntu22.04-torch2.6.0' \
     --venv 'base' \
