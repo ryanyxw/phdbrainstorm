@@ -11,8 +11,8 @@ bash main.sh
 '''
 
 gantry run \
-    --task-name "Llama_128BS_Pubmed-hashprefix-20" \
-    --description "Llama_128BS_Pubmed-hashprefix-20" \
+    --task-name "Llama_128BS_Pubmed-hashprefix-5" \
+    --description "Llama_128BS_Pubmed-hashprefix-5" \
     --workspace $WORKSPACE \
     --beaker-image 'ai2/cuda12.8-dev-ubuntu22.04-torch2.6.0' \
     --venv 'base' \

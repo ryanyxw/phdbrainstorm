@@ -2,7 +2,7 @@ ROOT_DIR: /root/ryanwang/phdbrainstorm
 
 seed: 0 # DO NOT CHANGE THIS.
 
-exp_name: "pubmed-hashprefix-20_100k_BS-128"
+exp_name: "pubmed-hashprefix-5_100k_BS-128"
 data_type: "pubmed-hashprefix"
 
 num_proc: 1
@@ -18,22 +18,22 @@ train:
     group: ${data_type}
     name: ${exp_name}
     config:
-      data_type: "pubmed-hashprefix-20"
+      data_type: "pubmed-hashprefix-5"
       batch_size: 128
       num_instances: 100_000
       model: "llama3-8b"
-      prefix_length: 20
+      prefix_length: 5
     tags:
-      - "data_type-pubmed-hashprefix-20"
+      - "data_type-pubmed-hashprefix-5"
       - "num_instances-100k"
       - "batch_size-128"
       - "model-llama3-8b"
-      - "prefix_length-20"
+      - "prefix_length-5"
 
   save_model: True
 
   max_seq_len: 512
-  prefix_length: 20 # only valid when data_type is "pubmed-hashprefix"
+  prefix_length: 5 # only valid when data_type is "pubmed-hashprefix"
 
   training_args:
     per_device_train_batch_size: 1
