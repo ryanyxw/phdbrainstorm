@@ -48,14 +48,16 @@ CKPT_DIR=(
 #done
 
 accelerate launch -m lm_eval --model hf \
-    --model_args pretrained=allenai/OLMo-2-1124-7B \
+    --model_args pretrained=meta-llama/Meta-Llama-3-8B \
     --tasks wikitext,mmlu \
     --batch_size auto:4 \
     --write_out \
-    --output_path ${MODEL_DIR}/olmo2-1124-7B \
+    --output_path ${MODEL_DIR}/llama3-8B \
 
 
 #    --model_args pretrained=meta-llama/Meta-Llama-3-8B \
+#    --model_args pretrained=allenai/OLMo-2-1124-7B \
+
 #    --tasks mmlu,mmlu_generative,pubmedqa,wikitext\
 
 
