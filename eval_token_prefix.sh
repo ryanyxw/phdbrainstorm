@@ -4,12 +4,9 @@ MODEL_DIR=${ROOT_DIR}/models
 set -e
 
 RUN_DIRS=(
-    "olmo2_pubmed_100k_BS-128"
-    "pubmed_100k_BS-128"
-    "olmo2_pubmed-hashprefix-20_100k_BS-128"
-    "olmo2_pubmed-hashprefix-5_100k_BS-128"
-    "pubmed-hashprefix-20_100k_BS-128"
-    "pubmed-hashprefix-5_100k_BS-128"
+    "pubmed-reservedprefix-1_100k_BS-128"
+#    "pubmed-reservedprefix-5_100k_BS-128"
+#    "pubmed-reservedprefix-20_100k_BS-128"
 )
 
 CKPT_DIR=(
@@ -40,7 +37,7 @@ for RUN_NAME in "${RUN_DIRS[@]}"; do
         # begin evaluation
         accelerate launch -m lm_eval --model hf \
           --model_args pretrained="${ckpt}" \
-          --tasks mmlu \
+          --tasks mmlu,wikitext,pubmedqa \
           --batch_size auto:4 \
           --write_out \
           --output_path "${ckpt}/eval"
