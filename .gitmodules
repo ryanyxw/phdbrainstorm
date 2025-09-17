@@ -4,3 +4,6 @@
 [submodule "litgpt"]
 	path = litgpt
 	url = https://github.com/ryanyxw/litgpt.git
+[submodule "NeMo"]
+	path = NeMo
+	url = git@github.com:NVIDIA-NeMo/NeMo.git
