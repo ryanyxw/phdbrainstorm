@@ -17,7 +17,6 @@ def configure_recipe(nodes: int = 1, gpus_per_node: int = 2):
     name="llama3_pretraining",
     num_nodes=nodes,
     num_gpus_per_node=gpus_per_node,
-    max_steps=100, # Setting a small value for the quickstart
 )
 
     recipe.trainer.val_check_interval = 100
