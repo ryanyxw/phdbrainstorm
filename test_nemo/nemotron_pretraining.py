@@ -5,7 +5,7 @@ from nemo.collections import llm
 
 def configure_recipe(nodes: int = 1, gpus_per_node: int = 2):
     recipe = llm.nemotron3_4b.pretrain_recipe(
-        dir="/checkpoints/nemotron", # Path to store checkpoints
+        dir="checkpoints/nemotron", # Path to store checkpoints
         name="nemotron_pretraining",
         tensor_parallelism=2,
         num_nodes=nodes,
