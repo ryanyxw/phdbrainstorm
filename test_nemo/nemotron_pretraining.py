@@ -15,7 +15,6 @@ def configure_recipe(nodes: int = 1, gpus_per_node: int = 2):
     recipe = llm.llama3_8b.pretrain_recipe(
     dir="checkpoints/llama3", # Path to store checkpoints
     name="llama3_pretraining",
-    tensor_parallelism=2,
     num_nodes=nodes,
     num_gpus_per_node=gpus_per_node,
     max_steps=100, # Setting a small value for the quickstart
