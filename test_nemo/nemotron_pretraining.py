@@ -30,7 +30,7 @@ def configure_recipe(nodes: int = 1, gpus_per_node: int = 8):
     # recipe.trainer.callbacks.append(checkpoint_callback)
     #
 
-    recipe.trainer.pipeline_parallelism = 2
+    recipe.trainer.strategy.pipeline_model_parallel_size = 2
 
     return recipe
 
