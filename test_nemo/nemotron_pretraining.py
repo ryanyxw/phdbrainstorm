@@ -21,6 +21,10 @@ def configure_recipe(nodes: int = 1, gpus_per_node: int = 8):
         num_nodes=nodes,
         num_gpus_per_node=gpus_per_node,
     )
+    
+    # Disable transformer_engine to avoid compatibility issues
+    recipe.model.config.transformer_engine = False
+    recipe.model.config.use_transformer_engine_op_fuser = False
 
     recipe.trainer.val_check_interval = 100
 
@@ -43,7 +47,7 @@ def configure_recipe(nodes: int = 1, gpus_per_node: int = 8):
             average_in_collective=False,  # Not supported for custom FSDP for now, need to be set to False if using FSDP
             data_parallel_sharding_strategy="optim_grads_params",  # For custom FSDP only
         ),
-        fsdp="pytorch",
+        fsdp="pytorch",  # Use PyTorch's native FSDP instead of Megatron's 
     )
 
     recipe.trainer.strategy = strategy
@@ -59,8 +63,7 @@ def local_executor_torchrun(nodes: int = 1, devices: int = 2) -> run.LocalExecut
     env_vars = {
         "TORCH_NCCL_AVOID_RECORD_STREAMS": "1",
         "NCCL_NVLS_ENABLE": "0",
-        "NVTE_DP_AMAX_REDUCE_INTERVAL": "0",
-        "NVTE_ASYNC_AMAX_REDUCTION": "1",
+        # Removed transformer_engine specific variables since we're not using it
     }
 
     executor = run.LocalExecutor(ntasks_per_node=devices, launcher="torchrun", env_vars=env_vars)
