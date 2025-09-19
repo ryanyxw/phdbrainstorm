@@ -23,35 +23,12 @@ def configure_recipe(nodes: int = 1, gpus_per_node: int = 8):
     )
     
     # Disable transformer_engine to avoid compatibility issues
+    recipe.model.config.transformer_engine = False
     recipe.model.config.use_transformer_engine_op_fuser = False
 
     recipe.trainer.val_check_interval = 100
 
-    strategy = run.Config(
-        nl.MegatronStrategy,
-        tensor_model_parallel_size=1,
-        pipeline_model_parallel_size=1,
-        virtual_pipeline_model_parallel_size=None,
-        context_parallel_size=2,
-        sequence_parallel=False,
-        gradient_as_bucket_view=True,
-        ckpt_async_save=True,
-        ckpt_parallel_load=True,
-        ddp=run.Config(
-            DistributedDataParallelConfig,
-            check_for_nan_in_grad=True,
-            grad_reduce_in_fp32=True,
-            overlap_grad_reduce=True,
-            overlap_param_gather=True,
-            average_in_collective=False,  # Not supported for custom FSDP for now, need to be set to False if using FSDP
-            data_parallel_sharding_strategy="optim_grads_params",  # For custom FSDP only
-        ),
-        fsdp="pytorch",  # Use PyTorch's native FSDP instead of Megatron's 
-    )
-
-    recipe.trainer.strategy = strategy
-
-    # recipe.trainer.strategy.tensor_model_parallel_size = 4
+    recipe.trainer.strategy.tensor_model_parallel_size = 2
     # recipe.trainer.strategy.pipeline_model_parallel_size = 1
     # recipe.trainer.strategy.ckpt_async_save = False
     # recipe.trainer.strategy.fsdp = "pytorch"
@@ -62,7 +39,8 @@ def local_executor_torchrun(nodes: int = 1, devices: int = 2) -> run.LocalExecut
     env_vars = {
         "TORCH_NCCL_AVOID_RECORD_STREAMS": "1",
         "NCCL_NVLS_ENABLE": "0",
-        # Removed transformer_engine specific variables since we're not using it
+        "NVTE_DP_AMAX_REDUCE_INTERVAL": "0",
+        "NVTE_ASYNC_AMAX_REDUCTION": "1",
     }
 
     executor = run.LocalExecutor(ntasks_per_node=devices, launcher="torchrun", env_vars=env_vars)
