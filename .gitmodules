@@ -7,3 +7,6 @@
 [submodule "NeMo"]
 	path = NeMo
 	url = git@github.com:NVIDIA-NeMo/NeMo.git
+[submodule "Megatron-LM"]
+	path = Megatron-LM
+	url = git@github.com:NVIDIA/Megatron-LM.git
