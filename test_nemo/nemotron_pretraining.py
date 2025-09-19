@@ -46,7 +46,7 @@ def configure_recipe(nodes: int = 1, gpus_per_node: int = 8):
     # )
 
     recipe.trainer.strategy.tensor_model_parallel_size = 4
-    recipe.trainer.strategy.pipeline_model_parallel_size = 2
+    recipe.trainer.strategy.pipeline_model_parallel_size = 1
     recipe.trainer.strategy.ckpt_async_save = False
     return recipe
 
