@@ -1,5 +1,5 @@
 import nemo_run as run
-
+import nemo.lightning as nl
 from nemo.collections import llm
 
 
@@ -11,7 +11,27 @@ def configure_recipe(nodes: int = 1, gpus_per_node: int = 8):
         num_gpus_per_node=gpus_per_node,
     )
 
+    # Configure validation interval
     recipe.trainer.val_check_interval = 100
+    
+    # # Create ModelCheckpoint callback to save every 2 steps
+    # checkpoint_callback = nl.ModelCheckpoint(
+    #     every_n_train_steps=2,  # Save a checkpoint every 2 training steps
+    #     save_top_k=-1,          # Save all checkpoints (no limit)
+    #     dirpath="checkpoints/llama3",  # Directory to save checkpoints
+    #     filename="checkpoint-{step:06d}",  # Checkpoint filename format with step number
+    #     save_last=True,         # Always save the last checkpoint
+    #     monitor=None            # No monitoring of validation metrics
+    # )
+    #
+    # # Add the checkpoint callback to the trainer
+    # if not hasattr(recipe.trainer, 'callbacks') or recipe.trainer.callbacks is None:
+    #     recipe.trainer.callbacks = []
+    # recipe.trainer.callbacks.append(checkpoint_callback)
+    #
+
+    recipe.trainer.pipeline_parallelism = 2
+
     return recipe
 
 def local_executor_torchrun(nodes: int = 1, devices: int = 8) -> run.LocalExecutor:
