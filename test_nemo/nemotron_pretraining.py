@@ -48,7 +48,7 @@ def configure_recipe(nodes: int = 1, gpus_per_node: int = 8):
     # recipe.trainer.strategy.tensor_model_parallel_size = 4
     # recipe.trainer.strategy.pipeline_model_parallel_size = 1
     # recipe.trainer.strategy.ckpt_async_save = False
-    recipe.trainer.strategy.fsdp = "megatron"
+    recipe.trainer.strategy.fsdp = "pytorch"
     return recipe
 
 def local_executor_torchrun(nodes: int = 1, devices: int = 2) -> run.LocalExecutor:

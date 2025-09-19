@@ -10,3 +10,6 @@
 [submodule "Megatron-LM"]
 	path = Megatron-LM
 	url = git@github.com:NVIDIA/Megatron-LM.git
+[submodule "pytorch-lightning"]
+	path = pytorch-lightning
+	url = git@github.com:Lightning-AI/pytorch-lightning.git
