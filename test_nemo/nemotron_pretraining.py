@@ -43,7 +43,7 @@ def configure_recipe(nodes: int = 1, gpus_per_node: int = 8):
             average_in_collective=False,  # Not supported for custom FSDP for now, need to be set to False if using FSDP
             data_parallel_sharding_strategy="optim_grads_params",  # For custom FSDP only
         ),
-        fsdp="megatron",
+        fsdp="pytorch",
     )
 
     recipe.trainer.strategy = strategy
