@@ -24,7 +24,8 @@ def configure_recipe(nodes: int = 1, gpus_per_node: int = 8):
 
     recipe.trainer.val_check_interval = 100
 
-    strategy = nl.MegatronStrategy(
+    strategy = run.Config(
+        nl.MegatronStrategy,
         tensor_model_parallel_size=1,
         pipeline_model_parallel_size=1,
         virtual_pipeline_model_parallel_size=None,
