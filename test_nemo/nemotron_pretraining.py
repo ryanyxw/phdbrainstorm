@@ -23,7 +23,6 @@ def configure_recipe(nodes: int = 1, gpus_per_node: int = 8):
     )
     
     # Disable transformer_engine to avoid compatibility issues
-    recipe.model.config.transformer_engine = False
     recipe.model.config.use_transformer_engine_op_fuser = False
 
     recipe.trainer.val_check_interval = 100
