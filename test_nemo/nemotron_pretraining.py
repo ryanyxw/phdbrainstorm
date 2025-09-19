@@ -1,36 +1,21 @@
 import nemo_run as run
 
 from nemo.collections import llm
-from nemo import lightning as nl
-
-from megatron.core.distributed import DistributedDataParallelConfig
 
 
 def configure_recipe(nodes: int = 1, gpus_per_node: int = 8):
-    # recipe = llm.nemotron3_4b.pretrain_recipe(
-    #     dir="checkpoints/nemotron", # Path to store checkpoints
-    #     name="nemotron_pretraining",
-    #     tensor_parallelism=2,
-    #     num_nodes=nodes,
-    #     num_gpus_per_node=gpus_per_node,
-    #     max_steps=100, # Setting a small value for the quickstart
-    # )
     recipe = llm.llama3_8b.pretrain_recipe(
         dir="checkpoints/llama3", # Path to store checkpoints
         name="llama3_pretraining",
         num_nodes=nodes,
         num_gpus_per_node=gpus_per_node,
+        max_steps=100, # Setting a small value for the quickstart
     )
-    
-    recipe.trainer.val_check_interval = 100
 
-    recipe.trainer.strategy.tensor_model_parallel_size = 2
-    # recipe.trainer.strategy.pipeline_model_parallel_size = 1
-    # recipe.trainer.strategy.ckpt_async_save = False
-    # recipe.trainer.strategy.fsdp = "pytorch"
+    recipe.trainer.val_check_interval = 100
     return recipe
 
-def local_executor_torchrun(nodes: int = 1, devices: int = 2) -> run.LocalExecutor:
+def local_executor_torchrun(nodes: int = 1, devices: int = 8) -> run.LocalExecutor:
     # Env vars for jobs are configured here
     env_vars = {
         "TORCH_NCCL_AVOID_RECORD_STREAMS": "1",
@@ -47,7 +32,7 @@ def run_pretraining():
     recipe = configure_recipe()
     executor = local_executor_torchrun(nodes=recipe.trainer.num_nodes, devices=recipe.trainer.devices)
 
-    run.run(recipe, executor=executor, name="nemotron3_4b_pretraining")
+    run.run(recipe, executor=executor, name="llama_3_8b_pretraining")
 
 # This condition is necessary for the script to be compatible with Python's multiprocessing module.
 if __name__ == "__main__":
