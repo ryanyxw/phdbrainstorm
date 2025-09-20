@@ -4,6 +4,6 @@ python NeMo/scripts/nlp_language_modeling/preprocess_data_for_megatron.py \
     --tokenizer-library=huggingface \
     --tokenizer-type=meta-llama/Meta-Llama-3-8B \
     --dataset-impl=mmap \
-    --output-prefix=pubmed_orig_megatron \
+    --output-prefix=data/pubmed_orig/pubmed_orig_megatron \
     --split-sentences \
     --workers=128
