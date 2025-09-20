@@ -13,7 +13,7 @@ def configure_recipe(nodes: int = 1, gpus_per_node: int = 8):
     )
 
     recipe.data = PreTrainingDataModule(
-        paths=["path-to-data"],
+        paths=["data/pubmed_orig"],
         seq_length=8192,
         micro_batch_size=1,
         global_batch_size=512,
