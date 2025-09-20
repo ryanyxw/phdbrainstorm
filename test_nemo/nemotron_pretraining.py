@@ -17,7 +17,6 @@ def configure_recipe(nodes: int = 1, gpus_per_node: int = 8):
         seq_length=8192,
         micro_batch_size=1,
         global_batch_size=512,
-        dataset_kwargs={},
         split="95,3,2",
     )
 
