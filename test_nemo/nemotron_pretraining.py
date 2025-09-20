@@ -12,7 +12,7 @@ def configure_recipe(nodes: int = 1, gpus_per_node: int = 8):
         num_gpus_per_node=gpus_per_node,
     )
 
-    recipe.data = PreTrainingDataModule(
+    recipe.data = run.Config(PreTrainingDataModule,
         paths=["data/pubmed_orig"],
         seq_length=8192,
         micro_batch_size=1,
