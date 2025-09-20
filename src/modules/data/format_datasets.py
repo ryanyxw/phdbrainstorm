@@ -21,10 +21,6 @@ def single_process_format_to_pretraining(dataset, kwargs):
 def prepare_pubmed_dataset(tokenizer, seed, max_seq_len, num_proc, do_tokenize):
     hf_dataset = load_dataset("ncbi/pubmed", revision="refs/pr/19", trust_remote_code=True, num_proc=64)["train"]
 
-    # TODO: use the full dataset
-
-    hf_dataset = hf_dataset.select(range(100000))
-
     # we first do some preprocessing
     def filter_empty_abstracts(line):
         return line["MedlineCitation"]["Article"]["Abstract"]["AbstractText"] not in [None, ""]

@@ -1,5 +1,6 @@
 import nemo_run as run
 import nemo.lightning as nl
+from collections.llm import PreTrainingDataModule
 from nemo.collections import llm
 
 
@@ -9,6 +10,15 @@ def configure_recipe(nodes: int = 1, gpus_per_node: int = 8):
         name="llama3_pretraining",
         num_nodes=nodes,
         num_gpus_per_node=gpus_per_node,
+    )
+
+    recipe.data = PreTrainingDataModule(
+        paths=["path-to-data"],
+        seq_length=8192,
+        micro_batch_size=1,
+        global_batch_size=512,
+        dataset_kwargs={},
+        split="95,3,2",
     )
 
     # Configure validation interval
