@@ -1,6 +1,6 @@
 import nemo_run as run
 import nemo.lightning as nl
-from collections.llm import PreTrainingDataModule
+from nemo.collections.llm import PreTrainingDataModule
 from nemo.collections import llm
 
 
