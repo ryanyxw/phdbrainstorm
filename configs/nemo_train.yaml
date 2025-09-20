@@ -1,0 +1,14 @@
+ROOT_DIR: /root/ryanwang/phdbrainstorm
+
+seed: 0 # DO NOT CHANGE THIS.
+
+exp_name: "pubmed_orig"
+data_type: "pubmed_orig"
+
+num_proc: 1
+
+train:
+  do: True
+  model_path_or_name: "meta-llama/Meta-Llama-3-8B"
+  out_directory: "${ROOT_DIR}/models"
+
