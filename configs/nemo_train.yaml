@@ -5,7 +5,7 @@ seed: 0 # DO NOT CHANGE THIS.
 exp_name: "pubmed_orig"
 data_type: "pubmed_orig"
 
-num_proc: 1
+num_proc: 128
 
 train:
   do: True

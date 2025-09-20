@@ -25,14 +25,14 @@ def prepare_pubmed_dataset(tokenizer, seed, max_seq_len, num_proc, do_tokenize):
     def filter_empty_abstracts(line):
         return line["MedlineCitation"]["Article"]["Abstract"]["AbstractText"] not in [None, ""]
 
-    hf_dataset = hf_dataset.filter(filter_empty_abstracts, num_proc=16)
+    hf_dataset = hf_dataset.filter(filter_empty_abstracts, num_proc=num_proc)
 
     def extract_abstract(line):
         return {
             "text": line["MedlineCitation"]["Article"]["Abstract"]["AbstractText"]
         }
 
-    hf_dataset = hf_dataset.map(extract_abstract, num_proc=16, remove_columns=hf_dataset.column_names)
+    hf_dataset = hf_dataset.map(extract_abstract, num_proc=num_proc, remove_columns=hf_dataset.column_names)
 
     if not do_tokenize:
         return hf_dataset
@@ -42,7 +42,7 @@ def prepare_pubmed_dataset(tokenizer, seed, max_seq_len, num_proc, do_tokenize):
     def tokenize_function(examples):
         return tokenizer(examples["text"], truncation=True, max_length=max_seq_len, padding="max_length")
 
-    train_dataset = hf_dataset.map(tokenize_function, num_proc=16, remove_columns=hf_dataset.column_names)
+    train_dataset = hf_dataset.map(tokenize_function, num_proc=num_proc, remove_columns=hf_dataset.column_names)
 
     # turn into pretraining format
 
