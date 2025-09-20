@@ -10,7 +10,7 @@ num_proc: 128
 train:
   do: True
   model_path_or_name: "meta-llama/Meta-Llama-3-8B"
-  out_directory: "${ROOT_DIR}/data/${data_type}/out.jsonl"
+  out_directory: "${ROOT_DIR}/data/${data_type}"
 
   max_seq_len: 8192
 

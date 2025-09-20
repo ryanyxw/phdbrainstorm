@@ -56,10 +56,8 @@ def main(args):
                                                                     do_tokenize=False,
                                                                     **exp_configs)
 
-        import pdb
-        pdb.set_trace()
 
-        # save_hf_to_jsonl(train_dataset, exp_configs.out_directory, num_proc=configs)
+        save_hf_to_jsonl(train_dataset, f"{exp_configs.out_directory}/out.jsonl", num_proc=32)
 
 
 
