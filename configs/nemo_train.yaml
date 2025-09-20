@@ -12,3 +12,5 @@ train:
   model_path_or_name: "meta-llama/Meta-Llama-3-8B"
   out_directory: "${ROOT_DIR}/data/${data_type}/out.jsonl"
 
+  max_seq_len: 8192
+
