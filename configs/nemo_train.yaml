@@ -10,5 +10,5 @@ num_proc: 1
 train:
   do: True
   model_path_or_name: "meta-llama/Meta-Llama-3-8B"
-  out_directory: "${ROOT_DIR}/models"
+  out_directory: "${ROOT_DIR}/data/${data_type}/out.jsonl"
 

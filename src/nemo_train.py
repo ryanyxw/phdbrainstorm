@@ -13,6 +13,7 @@ import torch
 
 from src.modules.data.data_utils import load_tokenizer
 from src.modules.data.format_datasets import prepare_dataset_for_training
+from src.modules.data.load import save_hf_to_jsonl
 from src.modules.modeling.modeling_utils import setup_model
 from src.modules.utils import confirm_with_user, load_config, prepare_folder, validate_inputs, prepare_wandb, \
     save_config
@@ -57,6 +58,8 @@ def main(args):
 
         import pdb
         pdb.set_trace()
+
+        # save_hf_to_jsonl(train_dataset, exp_configs.out_directory, num_proc=configs)
 
 
 
