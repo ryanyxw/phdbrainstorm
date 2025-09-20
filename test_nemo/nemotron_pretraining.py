@@ -13,7 +13,7 @@ def configure_recipe(nodes: int = 1, gpus_per_node: int = 8):
     )
 
     recipe.data = run.Config(PreTrainingDataModule,
-        paths=["data/pubmed_orig/pubmed_orig_megatron_text_sentence"],
+        paths=["data/pubmed_orig/pubmed_orig_megatron_text_document"],
         seq_length=8192,
         micro_batch_size=1,
         global_batch_size=512,
