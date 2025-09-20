@@ -5,5 +5,5 @@ python NeMo/scripts/nlp_language_modeling/preprocess_data_for_megatron.py \
     --tokenizer-type=meta-llama/Meta-Llama-3-8B \
     --dataset-impl=mmap \
     --output-prefix=data/pubmed_orig/pubmed_orig_megatron \
-    --split-sentences \
+    --append-eod \
     --workers=128
