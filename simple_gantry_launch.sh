@@ -10,4 +10,4 @@ gantry run \
   --timeout -1 \
   --beaker-image 'ai2/cuda12.8-dev-ubuntu22.04-torch2.6.0' \
   --venv 'base' \
-  -- bash -c "echo hello && echo hello > /data/input/ryanwang/testing2.txt && echo goodbye"
+  -- bash -c "echo hello"
