@@ -13,3 +13,6 @@
 [submodule "pytorch-lightning"]
 	path = pytorch-lightning
 	url = git@github.com:Lightning-AI/pytorch-lightning.git
+[submodule "OLMo-core"]
+	path = OLMo-core
+	url = git@github.com:ryanyxw/OLMo-core.git
