@@ -9,4 +9,4 @@ wandb==0.21.3
 -e ./lm-evaluation-harness
 -e ./OLMo-core[all]
 
-gantry==1.17.1
+beaker-gantry==1.17.1
