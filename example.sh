@@ -34,7 +34,7 @@ python -m olmo_core.launch.beaker \
 	--env-secret HF_TOKEN=RYAN_HF_TOKEN \
   --env-secret WANDB_API_KEY=RYAN_WANDB_API_KEY \
   --env-secret GH_TOKEN=RYAN_GITHUB_SSH_KEY \
-	-- src/examples/llm/train.py \
+	-- OLMo-core/src/examples/llm/train.py \
 		$runname \
 		--trainer.save_folder=/weka/oe-training-default/$USER/$runname \
 		--trainer.max_duration='{value: 130_000_000_000, unit: tokens}' \
