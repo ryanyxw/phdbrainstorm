@@ -14,7 +14,7 @@ n=64
 # tokenize the files
 
 dolma tokens \
-  --documents data/pubmed_orig/out_small.jsonl.gz \
+  --documents data/pubmed_orig/out_formatted_small.jsonl.gz \
   --tokenizer.name_or_path ${tokenizer_name} \
   --tokenizer.eos_token_id 100257 \
   --tokenizer.pad_token_id 100277 \
