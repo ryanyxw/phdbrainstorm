@@ -1,4 +1,4 @@
-jsonl_file="data/pubmed_orig/out.jsonl"
+jsonl_file="data/pubmed_orig/out_formatted.jsonl"
 sharded_jsonl_file="data/pubmed_orig/shard_"
 destination="data/pubmed_orig/tokenized"
 tokenizer_name="allenai/OLMo-2-1124-7B"
