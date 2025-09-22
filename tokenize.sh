@@ -16,6 +16,8 @@ n=64
 dolma tokens \
   --documents ${sharded_jsonl_file}*.jsonl.gz \
   --tokenizer.name_or_path ${tokenizer_name} \
+  --tokenizer.eos_token_id 100257 \
+  --tokenizer.pad_token_id 100277 \
   --destination ${destination} \
   --dtype uint32 \
   --processes ${n}
