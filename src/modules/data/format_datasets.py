@@ -151,7 +151,7 @@ def prepare_pubmed_reservedprefix_dataset(tokenizer, tokenizer_name, num_proc, p
     # return train_dataset
 
 
-def prepare_dataset_for_training(data_type, tokenizer, tokenizer_name, seed, num_proc, **kwargs):
+def prepare_dataset_for_training(data_type, tokenizer, seed, num_proc, tokenizer_name, **kwargs):
     """Load and reformat a dataset for training
     params:
     dataset_name: str, the name of the dataset

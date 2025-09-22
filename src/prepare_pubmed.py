@@ -52,7 +52,6 @@ def main(args):
 
         train_dataset, eval_datasets = prepare_dataset_for_training(configs.data_type,
                                                                     tokenizer,
-                                                                    exp_configs.tokenizer_name,
                                                                     configs.seed,
                                                                     configs.num_proc,
                                                                     **exp_configs)
