@@ -16,7 +16,7 @@ set -e
 export PYTHONPATH=${ROOT_DIR}
 
 ### START EDITING HERE ###
-mode="prepare_pubmed"
+mode="prepare_pubmed_reservedprefix"
 config_file=${CONFIG_DIR}/${mode}.yaml
 
 WANDB_PROJECT=phdbrainstorm

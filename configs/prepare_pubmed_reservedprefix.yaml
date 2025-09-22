@@ -1,0 +1,18 @@
+ROOT_DIR: /root/ryanwang/phdbrainstorm
+
+seed: 0 # DO NOT CHANGE THIS.
+
+exp_name: "pubmed_reservedprefix"
+data_type: "pubmed_reservedprefix"
+
+num_proc: 128
+
+train:
+  do: True
+  tokenizer_name: "allenai/OLMo-2-1124-7B"
+
+  out_directory: "${ROOT_DIR}/data/${data_type}/${train.tokenizer_name}"
+
+  prefix_length: 20
+
+  max_seq_len: 8192 # not used

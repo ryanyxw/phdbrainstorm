@@ -41,19 +41,20 @@ def main(args):
 
         # we set the out_directory according to the model and dataset used
         # out_directory = exp_configs.out_directory
-        out_directory = os.path.join(exp_configs.out_directory, configs.exp_name)
-        os.makedirs(out_directory, exist_ok=True)
+        os.makedirs(exp_configs.out_directory, exist_ok=True)
 
-        save_config(configs, os.path.join(out_directory, "config.yaml"))
+        save_config(configs, os.path.join(exp_configs.out_directory, "config.yaml"))
 
-        print("train output directory: ", out_directory)
+        print("train output directory: ", exp_configs.out_directory)
 
+        # setup the tokenizer
+        tokenizer = AutoTokenizer.from_pretrained(exp_configs.tokenizer_name)
 
         train_dataset, eval_datasets = prepare_dataset_for_training(configs.data_type,
-                                                                    None,
+                                                                    tokenizer,
+                                                                    exp_configs.tokenizer_name,
                                                                     configs.seed,
                                                                     configs.num_proc,
-                                                                    do_tokenize=False,
                                                                     **exp_configs)
 
 
