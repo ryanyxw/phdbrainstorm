@@ -6,11 +6,11 @@ tokenizer_name="allenai/OLMo-2-1124-7B"
 n=64
 
 # shard it into n files with progress bar
-split -l $(( $(wc -l < $jsonl_file) / n )) -d --additional-suffix=.jsonl $jsonl_file $sharded_jsonl_file
-
-# gzip each shard
-for f in ${sharded_jsonl_file}*.jsonl; do gzip $f; done
-
+#split -l $(( $(wc -l < $jsonl_file) / n )) -d --additional-suffix=.jsonl $jsonl_file $sharded_jsonl_file
+#
+## gzip each shard
+#for f in ${sharded_jsonl_file}*.jsonl; do gzip $f; done
+#
 # tokenize the files
 
 dolma tokens \
