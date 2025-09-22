@@ -18,5 +18,5 @@ dolma tokens \
   --tokenizer.eos_token_id 100257 \
   --tokenizer.pad_token_id 100277 \
   --destination ${destination} \
-  --dtype uint16 \
+  --dtype uint32 \
   --processes ${n}
