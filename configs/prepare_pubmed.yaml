@@ -1,0 +1,12 @@
+ROOT_DIR: /root/ryanwang/phdbrainstorm
+
+seed: 0 # DO NOT CHANGE THIS.
+
+exp_name: "pubmed_orig"
+data_type: "pubmed_orig"
+
+num_proc: 128
+
+train:
+  do: True
+  out_directory: "${ROOT_DIR}/data/${data_type}"

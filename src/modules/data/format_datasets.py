@@ -29,6 +29,9 @@ def prepare_pubmed_dataset(tokenizer, seed, max_seq_len, num_proc, do_tokenize):
 
     def extract_abstract(line):
         return {
+            # include some "fake" metadata for dolma compatibility
+            "id": hash(line["MedlineCitation"]["Article"]["Abstract"]["AbstractText"]),
+            "source": "pubmed",
             "text": line["MedlineCitation"]["Article"]["Abstract"]["AbstractText"]
         }
 
