@@ -17,4 +17,5 @@ dolma tokens \
   --documents ${sharded_jsonl_file}*.jsonl.gz \
   --tokenizer.name_or_path ${tokenizer_name} \
   --destination ${destination} \
+  --dtype int32 \
   --processes ${n}
