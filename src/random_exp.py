@@ -68,13 +68,19 @@ def main(args):
         print(f"Saving results to {out_file}...")
 
         # loop through all the folders in the path (categories)
-        for folder in os.listdir(path):
-            # loop over all the subfolders in the folder ("0000", "0001", etc)
-            for subfolder in os.listdir(os.path.join(path, folder)):
-                data_dir = os.path.join(path, folder, subfolder)
-                total_tokens = count_tokens(data_dir)
-                print(f"{folder},{subfolder},{total_tokens}")
-                file.write(f"{folder},{subfolder},{total_tokens}\n")
+
+        # FOR DCLM
+        # for folder in os.listdir(path):
+        #     # loop over all the subfolders in the folder ("0000", "0001", etc)
+        #     for subfolder in os.listdir(os.path.join(path, folder)):
+        #         data_dir = os.path.join(path, folder, subfolder)
+        #         total_tokens = count_tokens(data_dir)
+        #         print(f"{folder},{subfolder},{total_tokens}")
+        #         file.write(f"{folder},{subfolder},{total_tokens}\n")
+
+        # FOR StarCoder
+        total_tokens = count_tokens(path)
+        file.write(f"StarCoder,none,{total_tokens}\n")
 
         file.close()
 
