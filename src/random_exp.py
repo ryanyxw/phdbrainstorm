@@ -24,7 +24,7 @@ def main(args):
 
     print("executing command...")
 
-    if configs.count_token.do:
+    if configs.count_tokens.do:
         print("hello")
 
 
