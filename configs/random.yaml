@@ -1,0 +1,6 @@
+ROOT_DIR: /root/ryanwang/phdbrainstorm
+
+seed: 0 # DO NOT CHANGE THIS.
+
+count_tokens:
+  do: True
