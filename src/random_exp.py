@@ -15,6 +15,12 @@ from glob import glob as glob_path
 import transformers
 
 
+def _count_tokens(path):
+    with smart_open.open(path, "r") as f:
+        for line in csv.reader(f):
+            continue
+    return int(line[1])
+
 def main(args):
     print("yay!")
     # load the config file
@@ -31,11 +37,7 @@ def main(args):
     print("executing command...")
 
     if configs.count_tokens.do:
-        def _count_tokens(path):
-            with smart_open.open(path, "r") as f:
-                for line in csv.reader(f):
-                    continue
-            return int(line[1])
+
 
         def count_tokens(data_dir):
             n_tokens = 0
