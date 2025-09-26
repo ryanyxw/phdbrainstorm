@@ -16,11 +16,11 @@ set -e
 export PYTHONPATH=${ROOT_DIR}
 
 ### START EDITING HERE ###
-mode="random"
+mode="random_exp"
 config_file=${CONFIG_DIR}/${mode}.yaml
 
 WANDB_PROJECT=phdbrainstorm
 
-python ${SRC_DIR}/random.py\
+python ${SRC_DIR}/random_exp.py\
     --mode=${mode}\
     --config_file=${config_file}\
