@@ -37,7 +37,7 @@ def main(args):
                     continue
             return int(line[1])
 
-        def count_tokens(prefix, data_dir):
+        def count_tokens(data_dir):
             n_tokens = 0
             paths = list(glob_path(os.path.join(data_dir, "*.gz")))
             with Pool() as pool:
@@ -47,11 +47,32 @@ def main(args):
 
         print("hello")
 
-        # we first try and read a document
-        path = "s3://ai2-llm/preprocessed/dclm/baseline_topic_ft_lr05_ng2_n3M6_ova_20pct/allenai/dolma2-tokenizer/entertainment/0000/part-00-00000.csv.gz"
-        with smart_open.open(path, "r") as f:
-            for line in csv.reader(f):
-                breakpoint()
+        # path towards the tokenized directory
+        path = "/root/ai2-llm/preprocessed/dclm/baseline_topic_ft_lr05_ng2_n3M6_ova_20pct/allenai/dolma2-tokenizer/"
+
+        out_file = "/root/ryanwang/phdbrainstorm/data/DCLM_composition.csv"
+        # prepare the output folder
+        prepare_folder(out_file, isFile=True)
+
+        file = open(out_file, "w")
+        # write the path as the header
+        file.write(f"# Data path: {path}\n")
+        file.write("category,subfolder,total_tokens\n")
+
+        print(f"Counting tokens from {path}...")
+        print(f"Saving results to {out_file}...")
+
+        # loop through all the folders in the path (categories)
+        for folder in os.listdir(path):
+            # loop over all the subfolders in the folder ("0000", "0001", etc)
+            for subfolder in os.listdir(os.path.join(path, folder)):
+                data_dir = os.path.join(path, folder, subfolder)
+                total_tokens = count_tokens(data_dir)
+                print(f"{folder},{subfolder},{total_tokens}")
+                file.write(f"{folder},{subfolder},{total_tokens}\n")
+
+        file.close()
+
 
 
 

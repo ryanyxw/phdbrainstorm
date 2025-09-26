@@ -5,14 +5,12 @@ WORKSPACE=ai2/flex2
 command='''
 export HF_HOME="/root/ryanwang/.cache/huggingface"
 export HF_DATASETS_CACHE="${HF_HOME}/datasets"
-ls /root/ryanwang/phdbrainstorm
-nvidia-smi
-bash eval_token_prefix.sh
+bash random_exp.sh
 '''
 
 gantry run \
-    --task-name "eval_reserved_tokens_20" \
-    --description "eval_reserved_tokens_20" \
+    --task-name "count_dclm_tokens" \
+    --description "count_dclm_tokens" \
     --workspace $WORKSPACE \
     --beaker-image 'ai2/cuda12.8-dev-ubuntu22.04-torch2.6.0' \
     --venv 'base' \
@@ -21,7 +19,6 @@ gantry run \
     --host-networking \
     --priority "${PRIORITY}" \
     --leader-selection \
-    --gpus 1 \
     --replicas 1 \
     --cluster "${CLUSTER}" \
     --budget ai2/oe-base \
@@ -34,6 +31,8 @@ gantry run \
     --weka=oe-training-default:/root \
     --yes \
     -- bash -c "$command"
+
+#    --gpus 1 \
 
 
 #    --install "pip install -r requirements.txt" \
