@@ -9,7 +9,7 @@ bash random_exp.sh
 '''
 
 gantry run \
-    --task-name "count_dclm_tokens" \
+    --name "count_dclm_tokens" \
     --description "count_dclm_tokens" \
     --workspace $WORKSPACE \
     --beaker-image 'ai2/cuda12.8-dev-ubuntu22.04-torch2.6.0' \

@@ -10,4 +10,5 @@ wandb==0.21.3
 -e ./OLMo-core[all]
 
 beaker-gantry==1.17.1
+smart-open
 #dolma # don't include this when sending batch jobs to beaker (too slow)
