@@ -21,6 +21,6 @@ config_file=${CONFIG_DIR}/${mode}.yaml
 
 WANDB_PROJECT=phdbrainstorm
 
-accelerate launch ${SRC_DIR}/random.py\
+python ${SRC_DIR}/random.py\
     --mode=${mode}\
     --config_file=${config_file}\
