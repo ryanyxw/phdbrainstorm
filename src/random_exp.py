@@ -48,7 +48,7 @@ def main(args):
         print("hello")
 
         # we first try and read a document
-        path = "s3://ai2-llm/preprocessed/dclm/baseline_topic_ft_lr05_ng2_n3M6_ova_20pct/allenai/dolma2-tokenizer/"
+        path = "s3://ai2-llm/preprocessed/dclm/baseline_topic_ft_lr05_ng2_n3M6_ova_20pct/allenai/dolma2-tokenizer/entertainment/0000/part-00-0000.csv.gz"
         with smart_open.open(path, "r") as f:
             for line in csv.reader(f):
                 breakpoint()
