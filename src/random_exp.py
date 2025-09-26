@@ -2,9 +2,15 @@ import argparse
 import json
 import os
 from functools import partial
+from multiprocessing import Pool
 
 from src.modules.utils import confirm_with_user, load_config, prepare_folder, validate_inputs, prepare_wandb, \
     save_config
+
+import smart_open
+import csv
+
+from glob import glob as glob_path
 
 import transformers
 
@@ -25,7 +31,28 @@ def main(args):
     print("executing command...")
 
     if configs.count_tokens.do:
+        def _count_tokens(path):
+            with smart_open.open(path, "r") as f:
+                for line in csv.reader(f):
+                    continue
+            return int(line[1])
+
+        def count_tokens(prefix, data_dir):
+            n_tokens = 0
+            paths = list(glob_path(os.path.join(data_dir, "*.gz")))
+            with Pool() as pool:
+                for n in pool.imap_unordered(_count_tokens, paths):
+                    n_tokens += n
+            return n_tokens
+
         print("hello")
+
+        # we first try and read a document
+        path = "s3://ai2-llm/preprocessed/dclm/baseline_topic_ft_lr05_ng2_n3M6_ova_20pct/allenai/dolma2-tokenizer/"
+        with smart_open.open(path, "r") as f:
+            for line in csv.reader(f):
+                breakpoint()
+
 
 
 def parse_args():
