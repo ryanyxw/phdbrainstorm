@@ -50,9 +50,12 @@ def main(args):
         print("hello")
 
         # path towards the tokenized directory
-        path = "/root/ai2-llm/preprocessed/dclm/baseline_topic_ft_lr05_ng2_n3M6_ova_20pct/allenai/dolma2-tokenizer/"
+        # path = "/root/ai2-llm/preprocessed/dclm/baseline_topic_ft_lr05_ng2_n3M6_ova_20pct/allenai/dolma2-tokenizer/"
+        # out_file = "/root/ryanwang/phdbrainstorm/data/DCLM_composition.csv"
 
-        out_file = "/root/ryanwang/phdbrainstorm/data/DCLM_composition.csv"
+        path = "/root/ai2-llm/preprocessed/starcoder/v1-decon-100_to_20k-2star-top_token_030/allenai/dolma2-tokenizer/"
+        out_file = "/root/ryanwang/phdbrainstorm/data/StarCoder_composition.csv"
+
         # prepare the output folder
         prepare_folder(out_file, isFile=True)
 
