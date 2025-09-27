@@ -2,8 +2,6 @@ torch==2.6.0
 
 # -e ./lm-evaluation-harness
 
--e ./transformers[torch]
-
 omegaconf
 datasets
 scipy
@@ -11,6 +9,8 @@ scikit-learn
 wandb
 
 -e ./OLMo-core[all]
+-e ./transformers[torch]
+
 
 beaker-gantry==1.17.1
 smart-open
