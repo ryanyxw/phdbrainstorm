@@ -1,5 +1,5 @@
 CLUSTER="ai2/jupiter"
-PRIORITY="high"
+PRIORITY="urgent"
 WORKSPACE=ai2/flex2
 
 command='''
