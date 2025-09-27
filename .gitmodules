@@ -4,3 +4,6 @@
 [submodule "OLMo-core"]
 	path = OLMo-core
 	url = https://github.com/ryanyxw/OLMo-core.git
+[submodule "transformers"]
+	path = transformers
+	url = https://github.com/huggingface/transformers.git
