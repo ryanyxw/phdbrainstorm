@@ -1,10 +1,10 @@
 torch==2.6.0
-transformers==4.53.3
-omegaconf==2.3.0
-datasets==3.6.0
-scipy==1.16.1
-scikit-learn==1.7.1
-wandb==0.21.3
+transformers==4.56.2
+omegaconf
+datasets
+scipy
+scikit-learn
+wandb
 
 -e ./lm-evaluation-harness
 -e ./OLMo-core[all]
