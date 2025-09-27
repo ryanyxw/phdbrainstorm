@@ -10,7 +10,7 @@ set -e
 export PYTHONPATH=${ROOT_DIR}
 
 ### START EDITING HERE ###
-mode="analyze_olmo_orig"
+mode="analyze_olmoe_orig"
 config_file=${CONFIG_DIR}/${mode}.yaml
 
 WANDB_PROJECT=olmoe-modular
