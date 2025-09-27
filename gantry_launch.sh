@@ -16,7 +16,7 @@ gantry run \
     --venv 'base' \
     --timeout -1 \
     --show-logs \
-    --gps 1 \
+    --gpus 1 \
     --host-networking \
     --priority "${PRIORITY}" \
     --leader-selection \
