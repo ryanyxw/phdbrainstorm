@@ -11,4 +11,5 @@ wandb==0.21.3
 
 beaker-gantry==1.17.1
 smart-open
+grouped-gemm # for olmoe
 #dolma # don't include this when sending batch jobs to beaker (too slow)
