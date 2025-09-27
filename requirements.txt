@@ -2,18 +2,18 @@ torch
 
 # -e ./lm-evaluation-harness
 
-#omegaconf
+omegaconf
 #datasets
-#scipy
-#scikit-learn
-#wandb
-#setuptools==80.9.0
+scipy
+scikit-learn
+wandb
+setuptools==80.9.0
 
-#-e ./OLMo-core[all]
+-e ./OLMo-core[all]
 -e ./transformers[torch]
 
 
-#beaker-gantry==1.17.1
-#smart-open
-#grouped-gemm # for olmoe
+beaker-gantry==1.17.1
+smart-open
+grouped-gemm # for olmoe
 #dolma # don't include this when sending batch jobs to beaker (too slow)
