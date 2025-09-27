@@ -3,21 +3,13 @@ import json
 import os
 from functools import partial
 
-from datasets import load_dataset
-from transformers import AutoTokenizer, AutoModelForCausalLM, DefaultDataCollator, TrainingArguments, Trainer, \
-    DataCollatorForLanguageModeling
-from transformers.trainer_utils import get_last_checkpoint
-
-import torch
 
 
-from src.modules.data.data_utils import load_tokenizer
-from src.modules.data.format_datasets import prepare_dataset_for_training
-from src.modules.modeling.modeling_utils import setup_model
+
 from src.modules.utils import confirm_with_user, load_config, prepare_folder, validate_inputs, prepare_wandb, \
     save_config
 
-import transformers
+from transformers import OlmoeForCausalLM
 
 
 def main(args):
@@ -34,6 +26,8 @@ def main(args):
     validate_inputs(configs)
 
     print("executing command...")
+
+    model = OlmoeForCausalLM.from_pretrained()
 
     import pdb
     pdb.set_trace()
