@@ -1,5 +1,5 @@
 CLUSTER="ai2/jupiter"
-PRIORITY="urgent"
+PRIORITY="high"
 WORKSPACE=ai2/flex2
 
 command='''
@@ -16,6 +16,7 @@ gantry run \
     --venv 'base' \
     --timeout -1 \
     --show-logs \
+    --gps 1 \
     --host-networking \
     --priority "${PRIORITY}" \
     --leader-selection \
@@ -32,7 +33,6 @@ gantry run \
     --yes \
     -- bash -c "$command"
 
-#    --gpus 1 \
 
 
 #    --install "pip install -r requirements.txt" \
