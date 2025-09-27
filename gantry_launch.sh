@@ -5,12 +5,12 @@ WORKSPACE=ai2/flex2
 command='''
 export HF_HOME="/root/ryanwang/.cache/huggingface"
 export HF_DATASETS_CACHE="${HF_HOME}/datasets"
-bash random_exp.sh
+bash convert_olmo_to_hf.sh
 '''
 
 gantry run \
-    --name "count_dclm_tokens" \
-    --description "count_dclm_tokens" \
+    --name "convert_moe" \
+    --description "convert_moe" \
     --workspace $WORKSPACE \
     --beaker-image 'ai2/cuda12.8-dev-ubuntu22.04-torch2.6.0' \
     --venv 'base' \
