@@ -1,0 +1,7 @@
+ROOT_DIR: /root/ryanwang/phdbrainstorm
+
+seed: 0 # DO NOT CHANGE THIS.
+
+exp_name: "analyze_olmoe_orig"
+
+num_proc: 1
