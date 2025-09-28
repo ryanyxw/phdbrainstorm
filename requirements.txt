@@ -6,7 +6,7 @@ scikit-learn
 wandb
 
 -e ./OLMo-core[all]
--e ./transformers[torch]
+#-e ./transformers[torch]
 -e ./FlexOlmo[eval]
 # -e ./lm-evaluation-harness
 
