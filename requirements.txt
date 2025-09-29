@@ -7,7 +7,7 @@ wandb
 
 -e ./OLMo-core[all]
 -e ./transformers[torch]
--e ./FlexOlmo[eval]
+#-e ./FlexOlmo[eval]
 # -e ./lm-evaluation-harness
 
 beaker-gantry==1.17.1
