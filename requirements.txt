@@ -6,8 +6,10 @@ scikit-learn
 wandb
 
 -e ./OLMo-core[all]
+
+# choose from transformers or flexolmo
 -e ./transformers[torch]
--e ./FlexOlmo[eval]
+#-e ./FlexOlmo[eval]
 # -e ./lm-evaluation-harness
 
 beaker-gantry==1.17.1
