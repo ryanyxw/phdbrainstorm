@@ -6,12 +6,12 @@ scikit-learn
 wandb
 
 -e ./OLMo-core[all]
-#-e ./transformers[torch]
+-e ./transformers[torch]
 -e ./FlexOlmo[eval]
 # -e ./lm-evaluation-harness
 
 beaker-gantry==1.17.1
 smart-open
-#grouped-gemm # for olmoe
+grouped-gemm # for olmoe
 notebook
 #dolma # don't include this when sending batch jobs to beaker (too slow)
