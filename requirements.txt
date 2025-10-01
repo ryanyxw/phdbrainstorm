@@ -5,15 +5,15 @@ scipy
 scikit-learn
 wandb
 
-# this is for running evals and training, etc
--e ./OLMo-core[all]
--e ./FlexOlmo[eval]
-#transformers@git+https://github.com/2015aroras/transformers@shanea/olmoe2
-
+# this is for training, etc
+#-e ./OLMo-core[all]
 
 # this is for conversion
 #-e ./OLMo-core[all]
 #-e ./transformers[torch]
+
+# this is for inference
+-e ./FlexOlmo[eval]
 
 # -e ./lm-evaluation-harness
 
