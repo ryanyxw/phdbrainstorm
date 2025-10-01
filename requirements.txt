@@ -5,11 +5,16 @@ scipy
 scikit-learn
 wandb
 
--e ./OLMo-core[all]
+# this is for running evals and training, etc
+#-e ./OLMo-core[all]
+#-e ./FlexOlmo[eval]
+#transformers@git+https://github.com/2015aroras/transformers@shanea/olmoe2
 
-# choose from transformers or flexolmo
-#-e ./transformers[torch]
--e ./FlexOlmo[eval]
+
+# this is for conversion
+-e ./OLMo-core[all]
+-e ./transformers[torch]
+
 # -e ./lm-evaluation-harness
 
 beaker-gantry==1.17.1
