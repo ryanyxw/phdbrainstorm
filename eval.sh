@@ -20,47 +20,47 @@ TASKS=(
   triviaqa::olmes
   drop::olmes
 
-	# mmlu mc
-  mmlu:mc::olmes
-
-  # mmlu_pro mc
-	mmlu_pro_mc::none
-
-	# agi_eval
-	agi_eval_english:1shot::olmes
-	# bbh
-	bbh:cot-v1::olmes
-	# math2
-  gsm8k::olmes
-  minerva_math_algebra::olmes
-  minerva_math_counting_and_probability::olmes
-  minerva_math_geometry::olmes
-  minerva_math_intermediate_algebra::olmes
-  minerva_math_number_theory::olmes
-  minerva_math_prealgebra::olmes
-  minerva_math_precalculus::olmes
-  # code4
-  codex_humaneval:temp0.8
-  codex_humanevalplus:temp0.8
-  mbpp::none
-  mbppplus::none
-
-  # mc9 rc
-  arc_easy:rc::olmes
-  arc_challenge:rc::olmes
-  boolq:rc::olmes
-  csqa:rc::olmes
-  hellaswag:rc::olmes
-  openbookqa:rc::olmes
-  piqa:rc::olmes
-  socialiqa:rc::olmes
-  winogrande:rc::olmes
-
-  # mmlu rc
-  mmlu:rc::olmes
-
-  # mmlu_pro rc
-	mmlu_pro_rc::none
+#	# mmlu mc
+#  mmlu:mc::olmes
+#
+#  # mmlu_pro mc
+#	mmlu_pro_mc::none
+#
+#	# agi_eval
+#	agi_eval_english:1shot::olmes
+#	# bbh
+#	bbh:cot-v1::olmes
+#	# math2
+#  gsm8k::olmes
+#  minerva_math_algebra::olmes
+#  minerva_math_counting_and_probability::olmes
+#  minerva_math_geometry::olmes
+#  minerva_math_intermediate_algebra::olmes
+#  minerva_math_number_theory::olmes
+#  minerva_math_prealgebra::olmes
+#  minerva_math_precalculus::olmes
+#  # code4
+#  codex_humaneval:temp0.8
+#  codex_humanevalplus:temp0.8
+#  mbpp::none
+#  mbppplus::none
+#
+#  # mc9 rc
+#  arc_easy:rc::olmes
+#  arc_challenge:rc::olmes
+#  boolq:rc::olmes
+#  csqa:rc::olmes
+#  hellaswag:rc::olmes
+#  openbookqa:rc::olmes
+#  piqa:rc::olmes
+#  socialiqa:rc::olmes
+#  winogrande:rc::olmes
+#
+#  # mmlu rc
+#  mmlu:rc::olmes
+#
+#  # mmlu_pro rc
+#	mmlu_pro_rc::none
 
 for TASK in "${TASKS[@]}"; do
 	# For setting the output_dir

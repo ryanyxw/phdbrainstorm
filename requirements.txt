@@ -6,7 +6,7 @@ scikit-learn
 wandb
 
 # this is for moe
--e ./OLMo-core[all]
+#-e ./OLMo-core[all]
 
 # this is for convertmoe
 #-e ./OLMo-core[all]
