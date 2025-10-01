@@ -5,15 +5,12 @@ scipy
 scikit-learn
 wandb
 
-# this is for training, etc
-#-e ./OLMo-core[all]
+# this is for moe
+-e ./OLMo-core[all]
 
-# this is for conversion
+# this is for convertmoe
 #-e ./OLMo-core[all]
 #-e ./transformers[torch]
-
-# this is for inference
--e ./FlexOlmo[eval]
 
 # -e ./lm-evaluation-harness
 
