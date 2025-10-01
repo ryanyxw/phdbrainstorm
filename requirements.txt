@@ -8,7 +8,7 @@ wandb
 # this is for running evals and training, etc
 -e ./OLMo-core[all]
 -e ./FlexOlmo[eval]
-transformers@git+https://github.com/2015aroras/transformers@shanea/olmoe2
+#transformers@git+https://github.com/2015aroras/transformers@shanea/olmoe2
 
 
 # this is for conversion
