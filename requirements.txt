@@ -6,14 +6,14 @@ scikit-learn
 wandb
 
 # this is for running evals and training, etc
-#-e ./OLMo-core[all]
-#-e ./FlexOlmo[eval]
-#transformers@git+https://github.com/2015aroras/transformers@shanea/olmoe2
+-e ./OLMo-core[all]
+-e ./FlexOlmo[eval]
+transformers@git+https://github.com/2015aroras/transformers@shanea/olmoe2
 
 
 # this is for conversion
--e ./OLMo-core[all]
--e ./transformers[torch]
+#-e ./OLMo-core[all]
+#-e ./transformers[torch]
 
 # -e ./lm-evaluation-harness
 
