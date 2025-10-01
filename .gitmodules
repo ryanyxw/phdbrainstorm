@@ -7,6 +7,3 @@
 [submodule "transformers"]
 	path = transformers
 	url = https://github.com/huggingface/transformers.git
-[submodule "FlexOlmo"]
-	path = FlexOlmo
-	url = https://github.com/allenai/FlexOlmo.git

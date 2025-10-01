@@ -1,0 +1,1 @@
+bash src/scripts/eval/run_eval.sh ../models/olmoe-pretrain-replicate/step30995-hf mc9 ../models/olmoe-pretrain-replicate/step30995-hf/evals 1
