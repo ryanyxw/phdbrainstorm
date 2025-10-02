@@ -33,11 +33,11 @@ TASKS=(
 #	agi_eval_english:1shot::olmes
 
 #	# bbh hang problem
-	bbh:cot-v1::olmes
+#	bbh:cot-v1::olmes
 
 	# math2 hang problem
 #  gsm8k::olmes
-#  minerva_math_algebra::olmes
+  minerva_math_algebra::olmes
 #  minerva_math_counting_and_probability::olmes
 #  minerva_math_geometry::olmes
 #  minerva_math_intermediate_algebra::olmes

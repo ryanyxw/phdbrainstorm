@@ -11,13 +11,13 @@ bash eval.sh
 
 gantry run \
     --name "eval_moe" \
-    --description "eval_moe on bbh" \
+    --description "eval_moe on minerva algebra" \
     --workspace $WORKSPACE \
     --beaker-image 'ai2/cuda12.8-dev-ubuntu22.04-torch2.6.0' \
     --venv 'base' \
     --timeout -1 \
     --show-logs \
-    --gpus 1 \
+    --gpus 4 \
     --host-networking \
     --priority "${PRIORITY}" \
     --leader-selection \
