@@ -33,7 +33,7 @@ TASKS=(
 #	agi_eval_english:1shot::olmes
 
 #	# bbh hang problem
-	#bbh:cot-v1::olmes
+	bbh:cot-v1::olmes
 
 	# math2 hang problem
 #  gsm8k::olmes
@@ -46,10 +46,10 @@ TASKS=(
 #  minerva_math_precalculus::olmes
 
   ## code4
-  codex_humaneval:temp0.8
-  codex_humanevalplus:temp0.8
-  mbpp::none
-  mbppplus::none
+#  codex_humaneval:temp0.8
+#  codex_humanevalplus:temp0.8
+#  mbpp::none
+#  mbppplus::none
 
   # mc9 rc
 #  arc_easy:rc::olmes
