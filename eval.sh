@@ -64,6 +64,7 @@ TASKS=(
 #
 #  # mmlu_pro rc
 #	mmlu_pro_rc::none
+)
 
 for TASK in "${TASKS[@]}"; do
 	# For setting the output_dir
