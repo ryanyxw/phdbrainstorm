@@ -11,7 +11,7 @@ bash eval.sh
 
 gantry run \
     --name "eval_moe" \
-    --description "eval_moe on minerva intermediate algebra" \
+    --description "eval_moe on minerva number theory" \
     --workspace $WORKSPACE \
     --beaker-image 'ai2/cuda12.8-dev-ubuntu22.04-torch2.6.0' \
     --venv 'base' \
