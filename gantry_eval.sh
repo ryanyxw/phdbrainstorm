@@ -17,7 +17,7 @@ gantry run \
     --venv 'base' \
     --timeout -1 \
     --show-logs \
-    --gpus 2 \
+    --gpus 8 \
     --host-networking \
     --priority "${PRIORITY}" \
     --leader-selection \
