@@ -1,5 +1,8 @@
-bash FlexOlmo/src/scripts/eval/run_eval.sh models/olmoe-pretrain-replicate/step30995-hf mc9 models/olmoe-pretrain-replicate/step30995-hf/evals 1
+#bash FlexOlmo/src/scripts/eval/run_eval.sh models/olmoe-pretrain-replicate/step30995-hf mc9 models/olmoe-pretrain-replicate/step30995-hf/evals 1
 
+MODEL=/root/ryanwang/phdbrainstorm/models/olmoe-pretrain-replicate/step30995-hf
+OUTPUT_DIR=${MODEL}/evals
+NUM_GPUS=$(nvidia-smi -L | wc -l)
 
 TASKS=(
   # mc9 mc
@@ -79,5 +82,5 @@ for TASK in "${TASKS[@]}"; do
 	--limit 1000 \
 	--output-dir $OUTPUT_DIR \
 	--batch-size $batch_size \
-	--gpus $GPUS
+	--gpus $NUM_GPUS \
 done

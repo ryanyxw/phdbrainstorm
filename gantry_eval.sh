@@ -11,7 +11,7 @@ bash eval.sh
 
 gantry run \
     --name "convert_moe" \
-    --description "convert_moe" \
+    --description "eval_moe" \
     --workspace $WORKSPACE \
     --beaker-image 'ai2/cuda12.8-dev-ubuntu22.04-torch2.6.0' \
     --venv 'base' \
