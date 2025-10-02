@@ -15,24 +15,26 @@ TASKS=(
 #  piqa:mc::olmes
 #  socialiqa:mc::olmes
 #  winogrande:mc::olmes
-#
+
 #  # gen5
 #  coqa::olmes
 #  squad::olmes
 #  naturalqs::olmes
 #  triviaqa::olmes
 #  drop::olmes
-#
+
 #	# mmlu mc
 #  mmlu:mc::olmes
-#
+
 #  # mmlu_pro mc
 #	mmlu_pro_mc::none
-#
+
 #	# agi_eval
 #	agi_eval_english:1shot::olmes
+
 #	# bbh
 #	bbh:cot-v1::olmes
+
 #	# math2
 #  gsm8k::olmes
 #  minerva_math_algebra::olmes
@@ -42,6 +44,7 @@ TASKS=(
 #  minerva_math_number_theory::olmes
 #  minerva_math_prealgebra::olmes
 #  minerva_math_precalculus::olmes
+
   # code4
 #  codex_humaneval:temp0.8
 #  codex_humanevalplus:temp0.8
@@ -58,7 +61,7 @@ TASKS=(
 #  piqa:rc::olmes
 #  socialiqa:rc::olmes
 #  winogrande:rc::olmes
-#
+
   # mmlu rc
   mmlu:rc::olmes
 
