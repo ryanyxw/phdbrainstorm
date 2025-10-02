@@ -11,7 +11,7 @@ bash eval.sh
 
 gantry run \
     --name "eval_moe" \
-    --description "eval_moe on minerva counting" \
+    --description "eval_moe on minerva geometry" \
     --workspace $WORKSPACE \
     --beaker-image 'ai2/cuda12.8-dev-ubuntu22.04-torch2.6.0' \
     --venv 'base' \

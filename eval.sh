@@ -38,8 +38,8 @@ TASKS=(
 	# math2 hang problem
 #  gsm8k::olmes
 #  minerva_math_algebra::olmes
-  minerva_math_counting_and_probability::olmes
-#  minerva_math_geometry::olmes
+#  minerva_math_counting_and_probability::olmes
+  minerva_math_geometry::olmes
 #  minerva_math_intermediate_algebra::olmes
 #  minerva_math_number_theory::olmes
 #  minerva_math_prealgebra::olmes
