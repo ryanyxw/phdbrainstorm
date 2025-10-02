@@ -134,6 +134,7 @@ for MODEL_PATH in "${MODELS[@]}"; do
             --output-dir $OUTPUT_DIR \
             --batch-size $batch_size \
             --gpus $gpus \
+            "
 
         echo "Launched evaluation for model: $model, task: $TASK"
         echo "----------------------------------------"
