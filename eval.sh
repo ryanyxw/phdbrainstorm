@@ -43,12 +43,12 @@ TASKS=(
 #  minerva_math_intermediate_algebra::olmes
 #  minerva_math_number_theory::olmes
 #  minerva_math_prealgebra::olmes
-  minerva_math_precalculus::olmes
+#  minerva_math_precalculus::olmes
 
   ## code4
 #  codex_humaneval:temp0.8
 #  codex_humanevalplus:temp0.8
-#  mbpp::none
+  mbpp::none
 #  mbppplus::none
 
   # mc9 rc
