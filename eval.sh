@@ -35,21 +35,21 @@ TASKS=(
 #	# bbh hang problem
 	#bbh:cot-v1::olmes
 
-	# math2 hang problem (gsm8k)
+	# math2 hang problem
   #gsm8k::olmes
-  minerva_math_algebra::olmes
-  minerva_math_counting_and_probability::olmes
-  minerva_math_geometry::olmes
-  minerva_math_intermediate_algebra::olmes
-  minerva_math_number_theory::olmes
-  minerva_math_prealgebra::olmes
-  minerva_math_precalculus::olmes
+  #minerva_math_algebra::olmes
+  #minerva_math_counting_and_probability::olmes
+  #minerva_math_geometry::olmes
+  #minerva_math_intermediate_algebra::olmes
+  #minerva_math_number_theory::olmes
+  #minerva_math_prealgebra::olmes
+  #minerva_math_precalculus::olmes
 
-  # code4
-  codex_humaneval:temp0.8
-  codex_humanevalplus:temp0.8
-  mbpp::none
-  mbppplus::none
+  ## code4
+  #codex_humaneval:temp0.8
+  #codex_humanevalplus:temp0.8
+  #mbpp::none
+  #mbppplus::none
 
   # mc9 rc
   arc_easy:rc::olmes
