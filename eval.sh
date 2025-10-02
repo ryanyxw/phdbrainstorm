@@ -33,7 +33,7 @@ TASKS=(
 #	agi_eval_english:1shot::olmes
 
 #	# bbh
-	bbh:cot-v1::olmes
+	#bbh:cot-v1::olmes
 
 	# math2
   gsm8k::olmes
