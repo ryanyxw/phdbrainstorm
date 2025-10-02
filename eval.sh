@@ -83,5 +83,5 @@ for TASK in "${TASKS[@]}"; do
 	--limit 1000 \
 	--output-dir $OUTPUT_DIR \
 	--batch-size $batch_size \
-	--gpus $NUM_GPUS \
+	--gpus $NUM_GPUS
 done
