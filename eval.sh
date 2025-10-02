@@ -48,8 +48,8 @@ TASKS=(
   ## code4
 #  codex_humaneval:temp0.8
 #  codex_humanevalplus:temp0.8
-  mbpp::none
-#  mbppplus::none
+#  mbpp::none
+  mbppplus::none
 
   # mc9 rc
 #  arc_easy:rc::olmes
