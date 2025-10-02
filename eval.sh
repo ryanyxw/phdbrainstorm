@@ -5,29 +5,29 @@ OUTPUT_DIR=${MODEL}/evals
 NUM_GPUS=$(nvidia-smi -L | wc -l)
 
 TASKS=(
-  # mc9 mc
-  arc_easy:mc::olmes
-  arc_challenge:mc::olmes
-  boolq:mc::olmes
-  csqa:mc::olmes
-  hellaswag:mc::olmes
-  openbookqa:mc::olmes
-  piqa:mc::olmes
-  socialiqa:mc::olmes
-  winogrande:mc::olmes
-
-  # gen5
-  coqa::olmes
-  squad::olmes
-  naturalqs::olmes
-  triviaqa::olmes
-  drop::olmes
-
-#	# mmlu mc
-#  mmlu:mc::olmes
+#  # mc9 mc
+#  arc_easy:mc::olmes
+#  arc_challenge:mc::olmes
+#  boolq:mc::olmes
+#  csqa:mc::olmes
+#  hellaswag:mc::olmes
+#  openbookqa:mc::olmes
+#  piqa:mc::olmes
+#  socialiqa:mc::olmes
+#  winogrande:mc::olmes
 #
-#  # mmlu_pro mc
-#	mmlu_pro_mc::none
+#  # gen5
+#  coqa::olmes
+#  squad::olmes
+#  naturalqs::olmes
+#  triviaqa::olmes
+#  drop::olmes
+#
+	# mmlu mc
+  mmlu:mc::olmes
+
+  # mmlu_pro mc
+	mmlu_pro_mc::none
 #
 #	# agi_eval
 #	agi_eval_english:1shot::olmes
