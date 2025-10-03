@@ -1,21 +1,40 @@
-torch==2.6.0
-omegaconf
-datasets
-scipy
-scikit-learn
-wandb
+##################### base (common for everything except eval) #####################
+#torch==2.6.0
+#omegaconf
+#datasets
+#scipy
+#scikit-learn
+#wandb
+#beaker-gantry==1.17.1
+#smart-open
+#grouped-gemm # for olmoe
+#notebook
 
-# this is for moe
+##################### this is for moe #####################
 #-e ./OLMo-core[all]
 
-# this is for convertmoe
+##################### this is for convertmoe #####################
 #-e ./OLMo-core[all]
 #-e ./transformers[torch]
 
-# -e ./lm-evaluation-harness
+##################### this is for eval #####################
+# Editable install of your local package with extras
+-e .[eval]
 
-beaker-gantry==1.17.1
-smart-open
-grouped-gemm # for olmoe
-notebook
+# vLLM pinned to 0.7.0
+vllm==0.7.0
+
+# Force transformers from a git repo (overrides PyPI one)
+git+https://github.com/swj0419/transformers
+
+# Torch and torchvision from CUDA 12.4 wheels
+torch
+torchvision
+--extra-index-url https://download.pytorch.org/whl/cu124
+
+# ipdb debugger
+ipdb
+
+##################### end #####################
+
 #dolma # don't include this when sending batch jobs to beaker (too slow)
