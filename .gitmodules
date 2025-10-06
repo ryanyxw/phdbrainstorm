@@ -7,3 +7,6 @@
 [submodule "FlexOlmo"]
 	path = FlexOlmo
 	url = https://github.com/ryanyxw/FlexOlmo.git
+[submodule "olmoefig4-flexolmo_transformers"]
+	path = olmoefig4-flexolmo_transformers
+	url = https://github.com/ryanyxw/olmoefig4-flexolmo_transformers.git
