@@ -85,7 +85,7 @@ def main(args):
                 batch_index = index[i:i+exp_configs.batch_size]
 
                 # we perform forward pass on prompts
-                inputs = tokenizer.encode(batch_prompts, return_tensors='pt', padding=True)
+                inputs = tokenizer(batch_prompts, return_tensors='pt', padding=True)
 
                 breakpoint()
 
