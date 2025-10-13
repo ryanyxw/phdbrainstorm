@@ -17,11 +17,34 @@ def find_file(directory, substring):
                 found_arr += [os.path.join(root, file)]
     return found_arr
 
+def load_jsonl_file(file_path):
+    data = []
+    with open(file_path, 'r') as f:
+        for line in f:
+            data.append(json.loads(line))
+    return data
+
 def get_prompt_sequences_for_evaluation(eval_dataset_name, eval_folder):
     if eval_dataset_name == "gsm8k":
         # load the predictions file
-        prediction_files = find_file(eval_folder, "gsm8k-predictions")
-        assert len(prediction_files) == 1, f"Found {len(prediction_files)} prediction files for gsm8k in {eval_folder}, expected 1"
+        requests_files = find_file(eval_folder, "gsm8k-requests")
+        predictions_files = find_file(eval_folder, "gsm8k-predictions")
+        assert len(requests_files) == 1, f"Found {len(requests_files)} request files for gsm8k in {eval_folder}, expected 1"
+        assert len(predictions_files) == 1, f"Found {len(predictions_files)} prediction files for gsm8k in {eval_folder}, expected 1"
+
+        requests_file = requests_files[0]
+        predictions_file = predictions_files[0]
+
+        # load the jsonl file
+        requests_data = load_jsonl_file(requests_file)
+        predictions_data = load_jsonl_file(predictions_file)
+        assert (len(requests_data) == len(predictions_data)), f"Found {len(requests_data)} requests and {len(predictions_data)} predictions, expected same number"
+
+        # we now create the prompt sequences
+        prompt_sequences = []
+        for req, pred in zip(requests_data, predictions_data):
+            assert req['doc']['id'] == pred['native_id'], f"Request id {req['id']} does not match prediction id {pred['id']}"
+
 
         breakpoint()
 
@@ -42,7 +65,7 @@ def main(args):
     print("executing command...")
 
     # load the model
-    model = AutoModelForCausalLM.from_pretrained(configs.model_name_or_path)
+    model = AutoModelForCausalLM.from_pretrained(configs.model_name_or_path, device_map="auto", torch_dtype="auto")
 
     if configs.get_logits.do:
         exp_configs = configs.get_logits
