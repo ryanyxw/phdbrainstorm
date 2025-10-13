@@ -41,12 +41,14 @@ def get_prompt_sequences_for_evaluation(eval_dataset_name, eval_folder):
         assert (len(requests_data) == len(predictions_data)), f"Found {len(requests_data)} requests and {len(predictions_data)} predictions, expected same number"
 
         # we now create the prompt sequences
-        prompt_sequences = []
+        prompts = [] # records the full forward pass
+        index = [] # records when we switch to model answers
         for req, pred in zip(requests_data, predictions_data):
-            assert req['doc']['id'] == pred['native_id'], f"Request id {req['id']} does not match prediction id {pred['id']}"
+            assert req['native_id'] == pred['native_id'], f"Request id {req['id']} does not match prediction id {pred['id']}"
+            prompts += [req["request"]["context"] + pred["model_output"]["continuation"]]
+            index += [len(req["request"]["context"])]
 
-
-        breakpoint()
+        return prompts, index
 
 
 def main(args):
@@ -72,7 +74,8 @@ def main(args):
 
         # we load the data here
         for eval_dataset_name in exp_configs.eval_datasets:
-            prompts = get_prompt_sequences_for_evaluation(eval_dataset_name, configs.eval_folder)
+            prompts, index = get_prompt_sequences_for_evaluation(eval_dataset_name, configs.eval_folder)
+            breakpoint()
 
 
     import pdb
