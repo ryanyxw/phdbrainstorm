@@ -3,10 +3,12 @@ import json
 import os
 from functools import partial
 
+import torch
+
 from src.modules.utils import confirm_with_user, load_config, prepare_folder, validate_inputs, prepare_wandb, \
     save_config
 
-from transformers import OlmoeForCausalLM, AutoModelForCausalLM
+from transformers import OlmoeForCausalLM, AutoModelForCausalLM, AutoTokenizer
 
 
 def find_file(directory, substring):
@@ -68,6 +70,7 @@ def main(args):
     print("executing command...")
 
     # load the model
+    tokenizer = AutoTokenizer.from_pretrained(configs.model_name_or_path)
     model = AutoModelForCausalLM.from_pretrained(configs.model_name_or_path, device_map="auto", torch_dtype="auto")
 
     if configs.get_logits.do:
@@ -76,11 +79,17 @@ def main(args):
         # we load the data here
         for eval_dataset_name in exp_configs.eval_datasets:
             prompts, index = get_prompt_sequences_for_evaluation(eval_dataset_name, configs.eval_folder)
+
+            # we perform forward pass on prompts
+            inputs = tokenizer.encode(prompts, return_tensors='pt', padding=True)
+
             breakpoint()
 
+            with torch.no_grad():
+                out = model(**inputs)
 
-    import pdb
-    pdb.set_trace()
+            breakpoint()
+
 
 def parse_args():
     parser = argparse.ArgumentParser()
