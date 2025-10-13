@@ -3,13 +3,27 @@ import json
 import os
 from functools import partial
 
-
-
-
 from src.modules.utils import confirm_with_user, load_config, prepare_folder, validate_inputs, prepare_wandb, \
     save_config
 
-from transformers import OlmoeForCausalLM
+from transformers import OlmoeForCausalLM, AutoModelForCausalLM
+
+
+def find_file(directory, substring):
+    found_arr = []
+    for root, _, files in os.walk(directory):
+        for file in files:
+            if substring in file:
+                found_arr += [os.path.join(root, file)]
+    return found_arr
+
+def get_prompt_sequences_for_evaluation(eval_dataset_name, eval_folder):
+    if eval_dataset_name == "gsm8k":
+        # load the predictions file
+        prediction_files = find_file(eval_folder, "gsm8k-predictions")
+        assert len(prediction_files) == 1, f"Found {len(prediction_files)} prediction files for gsm8k in {eval_folder}, expected 1"
+
+        breakpoint()
 
 
 def main(args):
@@ -27,7 +41,16 @@ def main(args):
 
     print("executing command...")
 
-    model = OlmoeForCausalLM.from_pretrained()
+    # load the model
+    model = AutoModelForCausalLM.from_pretrained(configs.model_name_or_path)
+
+    if configs.get_logits.do:
+        exp_configs = configs.get_logits
+
+        # we load the data here
+        for eval_dataset_name in exp_configs.eval_datasets:
+            prompts = get_prompt_sequences_for_evaluation(eval_dataset_name, configs.eval_folder)
+
 
     import pdb
     pdb.set_trace()

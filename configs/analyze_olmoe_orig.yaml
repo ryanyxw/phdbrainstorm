@@ -5,3 +5,19 @@ seed: 0 # DO NOT CHANGE THIS.
 exp_name: "analyze_olmoe_orig"
 
 num_proc: 1
+
+model_name_or_path: "${ROOT_DIR}/models/olmoe-pretrain-replicate/step30995-hf"
+eval_folder: "${ROOT_DIR}/evals/weka_oe-training-default_ryanwang_phdbrainstorm_models_olmoe-pretrain-replicate_step30995-hf"
+
+get_logits:
+  do: True
+  # array of dataesets to evaluate
+  eval_datasets:
+    - "gsm8k",
+    - "piqa""
+
+
+
+
+analyze_logits:
+  do: False
