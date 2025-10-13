@@ -80,15 +80,19 @@ def main(args):
         for eval_dataset_name in exp_configs.eval_datasets:
             prompts, index = get_prompt_sequences_for_evaluation(eval_dataset_name, configs.eval_folder)
 
-            # we perform forward pass on prompts
-            inputs = tokenizer.encode(prompts, return_tensors='pt', padding=True)
+            for i in range(0, len(prompts), exp_configs.batch_size):
+                batch_prompts = prompts[i:i+exp_configs.batch_size]
+                batch_index = index[i:i+exp_configs.batch_size]
 
-            breakpoint()
+                # we perform forward pass on prompts
+                inputs = tokenizer.encode(batch_prompts, return_tensors='pt', padding=True)
 
-            with torch.no_grad():
-                out = model(**inputs)
+                breakpoint()
 
-            breakpoint()
+                with torch.no_grad():
+                    out = model(**inputs)
+
+                breakpoint()
 
 
 def parse_args():
