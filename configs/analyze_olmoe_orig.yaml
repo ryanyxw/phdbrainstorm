@@ -13,8 +13,9 @@ get_logits:
   do: True
   # array of dataesets to evaluate
   eval_datasets:
-    - "gsm8k",
-    - "piqa""
+    - "gsm8k"
+    - "piqa"
+
 
 
 
