@@ -31,6 +31,7 @@ def get_prompt_sequences_for_evaluation(eval_dataset_name, eval_folder):
         # load the predictions file
         requests_files = find_file(eval_folder, "gsm8k-requests")
         predictions_files = find_file(eval_folder, "gsm8k-predictions")
+
         assert len(requests_files) == 1, f"Found {len(requests_files)} request files for gsm8k in {eval_folder}, expected 1"
         assert len(predictions_files) == 1, f"Found {len(predictions_files)} prediction files for gsm8k in {eval_folder}, expected 1"
 
@@ -45,6 +46,7 @@ def get_prompt_sequences_for_evaluation(eval_dataset_name, eval_folder):
         # we now create the prompt sequences
         prompts = [] # records the full forward pass
         index = [] # records when we switch to model answers
+
         for req, pred in zip(requests_data, predictions_data):
             assert req['native_id'] == pred['native_id'], f"Request id {req['id']} does not match prediction id {pred['id']}"
             assert len(pred["model_output"]) == 1, f"Found {len(pred['model_output'])} model outputs for prediction id {pred['id']}, expected 1"
@@ -80,17 +82,41 @@ def main(args):
         for eval_dataset_name in exp_configs.eval_datasets:
             prompts, index = get_prompt_sequences_for_evaluation(eval_dataset_name, configs.eval_folder)
 
+            # loop over dataset in batches
             for i in range(0, len(prompts), exp_configs.batch_size):
                 batch_prompts = prompts[i:i+exp_configs.batch_size]
                 batch_index = index[i:i+exp_configs.batch_size]
 
                 # we perform forward pass on prompts
-                inputs = tokenizer(batch_prompts, return_tensors='pt', padding=True)
+                inputs = tokenizer(batch_prompts, return_tensors='pt', padding=True, return_offsets_mapping=True).to(model.device)
+
+                # helper function to get the deliminator for input_ids
+                def get_token_delimitor(offsets, char_index):
+                    for i, (start, end) in enumerate(offsets):
+                        if start <= char_index < end:
+                            return i
+                    return len(offsets) - 1
+
+                # we record the token indexes that represent transition from input to output
+                batch_token_index = []
+                for j, char_index in enumerate(batch_index):
+                    offsets = inputs['offset_mapping'][j].tolist()
+                    token_index = get_token_delimitor(offsets, char_index)
+                    assert offsets[token_index][0] == char_index, f"char_index {char_index} does not match token start {offsets[token_index][0]}"
+                    batch_token_index += [token_index]
 
                 breakpoint()
 
                 with torch.no_grad():
-                    out = model(**inputs)
+                    out = model(input_ids = inputs["input_ids"].to(model.device), attention_mask=inputs["attention_mask"].to(model.device), output_router_logits=True)
+                    router_logits = torch.stack(out["router_logits"]) # this has dimension (layers, batch * sequence_length, num_experts)
+
+                    # reshape router_logits
+                    router_logits = router_logits.view(router_logits.shape[0], inputs.input_ids.shape[0], inputs.input_ids.shape[1], router_logits.shape[-1]) # (layers, batch, sequence_length, num_experts)
+
+                    breakpoint()
+
+
 
                 breakpoint()
 
