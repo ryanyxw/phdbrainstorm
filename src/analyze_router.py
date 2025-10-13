@@ -114,6 +114,7 @@ def main(args):
                     # reshape router_logits
                     router_logits = router_logits.view(router_logits.shape[0], inputs.input_ids.shape[0], inputs.input_ids.shape[1], router_logits.shape[-1]) # (layers, batch, sequence_length, num_experts)
 
+                    # we now extract all router logits
                     breakpoint()
 
 
