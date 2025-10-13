@@ -45,7 +45,8 @@ def get_prompt_sequences_for_evaluation(eval_dataset_name, eval_folder):
         index = [] # records when we switch to model answers
         for req, pred in zip(requests_data, predictions_data):
             assert req['native_id'] == pred['native_id'], f"Request id {req['id']} does not match prediction id {pred['id']}"
-            prompts += [req["request"]["context"] + pred["model_output"]["continuation"]]
+            assert len(pred["model_output"]) == 1, f"Found {len(pred['model_output'])} model outputs for prediction id {pred['id']}, expected 1"
+            prompts += [req["request"]["context"] + pred["model_output"][0]["continuation"]]
             index += [len(req["request"]["context"])]
 
         return prompts, index
