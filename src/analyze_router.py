@@ -119,19 +119,19 @@ def main(args):
 
     print("executing command...")
 
-    # load the model
-    tokenizer = AutoTokenizer.from_pretrained(configs.model_name_or_path)
-    model = AutoModelForCausalLM.from_pretrained(configs.model_name_or_path, device_map="auto", torch_dtype="auto")
-
     if configs.get_logits.do:
         exp_configs = configs.get_logits
+
+        # load the model
+        tokenizer = AutoTokenizer.from_pretrained(exp_configs.model_name_or_path)
+        model = AutoModelForCausalLM.from_pretrained(exp_configs.model_name_or_path, device_map="auto", torch_dtype="auto")
 
         # we load the data here
         for eval_dataset_name in exp_configs.eval_datasets:
             print("evaluating dataset ", eval_dataset_name)
-            prompts, index = get_prompt_sequences_for_evaluation(eval_dataset_name, configs.eval_folder)
+            prompts, index = get_prompt_sequences_for_evaluation(eval_dataset_name, exp_configs.eval_folder)
 
-            out_fn = os.path.join(configs.eval_folder, dataset_name_to_output_file[eval_dataset_name])
+            out_fn = os.path.join(exp_configs.eval_folder, dataset_name_to_output_file[eval_dataset_name])
 
             out_file = open(out_fn, 'w')
 
@@ -194,11 +194,11 @@ def main(args):
         # we now visualize the probabilities
 
         for eval_dataset in exp_configs.eval_datasets:
-            logits_file = os.path.join(configs.eval_folder, dataset_name_to_output_file[eval_dataset])
+            logits_file = os.path.join(exp_configs.eval_folder, dataset_name_to_output_file[eval_dataset])
 
             # so we can keep track
-            requests_file = find_file(configs.eval_folder, f"{eval_dataset_name}-requests")[0]
-            predictions_file = find_file(configs.eval_folder, f"{eval_dataset_name}-predictions")[0]
+            requests_file = find_file(exp_configs.eval_folder, f"{eval_dataset}-requests")[0]
+            predictions_file = find_file(exp_configs.eval_folder, f"{eval_dataset}-predictions")[0]
 
             requests_data = load_jsonl_file(requests_file)
             predictions_data = load_jsonl_file(predictions_file)
