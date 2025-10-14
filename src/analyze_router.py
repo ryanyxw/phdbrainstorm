@@ -230,22 +230,20 @@ def main(args):
                         metrics = instance_pred_data["metrics"]
                         # for gsm8k
                         if "exact_match_simple" in metrics:
-                            if metrics["exact_match_simple"] >= 0:
+                            if metrics["exact_match_simple"] > 0:
                                 return True
                         if "exact_match" in metrics:
-                            if metrics["exact_match"] >= 0:
+                            if metrics["exact_match"] > 0:
                                 return True
                         if "f1" in metrics:
-                            if metrics["f1"] >= 0:
+                            if metrics["f1"] > 0:
                                 return True
                         if "recall" in metrics:
-                            if metrics["recall"] >= 0:
+                            if metrics["recall"] > 0:
                                 return True
                         if "exact_match_flex" in metrics:
-                            if metrics["exact_match_flex"] >= 0:
+                            if metrics["exact_match_flex"] > 0:
                                 return True
-                        if metrics["exact_match_simple"] != 0 or metrics["exact_match"] != 0:
-                            return True
                         return False
 
                     # check if the instance is correct
