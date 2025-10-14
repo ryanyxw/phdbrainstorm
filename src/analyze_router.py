@@ -211,12 +211,16 @@ def main(args):
             requests_data = load_jsonl_file(requests_file)
             predictions_data = load_jsonl_file(predictions_file)
 
-            print(f"Processing domain {eval_dataset} ...")
             domain_counts = None
             total_tokens = 0
 
+            # count total lines once for tqdm
             with open(logits_file, "r") as f:
-                for line in f:
+                total_lines = sum(1 for _ in f)
+
+            # now iterate with tqdm
+            with open(logits_file, "r") as f:
+                for line in tqdm(f, total=total_lines, desc=f"Reading {os.path.basename(logits_file)}"):
                     instance = json.loads(line)
                     instance_logits = torch.tensor(instance["router_logits"])  # [num_layers, num_tokens, num_experts]
                     num_layers, num_tokens, num_experts = instance_logits.shape
@@ -259,7 +263,6 @@ def main(args):
             axes[-1].set_xlabel("Expert index")
             plt.tight_layout(rect=[0, 0, 1, 0.97])
             plt.savefig(os.path.join(exp_configs.plot_folder, f"{domain}_domain_specialization.jpg"))
-            # plt.show()
 
 
 def parse_args():
