@@ -112,8 +112,6 @@ def main(args):
                     assert offsets[token_index][0] == char_index, f"char_index {char_index} does not match token start {offsets[token_index][0]}"
                     batch_token_index += [token_index]
 
-                breakpoint()
-
                 with torch.no_grad():
                     out = model(input_ids = inputs["input_ids"].to(model.device), attention_mask=inputs["attention_mask"].to(model.device), output_router_logits=True)
                     router_logits = torch.stack(out["router_logits"]).cpu() # this has dimension (layers, batch * sequence_length, num_experts)
@@ -133,8 +131,6 @@ def main(args):
                         "token_index": token_index,
                         "router_logits": prompt_router_logits
                     }
-
-                    breakpoint()
 
                     out_file.write(json.dumps(record) + "\n")
                     out_file.flush()
