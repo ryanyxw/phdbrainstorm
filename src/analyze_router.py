@@ -252,7 +252,7 @@ def main(args):
         for domain, layer_data in domain_specialization.items():
             num_layers, num_experts = layer_data.shape
             fig, axes = plt.subplots(num_layers, 1, figsize=(10, 2 * num_layers), sharex=True)
-            fig.suptitle(f"Domain Specialization for {domain}", fontsize=14)
+            fig.suptitle(f"Domain Specialization for {domain}, k = {exp_configs.k}", fontsize=14)
 
             if num_layers == 1:
                 axes = [axes]
