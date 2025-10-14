@@ -12,7 +12,7 @@ from src.modules.utils import confirm_with_user, load_config, prepare_folder, va
 
 from transformers import OlmoeForCausalLM, AutoModelForCausalLM, AutoTokenizer
 
-# import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt
 import numpy as np
 
 
@@ -216,7 +216,6 @@ def main(args):
 
             with open(logits_file, "r") as f:
                 for line in f:
-                    breakpoint()
                     instance = json.loads(line)
                     instance_logits = torch.tensor(instance["router_logits"])  # [num_layers, num_tokens, num_experts]
                     num_layers, num_tokens, num_experts = instance_logits.shape
@@ -243,22 +242,23 @@ def main(args):
 
         # we now plot the values
 
-        # for domain, layer_data in domain_specialization.items():
-        #     num_layers, num_experts = layer_data.shape
-        #     fig, axes = plt.subplots(num_layers, 1, figsize=(10, 2 * num_layers), sharex=True)
-        #     fig.suptitle(f"Domain Specialization for {domain}", fontsize=14)
-        #
-        #     if num_layers == 1:
-        #         axes = [axes]
-        #
-        #     for l in range(num_layers):
-        #         axes[l].bar(np.arange(num_experts), layer_data[l].numpy())
-        #         axes[l].set_ylabel(f"Layer {l}")
-        #         axes[l].set_ylim(0, layer_data[l].max() * 1.2)
-        #
-        #     axes[-1].set_xlabel("Expert index")
-        #     plt.tight_layout(rect=[0, 0, 1, 0.97])
-        #     plt.show()
+        for domain, layer_data in domain_specialization.items():
+            num_layers, num_experts = layer_data.shape
+            fig, axes = plt.subplots(num_layers, 1, figsize=(10, 2 * num_layers), sharex=True)
+            fig.suptitle(f"Domain Specialization for {domain}", fontsize=14)
+
+            if num_layers == 1:
+                axes = [axes]
+
+            for l in range(num_layers):
+                axes[l].bar(np.arange(num_experts), layer_data[l].numpy())
+                axes[l].set_ylabel(f"Layer {l}")
+                axes[l].set_ylim(0, layer_data[l].max() * 1.2)
+
+            axes[-1].set_xlabel("Expert index")
+            plt.tight_layout(rect=[0, 0, 1, 0.97])
+            plt.savefig(os.path.join(exp_configs.plot_folder, f"{domain}_domain_specialization.jpg"))
+            # plt.show()
 
 
 def parse_args():
