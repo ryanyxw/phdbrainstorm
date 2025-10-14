@@ -30,7 +30,33 @@ dataset_name_to_output_file = {
     "minerva_math_number_theory": "minerva_math_number_theory-router.jsonl",
     "minerva_math_prealgebra": "minerva_math_prealgebra-router.jsonl",
     "minerva_math_precalculus": "minerva_math_precalculus-router.jsonl",
-    "bbh_cot_v1": "bbh_cot_v1-router.jsonl",
+    "bbh_boolean_expressions": "bbh_boolean_expressions-router.jsonl",
+    "bbh_causal_judgement": "bbh_causal_judgement-router.jsonl",
+    "bbh_date_understanding": "bbh_date_understanding-router.jsonl",
+    "bbh_disambiguation_qa": "bbh_disambiguation_qa-router.jsonl",
+    "bbh_dyck_languages": "bbh_dyck_languages-router.jsonl",
+    "bbh_formal_fallacies": "bbh_formal_fallacies-router.jsonl",
+    "bbh_geometric_shapes": "bbh_geometric_shapes-router.jsonl",
+    "bbh_hyperbaton": "bbh_hyperbaton-router.jsonl",
+    "bbh_logical_deduction_five_objects": "bbh_logical_deduction_five_objects-router.jsonl",
+    "bbh_logical_deduction_seven_objects": "bbh_logical_deduction_seven_objects-router.jsonl",
+    "bbh_logical_deduction_three_objects": "bbh_logical_deduction_three_objects-router.jsonl",
+    "bbh_movie_recommendation": "bbh_movie_recommendation-router.jsonl",
+    "bbh_multistep_arithmetic_two": "bbh_multistep_arithmetic_two-router.jsonl",
+    "bbh_navigate": "bbh_navigate-router.jsonl",
+    "bbh_object_counting": "bbh_object_counting-router.jsonl",
+    "bbh_penguins_in_a_table": "bbh_penguins_in_a_table-router.jsonl",
+    "bbh_reasoning_about_colored_objects": "bbh_reasoning_about_colored_objects-router.jsonl",
+    "bbh_ruin_names": "bbh_ruin_names-router.jsonl",
+    "bbh_salient_translation_error_detection": "bbh_salient_translation_error_detection-router.jsonl",
+    "bbh_snarks": "bbh_snarks-router.jsonl",
+    "bbh_sports_understanding": "bbh_sports_understanding-router.jsonl",
+    "bbh_temporal_sequences": "bbh_temporal_sequences-router.jsonl",
+    "bbh_tracking_shuffled_objects_five_objects": "bbh_tracking_shuffled_objects_five_objects-router.jsonl",
+    "bbh_tracking_shuffled_objects_seven_objects": "bbh_tracking_shuffled_objects_seven_objects-router.jsonl",
+    "bbh_tracking_shuffled_objects_three_objects": "bbh_tracking_shuffled_objects_three_objects-router.jsonl",
+    "bbh_web_of_lies": "bbh_web_of_lies-router.jsonl",
+    "bbh_word_sorting": "bbh_word_sorting-router.jsonl",
     "agi_eval_english_1shot": "agi_eval_english_1shot-router.jsonl",
 }
 
@@ -105,58 +131,58 @@ def main(args):
             print("evaluating dataset ", eval_dataset_name)
             prompts, index = get_prompt_sequences_for_evaluation(eval_dataset_name, configs.eval_folder)
 
-            # out_fn = os.path.join(configs.eval_folder, dataset_name_to_output_file[eval_dataset_name])
-            #
-            # out_file = open(out_fn, 'w')
-            #
-            # # loop over dataset in batches
-            #
-            # for i in tqdm(range(0, len(prompts), exp_configs.batch_size)):
-            #     batch_prompts = prompts[i:i+exp_configs.batch_size]
-            #     batch_index = index[i:i+exp_configs.batch_size]
-            #
-            #     # we perform forward pass on prompts
-            #     inputs = tokenizer(batch_prompts, return_tensors='pt', padding=True, return_offsets_mapping=True).to(model.device)
-            #
-            #     # helper function to get the deliminator for input_ids
-            #     def get_token_delimitor(offsets, char_index):
-            #         for i, (start, end) in enumerate(offsets):
-            #             if start <= char_index < end:
-            #                 return i
-            #         return len(offsets) - 1
-            #
-            #     # we record the token indexes that represent transition from input to output
-            #     batch_token_index = []
-            #     for j, char_index in enumerate(batch_index):
-            #         offsets = inputs['offset_mapping'][j].tolist()
-            #         token_index = get_token_delimitor(offsets, char_index)
-            #         assert offsets[token_index][0] == char_index, f"char_index {char_index} does not match token start {offsets[token_index][0]}"
-            #         batch_token_index += [token_index]
-            #
-            #     with torch.no_grad():
-            #         out = model(input_ids = inputs["input_ids"].to(model.device), attention_mask=inputs["attention_mask"].to(model.device), output_router_logits=True)
-            #         router_logits = torch.stack(out["router_logits"]).cpu() # this has dimension (layers, batch * sequence_length, num_experts)
-            #
-            #     # reshape router_logits
-            #     router_logits = router_logits.view(router_logits.shape[0], inputs.input_ids.shape[0], inputs.input_ids.shape[1], router_logits.shape[-1]) # (layers, batch, sequence_length, num_experts)
-            #
-            #     # we now extract all router logits and save them
-            #     for j in range(len(batch_prompts)):
-            #         prompt = batch_prompts[j]
-            #         token_index = batch_token_index[j]
-            #         prompt_router_logits = router_logits[:, j, token_index:, :].cpu().numpy().tolist()
-            #
-            #         # store the logits
-            #         record = {
-            #             "prompt": prompt,
-            #             "token_index": token_index,
-            #             "router_logits": prompt_router_logits
-            #         }
-            #
-            #         out_file.write(json.dumps(record) + "\n")
-            #         out_file.flush()
-            #
-            # out_file.close()
+            out_fn = os.path.join(configs.eval_folder, dataset_name_to_output_file[eval_dataset_name])
+
+            out_file = open(out_fn, 'w')
+
+            # loop over dataset in batches
+
+            for i in tqdm(range(0, len(prompts), exp_configs.batch_size)):
+                batch_prompts = prompts[i:i+exp_configs.batch_size]
+                batch_index = index[i:i+exp_configs.batch_size]
+
+                # we perform forward pass on prompts
+                inputs = tokenizer(batch_prompts, return_tensors='pt', padding=True, return_offsets_mapping=True).to(model.device)
+
+                # helper function to get the deliminator for input_ids
+                def get_token_delimitor(offsets, char_index):
+                    for i, (start, end) in enumerate(offsets):
+                        if start <= char_index < end:
+                            return i
+                    return len(offsets) - 1
+
+                # we record the token indexes that represent transition from input to output
+                batch_token_index = []
+                for j, char_index in enumerate(batch_index):
+                    offsets = inputs['offset_mapping'][j].tolist()
+                    token_index = get_token_delimitor(offsets, char_index)
+                    assert offsets[token_index][0] == char_index, f"char_index {char_index} does not match token start {offsets[token_index][0]}"
+                    batch_token_index += [token_index]
+
+                with torch.no_grad():
+                    out = model(input_ids = inputs["input_ids"].to(model.device), attention_mask=inputs["attention_mask"].to(model.device), output_router_logits=True)
+                    router_logits = torch.stack(out["router_logits"]).cpu() # this has dimension (layers, batch * sequence_length, num_experts)
+
+                # reshape router_logits
+                router_logits = router_logits.view(router_logits.shape[0], inputs.input_ids.shape[0], inputs.input_ids.shape[1], router_logits.shape[-1]) # (layers, batch, sequence_length, num_experts)
+
+                # we now extract all router logits and save them
+                for j in range(len(batch_prompts)):
+                    prompt = batch_prompts[j]
+                    token_index = batch_token_index[j]
+                    prompt_router_logits = router_logits[:, j, token_index:, :].cpu().numpy().tolist()
+
+                    # store the logits
+                    record = {
+                        "prompt": prompt,
+                        "token_index": token_index,
+                        "router_logits": prompt_router_logits
+                    }
+
+                    out_file.write(json.dumps(record) + "\n")
+                    out_file.flush()
+
+            out_file.close()
 
 
 def parse_args():
