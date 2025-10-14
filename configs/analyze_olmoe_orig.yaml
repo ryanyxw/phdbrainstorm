@@ -15,10 +15,7 @@ get_logits:
   # array of dataesets to evaluate
   eval_datasets:
     - "gsm8k"
-    - "piqa"
-
-
-
+#    - "piqa"
 
 
 analyze_logits:

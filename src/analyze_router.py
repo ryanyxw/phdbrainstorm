@@ -10,6 +10,9 @@ from src.modules.utils import confirm_with_user, load_config, prepare_folder, va
 
 from transformers import OlmoeForCausalLM, AutoModelForCausalLM, AutoTokenizer
 
+dataset_name_to_output_file = {
+    "gsm8k": "gsm8k-router.jsonl"
+}
 
 def find_file(directory, substring):
     found_arr = []
@@ -82,6 +85,10 @@ def main(args):
         for eval_dataset_name in exp_configs.eval_datasets:
             prompts, index = get_prompt_sequences_for_evaluation(eval_dataset_name, configs.eval_folder)
 
+            out_fn = os.path.join(configs.eval_folder, dataset_name_to_output_file[eval_dataset_name])
+
+            out_file = open(out_fn, 'w')
+
             # loop over dataset in batches
             for i in range(0, len(prompts), exp_configs.batch_size):
                 batch_prompts = prompts[i:i+exp_configs.batch_size]
@@ -109,17 +116,30 @@ def main(args):
 
                 with torch.no_grad():
                     out = model(input_ids = inputs["input_ids"].to(model.device), attention_mask=inputs["attention_mask"].to(model.device), output_router_logits=True)
-                    router_logits = torch.stack(out["router_logits"]) # this has dimension (layers, batch * sequence_length, num_experts)
+                    router_logits = torch.stack(out["router_logits"].cpu()) # this has dimension (layers, batch * sequence_length, num_experts)
 
-                    # reshape router_logits
-                    router_logits = router_logits.view(router_logits.shape[0], inputs.input_ids.shape[0], inputs.input_ids.shape[1], router_logits.shape[-1]) # (layers, batch, sequence_length, num_experts)
+                # reshape router_logits
+                router_logits = router_logits.view(router_logits.shape[0], inputs.input_ids.shape[0], inputs.input_ids.shape[1], router_logits.shape[-1]) # (layers, batch, sequence_length, num_experts)
 
-                    # we now extract all router logits
+                # we now extract all router logits and save them
+                for j in range(len(batch_prompts)):
+                    prompt = batch_prompts[j]
+                    token_index = batch_token_index[j]
+                    prompt_router_logits = router_logits[:, j, token_index:, :].cpu().numpy().tolist()
+
+                    # store the logits
+                    record = {
+                        "prompt": prompt,
+                        "token_index": token_index,
+                        "router_logits": prompt_router_logits
+                    }
+
                     breakpoint()
 
+                    out_file.write(json.dumps(record) + "\n")
+                    out_file.flush()
 
-
-                breakpoint()
+            out_file.close()
 
 
 def parse_args():
