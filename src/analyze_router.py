@@ -215,39 +215,70 @@ def main(args):
 
             breakpoint()
 
-            # domain_counts = None
-            # total_tokens = 0
-            #
-            # # count total lines once for tqdm
-            # with open(logits_file, "r") as f:
-            #     total_lines = sum(1 for _ in f)
-            #
-            # # now iterate with tqdm
-            # with open(logits_file, "r") as f:
-            #     for line in tqdm(f, total=total_lines, desc=f"Reading {os.path.basename(logits_file)}"):
-            #         instance = json.loads(line)
-            #         instance_logits = torch.tensor(instance["router_logits"])  # [num_layers, num_tokens, num_experts]
-            #         num_layers, num_tokens, num_experts = instance_logits.shape
-            #
-            #         # Initialize domain_counts if not yet
-            #         if domain_counts is None:
-            #             domain_counts = torch.zeros((num_layers, num_experts))
-            #
-            #         # top-k experts per token
-            #         topk_indices = torch.topk(instance_logits, k, dim=-1).indices  # [num_layers, num_tokens, k]
-            #
-            #         # count occurrences
-            #         for layer in range(num_layers):
-            #             layer_indices = topk_indices[layer]  # [num_tokens, k]
-            #             flat = layer_indices.flatten()
-            #             counts = torch.bincount(flat, minlength=num_experts)
-            #             domain_counts[layer] += counts
-            #
-            #         total_tokens += num_tokens
-            #
-            # # Normalize → domain specialization
-            # domain_specialization_values = domain_counts / total_tokens  # [num_layers, num_experts]
-            # domain_specialization[eval_dataset] = domain_specialization_values
+            domain_counts = None
+            total_tokens = 0
+
+            # count total lines once for tqdm
+            with open(logits_file, "r") as f:
+                total_lines = sum(1 for _ in f)
+
+            # now iterate with tqdm
+            example_num = -1
+            with open(logits_file, "r") as f:
+                for line in tqdm(f, total=total_lines, desc=f"Reading {os.path.basename(logits_file)}"):
+                    instance = json.loads(line)
+
+                    def check_if_correct(instance_pred_data):
+                        metrics = instance_pred_data["metrics"]
+                        # for gsm8k
+                        if "exact_match_simple" in metrics:
+                            if metrics["exact_match_simple"] >= 0:
+                                return True
+                        if "exact_match" in metrics:
+                            if metrics["exact_match"] >= 0:
+                                return True
+                        if "f1" in metrics:
+                            if metrics["f1"] >= 0:
+                                return True
+                        if "recall" in metrics:
+                            if metrics["recall"] >= 0:
+                                return True
+                        if "exact_match_flex" in metrics:
+                            if metrics["exact_match_flex"] >= 0:
+                                return True
+
+                        if metrics["exact_match_simple"] != 0 or metrics["exact_match"] != 0:
+                            return True
+
+                    # check if the instance is correct
+                    if exp_configs.correct_only:
+                        example_num += 1
+                        breakpoint()
+                        if check_if_correct(predictions_data[example_num]) is False:
+                            continue
+
+                    instance_logits = torch.tensor(instance["router_logits"])  # [num_layers, num_tokens, num_experts]
+                    num_layers, num_tokens, num_experts = instance_logits.shape
+
+                    # Initialize domain_counts if not yet
+                    if domain_counts is None:
+                        domain_counts = torch.zeros((num_layers, num_experts))
+
+                    # top-k experts per token
+                    topk_indices = torch.topk(instance_logits, k, dim=-1).indices  # [num_layers, num_tokens, k]
+
+                    # count occurrences
+                    for layer in range(num_layers):
+                        layer_indices = topk_indices[layer]  # [num_tokens, k]
+                        flat = layer_indices.flatten()
+                        counts = torch.bincount(flat, minlength=num_experts)
+                        domain_counts[layer] += counts
+
+                    total_tokens += num_tokens
+
+            # Normalize → domain specialization
+            domain_specialization_values = domain_counts / total_tokens  # [num_layers, num_experts]
+            domain_specialization[eval_dataset] = domain_specialization_values
 
         # we now plot the values
         print("Plotting domain specialization...")
