@@ -196,6 +196,8 @@ def main(args):
     if configs.analyze_domain_specialization.do:
         exp_configs = configs.analyze_domain_specialization
 
+        os.makedirs(exp_configs.plot_folder, exist_ok=True)
+
         domain_specialization = defaultdict(lambda: defaultdict(list))
         # domain_specialization[domain][layer] = list of expert distributions across instances
 
@@ -262,7 +264,7 @@ def main(args):
 
             axes[-1].set_xlabel("Expert index")
             plt.tight_layout(rect=[0, 0, 1, 0.97])
-            plt.savefig(os.path.join(exp_configs.plot_folder, f"{domain}_domain_specialization.jpg"))
+            plt.savefig(os.path.join(exp_configs.plot_folder, os.path.basename(exp_configs.eval_folder), f"{domain}_domain-{exp_configs.k}_k_specialization.jpg"))
 
 
 def parse_args():

@@ -67,7 +67,7 @@ analyze_domain_specialization:
   do: True
 
   eval_folder: "${ROOT_DIR}/evals/weka_oe-training-default_ryanwang_phdbrainstorm_models_olmoe-pretrain-replicate_step30995-hf"
-  plot_folder: "${analyze_domain_specialization.eval_folder}/plots"
+  plot_folder: "${ROOT_DIR}/plots"
 
   k: 8
   
