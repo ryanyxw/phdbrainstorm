@@ -161,7 +161,11 @@ def main(args):
 
                 with torch.no_grad():
                     out = model(input_ids = inputs["input_ids"].to(model.device), attention_mask=inputs["attention_mask"].to(model.device), output_router_logits=True)
-                    router_logits = torch.stack(out["router_logits"]).cpu() # this has dimension (layers, batch * sequence_length, num_experts)
+                    router_logits = [x.cpu() for x in out["router_logits"]]
+                    router_logits = torch.stack(router_logits) # this has dimension (layers, batch * sequence_length, num_experts)
+
+                del out
+                torch.cuda.empty_cache()
 
                 # reshape router_logits
                 router_logits = router_logits.view(router_logits.shape[0], inputs.input_ids.shape[0], inputs.input_ids.shape[1], router_logits.shape[-1]) # (layers, batch, sequence_length, num_experts)

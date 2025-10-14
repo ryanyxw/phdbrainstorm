@@ -15,8 +15,8 @@ get_logits:
   # array of dataesets to evaluate
   eval_datasets:
 #    - "gsm8k"
-    - "coqa"
-    - "triviaqa"
+#    - "coqa"
+#    - "triviaqa"
     - "drop"
     - "squad"
     - "naturalqs_open"
