@@ -6,17 +6,18 @@ exp_name: "analyze_olmoe_orig"
 
 num_proc: 1
 
-model_name_or_path: "${ROOT_DIR}/models/olmoe-pretrain-replicate/step30995-hf"
-eval_folder: "${ROOT_DIR}/evals/weka_oe-training-default_ryanwang_phdbrainstorm_models_olmoe-pretrain-replicate_step30995-hf"
+#model_name_or_path: "${ROOT_DIR}/models/olmoe-pretrain-replicate/step30995-hf"
+model_name_or_path: "${ROOT_DIR}/models/niklas_figure4-hf"
+eval_folder: "${ROOT_DIR}/evals/weka_oe-training-default_ryanwang_phdbrainstorm_models_niklas_figure4-hf"
 
 get_logits:
   do: True
   batch_size: 16
   # array of dataesets to evaluate
   eval_datasets:
-#    - "gsm8k"
-#    - "coqa"
-#    - "triviaqa"
+    - "gsm8k"
+    - "coqa"
+    - "triviaqa"
     - "drop"
     - "squad"
     - "naturalqs_open"
