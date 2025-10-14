@@ -66,7 +66,7 @@ get_logits:
 analyze_domain_specialization:
   do: True
 
-  eval_folder: "${ROOT_DIR}/evals/weka_oe-training-default_ryanwang_phdbrainstorm_models_olmoe-pretrain-replicate_step30995-hf"
+  eval_folder: "${ROOT_DIR}/evals/weka_oe-training-default_ryanwang_phdbrainstorm_models_olmoe-pretrain-mose-unbalanced-1012_step30995-hf"
   plot_folder: "${ROOT_DIR}/plots"
 
   k: 8
