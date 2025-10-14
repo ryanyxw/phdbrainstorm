@@ -102,6 +102,7 @@ def main(args):
 
         # we load the data here
         for eval_dataset_name in exp_configs.eval_datasets:
+            print("evaluating dataset ", eval_dataset_name)
             prompts, index = get_prompt_sequences_for_evaluation(eval_dataset_name, configs.eval_folder)
 
             # out_fn = os.path.join(configs.eval_folder, dataset_name_to_output_file[eval_dataset_name])
