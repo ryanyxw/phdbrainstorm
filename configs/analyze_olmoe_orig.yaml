@@ -70,6 +70,8 @@ analyze_domain_specialization:
   plot_folder: "${ROOT_DIR}/plots"
 
   k: 8
+
+  correct_only: True
   
   eval_datasets:
     - "gsm8k"

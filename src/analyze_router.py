@@ -213,6 +213,8 @@ def main(args):
             requests_data = load_jsonl_file(requests_file)
             predictions_data = load_jsonl_file(predictions_file)
 
+            breakpoint()
+
             domain_counts = None
             total_tokens = 0
 
@@ -264,7 +266,7 @@ def main(args):
 
             axes[-1].set_xlabel("Expert index")
             plt.tight_layout(rect=[0, 0, 1, 0.97])
-            plot_output_folder = os.path.join(exp_configs.plot_folder, os.path.basename(exp_configs.eval_folder))
+            plot_output_folder = os.path.join(exp_configs.plot_folder, f"correct_{os.path.basename(exp_configs.eval_folder)}")
             os.makedirs(plot_output_folder, exist_ok=True)
             plt.savefig(os.path.join(plot_output_folder, f"{domain}_domain-{exp_configs.k}_k_specialization.jpg"))
 
