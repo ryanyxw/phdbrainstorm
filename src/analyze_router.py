@@ -264,7 +264,9 @@ def main(args):
 
             axes[-1].set_xlabel("Expert index")
             plt.tight_layout(rect=[0, 0, 1, 0.97])
-            plt.savefig(os.path.join(exp_configs.plot_folder, os.path.basename(exp_configs.eval_folder), f"{domain}_domain-{exp_configs.k}_k_specialization.jpg"))
+            plot_output_folder = os.path.join(exp_configs.plot_folder, os.path.basename(exp_configs.eval_folder))
+            os.makedirs(plot_output_folder, exist_ok=True)
+            plt.savefig(os.path.join(plot_output_folder, f"{domain}_domain-{exp_configs.k}_k_specialization.jpg"))
 
 
 def parse_args():
