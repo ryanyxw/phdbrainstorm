@@ -15,8 +15,24 @@ get_logits:
   # array of dataesets to evaluate
   eval_datasets:
     - "gsm8k"
-#    - "piqa"
-
+    - "codex_humaneval"
+    - "codex_humanevalplus"
+    - "coqa"
+    - "triviaqa"
+    - "drop"
+    - "squad"
+    - "naturalqs_open"
+    - "mbpp"
+    - "mbppplus"
+    - "minerva_math_algebra"
+    - "minerva_math_counting_and_probability"
+    - "minerva_math_geometry"
+    - "minerva_math_intermediate_algebra"
+    - "minerva_math_number_theory"
+    - "minerva_math_prealgebra"
+    - "minerva_math_precalculus"
+    - "bbh_cot_v1"
+    - "agi_eval_english_1shot"
 
 analyze_logits:
   do: False
