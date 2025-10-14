@@ -200,6 +200,7 @@ def main(args):
         # domain_specialization[domain][layer] = list of expert distributions across instances
 
         for eval_dataset in exp_configs.eval_datasets:
+            print("evaluating dataset ", eval_dataset)
             logits_file = os.path.join(exp_configs.eval_folder, dataset_name_to_output_file[eval_dataset])
             k = exp_configs.k
 
@@ -241,7 +242,7 @@ def main(args):
             domain_specialization[eval_dataset] = domain_specialization_values
 
         # we now plot the values
-
+        print("Plotting domain specialization...")
         for domain, layer_data in domain_specialization.items():
             num_layers, num_experts = layer_data.shape
             fig, axes = plt.subplots(num_layers, 1, figsize=(10, 2 * num_layers), sharex=True)
