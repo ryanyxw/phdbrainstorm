@@ -213,8 +213,6 @@ def main(args):
             requests_data = load_jsonl_file(requests_file)
             predictions_data = load_jsonl_file(predictions_file)
 
-            breakpoint()
-
             domain_counts = None
             total_tokens = 0
 
@@ -246,9 +244,9 @@ def main(args):
                         if "exact_match_flex" in metrics:
                             if metrics["exact_match_flex"] >= 0:
                                 return True
-
                         if metrics["exact_match_simple"] != 0 or metrics["exact_match"] != 0:
                             return True
+                        return False
 
                     # check if the instance is correct
                     if exp_configs.correct_only:
