@@ -188,6 +188,34 @@ def main(args):
 
             out_file.close()
 
+    if configs.analyze_domain_specialization.do:
+        exp_configs = configs.analyze_domain_specialization
+
+        # we now visualize the probabilities
+
+        for eval_dataset in exp_configs.eval_datasets:
+            logits_file = os.path.join(configs.eval_folder, dataset_name_to_output_file[eval_dataset])
+
+            # so we can keep track
+            requests_file = find_file(configs.eval_folder, f"{eval_dataset_name}-requests")[0]
+            predictions_file = find_file(configs.eval_folder, f"{eval_dataset_name}-predictions")[0]
+
+            requests_data = load_jsonl_file(requests_file)
+            predictions_data = load_jsonl_file(predictions_file)
+
+            data = []
+            with open(logits_file, 'r') as f:
+                for i, line in enumerate(f):
+                    instance_logits = json.loads(line)
+                    breakpoint()
+
+            # data = load_jsonl_file(out_fn)
+            #
+            # # we now compute the average probabilities
+            # all_probs = []
+            # for record in data:
+            #     router_logits = torch.tensor(record["router_logits"])
+
 
 def parse_args():
     parser = argparse.ArgumentParser()

@@ -11,7 +11,7 @@ model_name_or_path: "${ROOT_DIR}/models/olmoe-pretrain-mose-unbalanced-1012/step
 eval_folder: "${ROOT_DIR}/evals/weka_oe-training-default_ryanwang_phdbrainstorm_models_olmoe-pretrain-mose-unbalanced-1012_step30995-hf"
 
 get_logits:
-  do: True
+  do: False
   batch_size: 16
   # array of dataesets to evaluate
   eval_datasets:
@@ -62,5 +62,22 @@ get_logits:
 #    - "codex_humanevalplus"
 #    - "agi_eval_english_1shot"
 
-analyze_logits:
-  do: False
+analyze_domain_specialization:
+  do: True
+
+  eval_folder: "${ROOT_DIR}/evals/weka_oe-training-default_ryanwang_phdbrainstorm_models_olmoe-pretrain-replicate_step30995-hf"
+
+  k: 8
+  
+  eval_datasets:
+    - "gsm8k"
+    - "coqa"
+    - "triviaqa"
+    - "drop"
+    - "naturalqs_open"
+    - "minerva_math_algebra"
+    - "minerva_math_counting_and_probability"
+    - "minerva_math_geometry"
+    - "minerva_math_number_theory"
+    - "minerva_math_prealgebra"
+    - "minerva_math_precalculus"

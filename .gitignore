@@ -3,3 +3,4 @@
 push_changes.sh
 olmo_env
 data
+s3_sync.sh
