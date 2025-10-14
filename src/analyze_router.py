@@ -4,6 +4,7 @@ import os
 from functools import partial
 
 import torch
+from tqdm import tqdm
 
 from src.modules.utils import confirm_with_user, load_config, prepare_folder, validate_inputs, prepare_wandb, \
     save_config
@@ -90,7 +91,8 @@ def main(args):
             out_file = open(out_fn, 'w')
 
             # loop over dataset in batches
-            for i in range(0, len(prompts), exp_configs.batch_size):
+
+            for i in tqdm(range(0, len(prompts), exp_configs.batch_size)):
                 batch_prompts = prompts[i:i+exp_configs.batch_size]
                 batch_index = index[i:i+exp_configs.batch_size]
 
