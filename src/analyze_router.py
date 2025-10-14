@@ -249,7 +249,6 @@ def main(args):
                     # check if the instance is correct
                     if exp_configs.correct_only:
                         example_num += 1
-                        breakpoint()
                         if check_if_correct(predictions_data[example_num]) is False:
                             continue
 
