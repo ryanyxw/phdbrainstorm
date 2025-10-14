@@ -1,6 +1,7 @@
 import argparse
 import json
 import os
+from collections import defaultdict
 from functools import partial
 
 import torch
@@ -10,6 +11,10 @@ from src.modules.utils import confirm_with_user, load_config, prepare_folder, va
     save_config
 
 from transformers import OlmoeForCausalLM, AutoModelForCausalLM, AutoTokenizer
+
+# import matplotlib.pyplot as plt
+import numpy as np
+
 
 
 dataset_name_to_output_file = {
@@ -191,30 +196,69 @@ def main(args):
     if configs.analyze_domain_specialization.do:
         exp_configs = configs.analyze_domain_specialization
 
-        # we now visualize the probabilities
+        domain_specialization = defaultdict(lambda: defaultdict(list))
+        # domain_specialization[domain][layer] = list of expert distributions across instances
 
         for eval_dataset in exp_configs.eval_datasets:
             logits_file = os.path.join(exp_configs.eval_folder, dataset_name_to_output_file[eval_dataset])
+            k = exp_configs.k
 
-            # so we can keep track
+            # so we can keep track of correctness, etc
             requests_file = find_file(exp_configs.eval_folder, f"{eval_dataset}-requests")[0]
             predictions_file = find_file(exp_configs.eval_folder, f"{eval_dataset}-predictions")[0]
 
             requests_data = load_jsonl_file(requests_file)
             predictions_data = load_jsonl_file(predictions_file)
 
-            data = []
-            with open(logits_file, 'r') as f:
-                for i, line in enumerate(f):
-                    instance_logits = json.loads(line)
-                    breakpoint()
+            print(f"Processing domain {eval_dataset} ...")
+            domain_counts = None
+            total_tokens = 0
 
-            # data = load_jsonl_file(out_fn)
-            #
-            # # we now compute the average probabilities
-            # all_probs = []
-            # for record in data:
-            #     router_logits = torch.tensor(record["router_logits"])
+            with open(logits_file, "r") as f:
+                for line in f:
+                    breakpoint()
+                    instance = json.loads(line)
+                    instance_logits = torch.tensor(instance["router_logits"])  # [num_layers, num_tokens, num_experts]
+                    num_layers, num_tokens, num_experts = instance_logits.shape
+
+                    # Initialize domain_counts if not yet
+                    if domain_counts is None:
+                        domain_counts = torch.zeros((num_layers, num_experts))
+
+                    # top-k experts per token
+                    topk_indices = torch.topk(instance_logits, k, dim=-1).indices  # [num_layers, num_tokens, k]
+
+                    # count occurrences
+                    for layer in range(num_layers):
+                        layer_indices = topk_indices[layer]  # [num_tokens, k]
+                        flat = layer_indices.flatten()
+                        counts = torch.bincount(flat, minlength=num_experts)
+                        domain_counts[layer] += counts
+
+                    total_tokens += num_tokens
+
+            # Normalize → domain specialization
+            domain_specialization_values = domain_counts / total_tokens  # [num_layers, num_experts]
+            domain_specialization[eval_dataset] = domain_specialization_values
+
+        # we now plot the values
+
+        # for domain, layer_data in domain_specialization.items():
+        #     num_layers, num_experts = layer_data.shape
+        #     fig, axes = plt.subplots(num_layers, 1, figsize=(10, 2 * num_layers), sharex=True)
+        #     fig.suptitle(f"Domain Specialization for {domain}", fontsize=14)
+        #
+        #     if num_layers == 1:
+        #         axes = [axes]
+        #
+        #     for l in range(num_layers):
+        #         axes[l].bar(np.arange(num_experts), layer_data[l].numpy())
+        #         axes[l].set_ylabel(f"Layer {l}")
+        #         axes[l].set_ylim(0, layer_data[l].max() * 1.2)
+        #
+        #     axes[-1].set_xlabel("Expert index")
+        #     plt.tight_layout(rect=[0, 0, 1, 0.97])
+        #     plt.show()
 
 
 def parse_args():
