@@ -10,3 +10,6 @@
 [submodule "olmoefig4-flexolmo_transformers"]
 	path = olmoefig4-flexolmo_transformers
 	url = https://github.com/ryanyxw/olmoefig4-flexolmo_transformers.git
+[submodule "FlexMoE"]
+	path = FlexMoE
+	url = https://github.com/allenai/FlexMoE.git
