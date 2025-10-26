@@ -23,7 +23,7 @@ gantry run \
     --leader-selection \
     --replicas 1 \
     --cluster "${CLUSTER}" \
-    --budget ai2/oe-base \
+    --budget ai2/oceo \
     --env LOG_FILTER_TYPE=local_rank0_only \
     --env OMP_NUM_THREADS=8 \
     --env BEAKER_USER_ID=$(beaker account whoami --format json | jq '.[0].name' -cr) \
